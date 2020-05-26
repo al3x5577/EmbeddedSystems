@@ -1,4 +1,6 @@
 
+#include <Taster.h>
+
 // If pullup - pulldown is set wrong, change these
 #define RETURN_VALUE_LOW 1
 #define RETURN_VALUE_HIGH 0
