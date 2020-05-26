@@ -9,8 +9,8 @@
 #define F_CPU 1000000
 #include <util/delay.h>
 
-#include <gpio/taster.h>
-#include <gpio/led.h>
+#include "gpio/Taster.h"
+#include "gpio/Led.h"
 
 
 int main(void) {
@@ -19,10 +19,10 @@ int main(void) {
     Led_init();
 	
     while (1) {
-        if (Taster1_get()) {
+        if (Taster1_get() == 1) {
             int x = 0;
         }
-        if (Taster2_get()) {
+        if (Taster2_get() == 0) {
             int x = 0;
         }
         if (Taster3_get()) {

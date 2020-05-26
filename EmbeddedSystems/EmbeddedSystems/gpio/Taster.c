@@ -1,5 +1,5 @@
 
-#include <Taster.h>
+#include "Taster.h"
 
 // If pullup - pulldown is set wrong, change these
 #define RETURN_VALUE_LOW 1
@@ -21,11 +21,11 @@ void Taster_init() {
  Taster1 - ioD7
  */
 uint8_t Taster1_get(void) {
-    uint8_t state = PIND;
-    if ( (state & (1<<7)) == 0 ) {
-        return RETURN_VALUE_LOW;
+    int state = PIND;
+    if ( (PIND & (1<<7)) == 0 ) {
+        return 1;
     } else {
-        return RETURN_VALUE_HIGH;
+        return 0;
     }
 }
 
