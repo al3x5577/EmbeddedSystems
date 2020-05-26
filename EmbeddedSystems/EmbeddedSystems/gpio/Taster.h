@@ -4,13 +4,13 @@
 #include <avr/io.h>
 
 /*
-Initialisiert die Hardware für die Taster
+Initialisiert die Hardware fuer die Taster
 */
 void Taster_init(void);
 
 /*
 Gibt den aktuellen Status der Tasten aus. 
-Rückgabewert 0 = Taster nicht gedrückt, 1 = Taster gedrückt.
+Rueckgabewert 0 = Taster nicht gedrueckt, 1 = Taster gedrueckt.
 */
 uint8_t Taster1_get(void);
 uint8_t Taster2_get(void);
