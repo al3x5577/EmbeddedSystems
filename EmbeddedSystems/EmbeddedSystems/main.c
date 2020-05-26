@@ -19,10 +19,12 @@ int main(void) {
     Led_init();
 	
     while (1) {
-        if (Taster1_get() == 1) {
-            int x = 0;
-        }
-        if (Taster2_get() == 0) {
+        if (Taster1_get()) {
+            Led1_On();
+        }else {
+			Led1_Off();
+		}
+        if (Taster2_get()) {
             int x = 0;
         }
         if (Taster3_get()) {

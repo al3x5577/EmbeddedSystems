@@ -2,8 +2,8 @@
 #include "Taster.h"
 
 // If pullup - pulldown is set wrong, change these
-#define RETURN_VALUE_LOW 1
-#define RETURN_VALUE_HIGH 0
+#define RETURN_VALUE_LOW 0
+#define RETURN_VALUE_HIGH 1
 
 /**
  Set GPIOs to input for switches t:
@@ -22,10 +22,10 @@ void Taster_init() {
  */
 uint8_t Taster1_get(void) {
     int state = PIND;
-    if ( (PIND & (1<<7)) == 0 ) {
-        return 1;
+    if ( (state & (1<<7)) == 0 ) {
+        return RETURN_VALUE_LOW;
     } else {
-        return 0;
+        return RETURN_VALUE_HIGH;
     }
 }
 
