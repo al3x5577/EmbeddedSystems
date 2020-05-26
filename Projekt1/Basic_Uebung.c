@@ -8,7 +8,7 @@ int main(void) {
     PORTB = 0xAB;
     
     //
-    // Uebung
+    // Uebung lol
     //
     
     // Bit 1 in Register PORTB setzten
