@@ -69,7 +69,7 @@ void increment() {
         }
     }
     
-    uint8_t ledByte = 0;
+    int ledByte = 0;
     for (int i = 0; i < count; i++) {
         ledByte = ledByte << 1;
         ledByte++;
@@ -78,11 +78,13 @@ void increment() {
 }
 
 void testBoard() {
-    static bool state_testBoard = false;
+    static int state_testBoard = 0;
     if (state_testBoard) {
+		state_testBoard = 0;
         PORTB = 0x00;
         _delay_ms(500);
     }else {
+		state_testBoard = 1;
         PORTB = 0xFF;
         _delay_ms(500);
     }

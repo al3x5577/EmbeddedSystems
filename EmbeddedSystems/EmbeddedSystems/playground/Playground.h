@@ -1,4 +1,12 @@
 #ifndef PLAYGROUND_H_
+#define PLAYGROUND_H_
+
+#include <avr/io.h>
+
+#ifndef F_CPU
+#define F_CPU 1000000
+#endif
+#include <util/delay.h>
 
 /**
 modes:
