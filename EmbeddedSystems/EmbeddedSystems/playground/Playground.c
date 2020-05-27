@@ -58,7 +58,7 @@ void lauflicht() {
     static int direction = 0;   // 0=right, 1=left
     
     if (direction) {    // left
-        if (laufCount <= 0) {
+        if (laufCount <= 1) {
             direction = 0;
             laufCount++;
         } else {
