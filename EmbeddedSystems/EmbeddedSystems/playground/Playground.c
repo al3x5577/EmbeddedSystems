@@ -13,16 +13,36 @@ void playground() {
     static int mode = 0;
     
     if (mode == 0) {    // mode selection
+        Led1_On();
+        Led4_On();
+        Led5_On();
+        Led8_On();
         
         // test buttons
         if (Taster1_get()) {
             mode = 1;
+            PORTB = 0x00;
+            Led1_On();
+            _delay_ms(500);
+            Led1_Off()
         } else if (Taster2_get()) {
             mode = 2;
+            PORTB = 0x00;
+            Led2_On();
+            _delay_ms(500);
+            Led2_Off()
         } else if (Taster3_get()) {
             mode = 3;
+            PORTB = 0x00;
+            Led3_On();
+            _delay_ms(500);
+            Led3_Off()
         } else if (Taster4_get()) {
             mode = 4;
+            PORTB = 0x00;
+            Led4_On();
+            _delay_ms(500);
+            Led4_Off()
         }
         
     } else {    // run
@@ -31,6 +51,9 @@ void playground() {
         if (Taster1_get() && Taster2_get()) {
             mode = 0;
             _delay_ms(1000);
+            PORTB = 0xFF;
+            _delay_ms(500);
+            PORTB = 0x00;
         }
         
         // execute
