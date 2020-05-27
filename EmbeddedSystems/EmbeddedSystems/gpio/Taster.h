@@ -3,12 +3,12 @@
 
 #include <avr/io.h>
 
-/*
+/**
 Initialisiert die Hardware fuer die Taster
 */
 void Taster_init(void);
 
-/*
+/**
 Gibt den aktuellen Status der Tasten aus. 
 Rueckgabewert 0 = Taster nicht gedrueckt, 1 = Taster gedrueckt.
 */
