@@ -11,6 +11,7 @@
 
 #include "gpio/Taster.h"
 #include "gpio/Led.h"
+#include "playground/Playground.h"
 
 
 int main(void) {
@@ -19,27 +20,9 @@ int main(void) {
 	Taster_init();
 	
     while (1) {
-        if (Taster1_get()) {
-            Led1_On();
-        }else {
-			Led1_Off();
-		}
-        if (Taster2_get()) {
-	        Led2_On();
-	    }else {
-	        Led2_Off();
-        }
-        if (Taster3_get()) {
-	        Led3_On();
-	        }else {
-	        Led3_Off();
-        }
-		if (Taster4_get()) {
-			Led4_On();
-			}else {
-			Led4_Off();
-		}
+        playground();
     }
+    
     
     void uebung1() {
         DDRB = 0xFF;
