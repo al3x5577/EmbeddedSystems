@@ -1,16 +1,22 @@
 
 #include "Taster.h"
 
-// If pullup - pulldown is set wrong, change these
-#define RETURN_VALUE_LOW 1
-#define RETURN_VALUE_HIGH 0
+// If logic is set wrong, change these
+#define TASTER_RETURN_VALUE_LOW 1
+#define TASTER_RETURN_VALUE_HIGH 0
+
 
 /**
  Set GPIOs to input for switches t:
+ ---------------------
  t1 - ioD7
  t2 - ioD6
  t3 - ioD5
  t4 - ioC2
+ ---------------------
+ - DDR Reg has to be set to 0
+ - PORT Reg has to be set to 1
+ -> Pin is input with pull-up
  */
 void Taster_init() {
     // set to inputs
@@ -28,44 +34,44 @@ void Taster_init() {
 uint8_t Taster1_get(void) {
     int state = PIND;
     if ( (state & (1<<7)) == 0 ) {
-        return RETURN_VALUE_LOW;
+        return TASTER_RETURN_VALUE_LOW;
     } else {
-        return RETURN_VALUE_HIGH;
+        return TASTER_RETURN_VALUE_HIGH;
     }
 }
 
 /**
-Taster1 - ioD6
+Taster2 - ioD6
 */
 uint8_t Taster2_get(void) {
     uint8_t state = PIND;
     if ( (state & (1<<6)) == 0 ) {
-        return RETURN_VALUE_LOW;
+        return TASTER_RETURN_VALUE_LOW;
     } else {
-        return RETURN_VALUE_HIGH;
+        return TASTER_RETURN_VALUE_HIGH;
     }
 }
 
 /**
-Taster1 - ioD5
+Taster3 - ioD5
 */
 uint8_t Taster3_get(void) {
     uint8_t state = PIND;
     if ( (state & (1<<5)) == 0 ) {
-        return RETURN_VALUE_LOW;
+        return TASTER_RETURN_VALUE_LOW;
     } else {
-        return RETURN_VALUE_HIGH;
+        return TASTER_RETURN_VALUE_HIGH;
     }
 }
 
 /**
-Taster1 - ioC2
+Taster4 - ioC2
 */
 uint8_t Taster4_get(void) {
     uint8_t state = PINC;
     if ( (state & (1<<2)) == 0 ) {
-        return RETURN_VALUE_LOW;
+        return TASTER_RETURN_VALUE_LOW;
     } else {
-        return RETURN_VALUE_HIGH;
+        return TASTER_RETURN_VALUE_HIGH;
     }
 }
