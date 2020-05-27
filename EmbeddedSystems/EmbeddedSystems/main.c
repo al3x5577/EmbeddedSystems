@@ -25,14 +25,20 @@ int main(void) {
 			Led1_Off();
 		}
         if (Taster2_get()) {
-            int x = 0;
+	        Led2_On();
+	    }else {
+	        Led2_Off();
         }
         if (Taster3_get()) {
-            int x = 0;
+	        Led3_On();
+	        }else {
+	        Led3_Off();
         }
-        if (Taster4_get()) {
-            int x = 0;
-        }
+		if (Taster4_get()) {
+			Led4_On();
+			}else {
+			Led4_Off();
+		}
     }
     
     void uebung1() {
