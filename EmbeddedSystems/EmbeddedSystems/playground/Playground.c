@@ -85,7 +85,7 @@ void increment() {
         ledByte = ledByte << 1;
         ledByte++;
     }
-    PORTB = count;
+    PORTB = ledByte;
 }
 
 void testBoard() {
