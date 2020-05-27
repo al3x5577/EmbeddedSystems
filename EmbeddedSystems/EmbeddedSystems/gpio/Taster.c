@@ -13,9 +13,13 @@
  t4 - ioC2
  */
 void Taster_init() {
+    // set to inputs
     DDRC &= (1 << 2);
     DDRD &= ~( (1 << 7) | (1 << 6) | (1 << 5) );
     
+    // enable pull-up
+    PORTC |= (1 << 2);
+    PORTD |= (1 << 7) | (1 << 6) | (1 << 5);
 }
 
 /**
