@@ -15,8 +15,8 @@
 
 int main(void) {
 	
-    Taster_init();
     Led_init();
+	Taster_init();
 	
     while (1) {
         if (Taster1_get()) {
