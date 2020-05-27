@@ -63,7 +63,7 @@ void lauflicht() {
 void increment() {
     static int count = 0;
     int lockt1 = 0, lockt2 = 0;
-    if (!lockt1 && Taster1_get()) {
+    if (lockt1 == 0 && Taster1_get()) {
         count++;
         lockt1 = 1;
     }else if (!lockt2 && Taster2_get()) {
@@ -73,10 +73,10 @@ void increment() {
         lockt2 = 1;
     }
     
-    if (!Taster1_get()) {
+    if (Taster1_get() == 0) {
         lockt1 = 0;
     }
-    if (!Taster2_get()) {
+    if (Taster2_get() == 0) {
         lockt2 = 0;
     }
     
@@ -85,7 +85,7 @@ void increment() {
         ledByte = ledByte << 1;
         ledByte++;
     }
-    PORTB = ledByte;
+    PORTB = count;
 }
 
 void testBoard() {
