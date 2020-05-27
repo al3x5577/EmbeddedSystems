@@ -24,25 +24,25 @@ void playground() {
             PORTB = 0x00;
             Led1_On();
             _delay_ms(500);
-            Led1_Off()
+            Led1_Off();
         } else if (Taster2_get()) {
             mode = 2;
             PORTB = 0x00;
             Led2_On();
             _delay_ms(500);
-            Led2_Off()
+            Led2_Off();
         } else if (Taster3_get()) {
             mode = 3;
             PORTB = 0x00;
             Led3_On();
             _delay_ms(500);
-            Led3_Off()
+            Led3_Off();
         } else if (Taster4_get()) {
             mode = 4;
             PORTB = 0x00;
             Led4_On();
             _delay_ms(500);
-            Led4_Off()
+            Led4_Off();
         }
         
     } else {    // run
