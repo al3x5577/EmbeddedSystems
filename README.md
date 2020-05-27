@@ -23,6 +23,7 @@ The gpio functions help handling the gpios. The board has 4 buttons and 8 leds f
 There are to init functions:
 - Led_init()
 - Taster_init()
+
 to setup the PORTS correctly.
 
 After setup the button states can be accessed by functions:
@@ -31,4 +32,5 @@ TasterX_get(), where X is between 1 and 4.
 The leds can be controlled with:
 - LedX_On()
 - LedX_Off()
+
 where X is between 1 and 8.
