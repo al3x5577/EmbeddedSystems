@@ -30,6 +30,7 @@ void playground() {
         // reset if button 1 and button 2 are pressed
         if (Taster1_get() && Taster2_get()) {
             mode = 0;
+            _delay_ms(1000);
         }
         
         // execute
