@@ -9,7 +9,7 @@
  
  ### Software setting:
  - ATMEL STUDIO 7
- - standart config
+ - standard config
  - disabled optimization
 
 ## About the project
