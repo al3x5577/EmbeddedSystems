@@ -39,19 +39,19 @@ where X is between 1 and 8.
 Playground.h provides a playground() function. This function has to be called in a loop.
 
 #### Function
-There are four programms available with the funtion. (One for each button)
+There are four programmes available with the funtion. (One for each button)
 
-The Startup mode is for choosing the programm. It is visualised by the led pattern: 10011001. 
+The Startup mode is for choosing the program. It is visualised by the led pattern: 10011001. 
 To go back to this mode hold button 1 and 2 for max half a second. If you do so, all leds will turn on, then off and then the indicator pattern will show up.
 
-##### Programm 1
-Button test programm. Turns on led1 if button1 is pressed. Same for button2, 3 and 4.
+##### Program 1
+Button test program. Turns on led1 if button1 is pressed. Same for button2, 3 and 4.
 
-##### Programm 2
-Board test programm. Turns PORTB on and off in intervalls of 500 ms.
+##### Program 2
+Board test program. Turns PORTB on and off in intervalls of 500 ms.
 
-##### Programm 3
-Lauflicht (chaser light) programm. 
+##### Program 3
+Lauflicht (chaser light) program. 
 
-##### Programm 4
-Increment / Decrement programm. Press button1 to increment, button2 to decrement.
+##### Program 4
+Increment / Decrement program. Press button1 to increment, button2 to decrement.
