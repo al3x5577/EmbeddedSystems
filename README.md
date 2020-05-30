@@ -34,5 +34,3 @@ The leds can be controlled with:
 - LedX_Off()
 
 where X is between 1 and 8.
-
-no
