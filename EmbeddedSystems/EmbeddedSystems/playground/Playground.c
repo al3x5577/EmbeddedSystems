@@ -76,6 +76,12 @@ void playground() {
     }
 }
 
+/**
+ Starting at Led0, the Led next to the current led will turn on at the same time the current led turns off.
+ If last led is reached, the direction will change
+ 
+ Only one led is active at once
+ */
 void lauflicht() {
     static int laufCount = 0;
     static int direction = 0;   // 0=right, 1=left
@@ -148,6 +154,9 @@ void increment() {
     PORTB = ledByte;
 }
 
+/**
+ Switches PORTB on and off with a delay off 500 ms
+ */
 void testBoard() {
     static int state_testBoard = 0;
     if (state_testBoard) {
@@ -161,6 +170,9 @@ void testBoard() {
     }
 }
 
+/**
+ If button1 is pressed, led1 will turn on. If button2 is pressed, led2 will turn on and so on...
+ */
 void testTasterLed() {
     if (Taster1_get()) {
         Led1_On();
