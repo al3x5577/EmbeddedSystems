@@ -12,15 +12,17 @@
 #include "gpio/Taster.h"
 #include "gpio/Led.h"
 #include "playground/Playground.h"
+#include "timer/Timer.h"
 
 
 int main(void) {
 	
     Led_init();
 	Taster_init();
+    Timer_init();
 	
     while (1) {
-        playground();
+        //playground();
     }
     
     
