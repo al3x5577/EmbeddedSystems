@@ -19,11 +19,6 @@
 volatile uint16_t x = 0;
 
 
-ISR(TIMER0_OVF_vect){
-    x++;
-}
-
-
 int main(void) {
 	
     Led_init();
@@ -31,11 +26,20 @@ int main(void) {
     Timer_init();
 	sei();
 	
+	int asd = 0;
+	
     while (1) {
-        playground();
-        if ( x > 1000) {
+        //playground();
+		
+		asd = 5;
+		
+		if ( x > 1000) {
             x = 0;
         }
     }
+}
+
+ISR(TIMER0_OVF_vect){
+	x++;
 }
 
