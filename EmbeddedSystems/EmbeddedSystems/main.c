@@ -13,6 +13,12 @@
 #include "gpio/Led.h"
 #include "playground/Playground.h"
 #include "timer/Timer.h"
+#include <avr/interrupt.h>
+
+
+ISR(TIMER0_OVF_vect){
+    x++;
+}
 
 
 int main(void) {
@@ -21,58 +27,12 @@ int main(void) {
 	Taster_init();
     Timer_init();
 	
-	volatile int x = 0;
+	volatile uint16_t x = 0;
 	
     while (1) {
         //playground();
-		x++;
-    }
-    
-    
-    void uebung1() {
-        DDRB = 0xFF;
-        PORTB = 0xAC;
-        
-        //
-        // Uebung
-        //
-        
-        // Bit 1 in Register PORTB setzten
-        PORTB |= (1 << 1);
-        
-        // Bit 3 in Register PORTB setzten
-        PORTB |= (1 << 3);
-        
-        // Bit 5 in Register PORTB setzten
-        PORTB |= (1 << 5);
-        
-        // Bit 2 in Register PORTB löschen
-        PORTB &= ~(1 << 2);
-        
-        // Bit 4 in Register PORTB löschen
-        PORTB &= ~(1 << 4);
-        
-        // Bit 6 in Register PORTB löschen
-        PORTB &= ~(1 << 6);
-        
-        // Bit 7 in Register PORTB invertieren
-        PORTB ^= (1 << 7);
-        
-        // Bit 2 in Register PORTB invertieren
-        PORTB ^= (1 << 2);
-        
-        PORTB = 0xFF;
-        
-        // Bit 4 in Register PINB abfragen, ob gesetzt
-        if ( (PORTB & (1 << 4)) != 0) {
-            // Bit ist gesetzt
-            PORTB = 0x00;
-        }
-        
-        // Bit 6 in Register PINB abfragen, ob clear
-        if ( (PORTB & (1 << 6)) == 0) {
-            // Bit ist clear
-            PORTB = 0xFF;
+        if ( x > 1000) {
+            x = 0;
         }
     }
 }
