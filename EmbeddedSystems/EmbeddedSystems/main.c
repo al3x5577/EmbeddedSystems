@@ -16,6 +16,9 @@
 #include <avr/interrupt.h>
 
 
+volatile uint16_t x = 0;
+
+
 ISR(TIMER0_OVF_vect){
     x++;
 }
@@ -26,11 +29,10 @@ int main(void) {
     Led_init();
 	Taster_init();
     Timer_init();
-	
-	volatile uint16_t x = 0;
+	sei();
 	
     while (1) {
-        //playground();
+        playground();
         if ( x > 1000) {
             x = 0;
         }
