@@ -13,4 +13,7 @@ void Timer_init() {
     TCCR0A = 0x00;
     TCCR0B = 0x00;
     TCCR0B |= (1 << 0);
+	
+	// enable interrupt
+	TIMSK0 |= (1 << 0);
 }

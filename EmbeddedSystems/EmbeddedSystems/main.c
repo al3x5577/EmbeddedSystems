@@ -21,8 +21,11 @@ int main(void) {
 	Taster_init();
     Timer_init();
 	
+	volatile int x = 0;
+	
     while (1) {
         //playground();
+		x++;
     }
     
     
