@@ -20,7 +20,7 @@
  */
 void Taster_init() {
     // set to inputs
-    DDRC &= (1 << 2);
+    DDRC &= ~(1 << 2);
     DDRD &= ~( (1 << 7) | (1 << 6) | (1 << 5) );
     
     // enable pull-up

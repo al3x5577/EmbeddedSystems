@@ -4,6 +4,7 @@
 void Led_init(void) {
     // Set PORTB to outputs
     DDRB = 0xFF;
+    PORTB = 0x00;
 }
 
 
