@@ -6,4 +6,8 @@
 
 void Timer_init(void);
 
+uint16_t Timer_getTick(void);
+
+void loop_blink_with_interrupt(void);
+
 #endif /* TIMER_H_ */

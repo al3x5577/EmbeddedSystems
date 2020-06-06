@@ -16,7 +16,7 @@
 #include <avr/interrupt.h>
 
 
-volatile uint16_t x = 0;
+
 
 
 int main(void) {
@@ -26,20 +26,13 @@ int main(void) {
     Timer_init();
 	sei();
 	
-	int asd = 0;
+    loop_blink_with_interrupt();
 	
+    // unreachable right now
     while (1) {
-        //playground();
+        playground();
 		
-		asd = 5;
-		
-		if ( x > 1000) {
-            x = 0;
-        }
     }
 }
 
-ISR(TIMER0_OVF_vect){
-	x++;
-}
 
