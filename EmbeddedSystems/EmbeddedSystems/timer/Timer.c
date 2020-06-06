@@ -10,7 +10,7 @@ void Timer_init() {
     TCCR0A &= ~(1 << WGM00);
     
     // set OCR0A-reg (top value of timer)
-    OCR0A = 0x7C    // dez 124; range 0 - 124 -> 125 cycles till interrupt
+    OCR0A = 0x7C;    // dez 124; range 0 - 124 -> 125 cycles till interrupt
     
     // set prescaler to 1/8
     TCCR0B &= ~(1 << CS02);
