@@ -67,11 +67,11 @@ void loop_blink_with_interrupt() {
 
 /**
  ( not used atm)
- Timer overflow interrput:
+ Timer compare A interrput:
  - increase timer_count
  - if timer_count is at max of uint16, set it to 0
  */
-ISR(TIMER0_OVF_vect){
+ISR(TIMER0_COMPA_vect){
     if (timer_count < 0xFFFF) {  // max value of uint16 (dez 65535)
         timer_count++;
     } else {
@@ -85,13 +85,14 @@ ISR(TIMER0_OVF_vect){
  - increase timer_count
  - if timer_count is at max of uint16, set it to 0
  */
+/*
 ISR(TIMER0_OVF_vect){
     if (timer_count < 0xFFFF) {  // max value of uint16 (dez 65535)
         timer_count++;
     } else {
         timer_count = 0;
     }
-}
+}*/
 
 
 /* Timer_init() aus Aufgabe 1
