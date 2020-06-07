@@ -3,7 +3,7 @@
 
 volatile uint16_t timer_count = 0;
 
-void Timer_init() {
+void Timer_init() { // datasheet page 97
     // set mode to clear timer on compare (CTC)
     TCCR0B &= ~(1 << WGM02);
     TCCR0A |= (1 << WGM01);
@@ -17,8 +17,10 @@ void Timer_init() {
     TCCR0B |= (1 << CS01);
     TCCR0B &= ~(1 << CS00);
 	
-	// enable interrupt
-	TIMSK0 |= (1 << TOIE0);
+	
+	TIMSK0 &= ~(1 << OCIE0B);   // disable Output Compare Match B Interrupt
+    TIMSK0 |= (1 << OCIE0A);    // enable Output Compare Match A Interrupt
+    TIMSK0 &= ~(1 << TOIE0);    // disable timer overflow interrupt
 }
 
 uint16_t Timer_getTick() {
@@ -64,6 +66,21 @@ void loop_blink_with_interrupt() {
 }
 
 /**
+ ( not used atm)
+ Timer overflow interrput:
+ - increase timer_count
+ - if timer_count is at max of uint16, set it to 0
+ */
+ISR(TIMER0_OVF_vect){
+    if (timer_count < 0xFFFF) {  // max value of uint16 (dez 65535)
+        timer_count++;
+    } else {
+        timer_count = 0;
+    }
+}
+
+/**
+ ( not used atm)
  Timer overflow interrput:
  - increase timer_count
  - if timer_count is at max of uint16, set it to 0
