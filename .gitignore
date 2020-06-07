@@ -58,3 +58,5 @@ EmbeddedSystems/EmbeddedSystems/Debug/EmbeddedSystems.lss
 EmbeddedSystems/EmbeddedSystems/Debug/EmbeddedSystems.srec
 *.lss
 *.srec
+*.srec
+*.lss
