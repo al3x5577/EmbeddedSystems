@@ -39,7 +39,7 @@ uint16_t Timer_getTick() {
 /**
  This funciton is blocking!
  
- Toggle PORTB every 500ms -> LEDs blink with 1 Hz
+ Toggle PORTB every 500ms -> LEDs blink with 1 Hz, accuracy: +- 70 us
  (There could be a lag if timer_count was cleared, approximately every 65,5 seconds)
  */
 void loop_blink_with_interrupt() {
