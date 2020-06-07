@@ -10,7 +10,7 @@ void Timer_init() { // datasheet page 97
     TCCR0A &= ~(1 << WGM00);
     
     // set OCR0A-reg (top value of timer)
-    OCR0A = 0x7C;    // dez 124; range 0 - 124 -> 125 cycles till interrupt
+    OCR0A = 0x7C;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
     
     // set prescaler to 1/8
     TCCR0B &= ~(1 << CS02);
@@ -48,7 +48,7 @@ void loop_blink_with_interrupt() {
     
     while (1) {
         // Check if time difference is more than 500 ms
-        if ( (Timer_getTick() - last_time) > 500 ) {
+        if ( (Timer_getTick() - last_time) >= 500 ) {
             last_time = Timer_getTick();
             
             // toggle leds
