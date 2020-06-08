@@ -35,6 +35,9 @@ The leds can be controlled with:
 
 where X is between 1 and 8.
 
+### Timer
+Timer0 triggeres an TIMER0_COMPA_vect interrupt every 1 ms. ISR increments an uint16. This int is returned by Timer_getTick().
+
 ### Playground
 Playground.h provides a playground() function. This function has to be called in a loop.
 
@@ -55,6 +58,3 @@ Lauflicht (chaser light) program.
 
 ##### Program 4
 Increment / Decrement program. Press button1 to increment, button2 to decrement.
-
-
-TODO update README.md
