@@ -26,12 +26,30 @@ int main(void) {
     Timer_init();
 	sei();
 	
-    loop_blink_with_interrupt();
-	
-    // unreachable right now
+    uint8_t state_testBoard = 0;
+    uint16_t last_time = 0;
+    
+    /**
+    Toggle PORTB every 500ms -> LEDs blink with 1 Hz, accuracy: +- 70 us
+    (There could be a lag if timer_count was cleared, approximately every 65,5 seconds)
+    */
     while (1) {
-        playground();
-		
+        // Check if time difference is more than 500 ms
+        if ( (Timer_getTick() - last_time) >= 500 ) {
+            last_time = Timer_getTick();
+            
+            // toggle leds
+            if (state_testBoard) {
+                state_testBoard = 0;
+                PORTB = 0x00;
+            }else {
+                state_testBoard = 1;
+                PORTB = 0xFF;
+            }
+        }
+        
+        
+        //playground();
     }
 }
 
