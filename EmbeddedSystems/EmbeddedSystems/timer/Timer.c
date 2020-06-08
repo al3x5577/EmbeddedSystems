@@ -59,8 +59,6 @@ void loop_blink_with_interrupt() {
                 state_testBoard = 1;
                 PORTB = 0xFF;
             }
-        } else if ( (Timer_getTick() - last_time) < 0 ) {   // Check if timer_count was cleared
-            last_time = 0;
         }
     }
 }
@@ -72,11 +70,7 @@ void loop_blink_with_interrupt() {
  - if timer_count is at max of uint16, set it to 0
  */
 ISR(TIMER0_COMPA_vect){
-    if (timer_count < 0xFFFF) {  // max value of uint16 (dez 65535)
-        timer_count++;
-    } else {
-        timer_count = 0;
-    }
+    timer_count++;
 }
 
 /**
@@ -87,11 +81,7 @@ ISR(TIMER0_COMPA_vect){
  */
 /*
 ISR(TIMER0_OVF_vect){
-    if (timer_count < 0xFFFF) {  // max value of uint16 (dez 65535)
-        timer_count++;
-    } else {
-        timer_count = 0;
-    }
+    timer_count++;
 }*/
 
 
