@@ -5,8 +5,18 @@ void Led_init(void) {
     // Set PORTB to outputs
     DDRB = 0xFF;
     PORTB = 0x00;
+    
+    // Set PORTD 0..4 to outputs
+    DDRD |= ( (1 << 4) | (1 << 3) | (1 << 2) | (1 << 1) | (1 << 0));
+    PORTD &= ~( (1 << 4) | (1 << 3) | (1 << 2) | (1 << 1) | (1 << 0));
 }
 
+void turnOnD(uint8_t bit) {
+    PORTD |= (1 << bit);
+}
+void turnOffD(uint8_t bit) {
+    PORTD &= ~(1 << bit);
+}
 
 /**
  led1 - ioB7

@@ -38,6 +38,14 @@ where X is between 1 and 8.
 ### Timer
 Timer0 triggeres an TIMER0_COMPA_vect interrupt every 1 ms. ISR increments an uint16. This int is returned by Timer_getTick().
 
+### Traffic Light
+#### Hardware Setup
+- Auto-RED: PD0
+- Auto-YELLOW: PD1
+- Auto-GREEN: PD2
+- Person-RED: PD3
+- Person-GREEN: PD4
+
 ### Playground
 Playground.h provides a playground() function. This function has to be called in a loop.
 

@@ -7,6 +7,9 @@ Initialisiert die Hardware für die Led
 */
 void Led_init(void); 
 
+void turnOnD(uint8_t bit);
+void turnOffD(uint8_t bit);
+
 /*
 Funktionen schalten entsprechende LEDs ein oder aus.
 */
