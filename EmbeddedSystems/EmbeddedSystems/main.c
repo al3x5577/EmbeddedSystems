@@ -29,25 +29,36 @@ int main(void) {
 	
     uint8_t state_testBoard = 0;
     uint16_t last_time = 0;
+	uint8_t  toggle_asdf = 1;
     
     /**
     Toggle PORTB every 500ms -> LEDs blink with 1 Hz, accuracy: +- 70 us
     (There could be a lag if timer_count was cleared, approximately every 65,5 seconds)
     */
     while (1) {
-        // Check if time difference is more than 500 ms
-        if ( (Timer_getTick() - last_time) >= 500 ) {
-            last_time = Timer_getTick();
-            
-            // toggle leds
-            if (state_testBoard) {
-                state_testBoard = 0;
-                PORTB = 0x00;
-            }else {
-                state_testBoard = 1;
-                PORTB = 0xFF;
-            }
-        }
+		
+		if (Taster2_get()) {
+			toggle_asdf = !toggle_asdf;
+		}
+		
+		if (toggle_asdf) {
+			// Check if time difference is more than 500 ms
+			if ( (Timer_getTick() - last_time) >= 500 ) {
+				last_time = Timer_getTick();
+				
+				// toggle leds
+				if (state_testBoard) {
+					state_testBoard = 0;
+					PORTB = 0x00;
+					}else {
+					state_testBoard = 1;
+					PORTB = 0xFF;
+				}
+			}
+		}else {
+			PORTB = 0x00;
+		}
+        
         
         trafficLight();
         //playground();
