@@ -10,5 +10,7 @@ main.c
 
 playground\Playground.c
 
+stateMachine\TrafficLight.c
+
 timer\Timer.c
 

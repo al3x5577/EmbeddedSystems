@@ -170,6 +170,12 @@
     <Compile Include="playground\Playground.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="stateMachine\TrafficLight.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="stateMachine\TrafficLight.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="timer\Timer.c">
       <SubType>compile</SubType>
     </Compile>
@@ -180,6 +186,8 @@
   <ItemGroup>
     <Folder Include="gpio\" />
     <Folder Include="playground\" />
+    <Folder Include="stateMachine\" />
+    <Folder Include="stateMachine\" />
     <Folder Include="timer\" />
     <Folder Include="timer\" />
   </ItemGroup>

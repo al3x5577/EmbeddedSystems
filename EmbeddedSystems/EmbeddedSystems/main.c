@@ -13,6 +13,7 @@
 #include "gpio/Led.h"
 #include "playground/Playground.h"
 #include "timer/Timer.h"
+#include "stateMachine/TrafficLight.h"
 #include <avr/interrupt.h>
 
 
@@ -48,7 +49,7 @@ int main(void) {
             }
         }
         
-        
+        trafficLight();
         //playground();
     }
 }

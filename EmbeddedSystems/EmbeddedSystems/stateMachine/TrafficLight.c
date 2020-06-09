@@ -1,11 +1,13 @@
 
+#include "TrafficLight.h"
+
 enum {
-    AUTO_GREEN_PERSON_RED = 0;
-    AUTO_YELLOW_PERSON_RED = 1;
-    AUTO_RED_PERSON_RED = 2;
-    AUTO_RED_PERSON_GREEN = 4;
-    AUTO_RED_PERSON_RED_2 = 5;
-    AUTO_YELLOWRED_PERSON_RED = 6;
+    AUTO_GREEN_PERSON_RED = 0,
+    AUTO_YELLOW_PERSON_RED = 1,
+    AUTO_RED_PERSON_RED = 2,
+    AUTO_RED_PERSON_GREEN = 4,
+    AUTO_RED_PERSON_RED_2 = 5,
+    AUTO_YELLOWRED_PERSON_RED = 6
     // state 7 equals 0
 } trafficLightWithPerson_state = AUTO_GREEN_PERSON_RED;
 
