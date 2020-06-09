@@ -1,9 +1,56 @@
 
 #include "Timer.h"
 
+typedef struct TIMER_REG{
+    // TCCR0A
+    uint8_t mode00 :1;
+    uint8_t mode01 :1;
+    uint8_t res :2;
+    uint8_t COM :4;
+    
+    // TCCR0B
+    uint8_t prescaler :3;
+    uint8_t mode02 :1;
+    uint8_t res2 :2;
+    uint8_t FOC :2;
+    
+    // TCNT0
+    uint8_t timerVar :8;
+    
+    // OCR0A
+    uint8_t compareValueA :8;
+    
+    // OCR0B
+    uint8_t compareValueB :8;
+    
+}TIMER_REG_t;
+
 volatile uint16_t timer_count = 0;
 
-void Timer_init() { // datasheet page 97
+void Timer_init() {
+    Timer_init_withStruct();
+}
+
+void Timer_init_withStruct() {
+    TIMER_REG_t *TIMER0 = (TIMER_REG_t*)(0x44);
+    
+    // datasheet page 97
+    // set mode to clear timer on compare (CTC)
+    TIMER0->WGM02 = 0;
+    TIMER0->WGM01 = 1;
+    TIMER0->WGM00 = 0;
+    
+    TIMER0->compareValueA = 0x7C;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
+    
+    TIMER0->prescaler = 2;  // set prescaler to 1/8
+    
+    TIMSK0 &= ~(1 << OCIE0B);   // disable Output Compare Match B Interrupt
+    TIMSK0 |= (1 << OCIE0A);    // enable Output Compare Match A Interrupt
+    TIMSK0 &= ~(1 << TOIE0);    // disable timer overflow interrupt
+}
+
+void Timer_init_withoutStruct() {
+    // datasheet page 97
     // set mode to clear timer on compare (CTC)
     TCCR0B &= ~(1 << WGM02);
     TCCR0A |= (1 << WGM01);
@@ -16,9 +63,9 @@ void Timer_init() { // datasheet page 97
     TCCR0B &= ~(1 << CS02);
     TCCR0B |= (1 << CS01);
     TCCR0B &= ~(1 << CS00);
-	
-	
-	TIMSK0 &= ~(1 << OCIE0B);   // disable Output Compare Match B Interrupt
+    
+    
+    TIMSK0 &= ~(1 << OCIE0B);   // disable Output Compare Match B Interrupt
     TIMSK0 |= (1 << OCIE0A);    // enable Output Compare Match A Interrupt
     TIMSK0 &= ~(1 << TOIE0);    // disable timer overflow interrupt
 }
