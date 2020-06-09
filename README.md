@@ -38,8 +38,12 @@ where X is between 1 and 8.
 ### Timer
 Timer0 triggeres an TIMER0_COMPA_vect interrupt every 1 ms. ISR increments an uint16. This int is returned by Timer_getTick().
 
+Timer_init() can either write directly to the registers or use a struct to write to the registers. To change behavior, change the function call inside Timer_init(). Default: initialise without struct.
+
 ### Traffic Light
 (only Task 2)
+Traffic Light state machine. There is one traffic light for cars and one for people. Normal state: cars can go, people have to wait. Button1 triggers state change. If the traffic light switched back to cars can go, the button has up to 30 sec delay until trigger will take effect.
+
 #### Hardware Setup
 - Auto-RED: PD0
 - Auto-YELLOW: PD1
