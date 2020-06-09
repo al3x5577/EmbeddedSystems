@@ -28,7 +28,7 @@ typedef struct TIMER_REG{
 volatile uint16_t timer_count = 0;
 
 void Timer_init() {
-    Timer_init_withStruct();
+    Timer_init_withoutStruct();
 }
 
 void Timer_init_withStruct() {
@@ -36,9 +36,9 @@ void Timer_init_withStruct() {
     
     // datasheet page 97
     // set mode to clear timer on compare (CTC)
-    TIMER0->WGM02 = 0;
-    TIMER0->WGM01 = 1;
-    TIMER0->WGM00 = 0;
+    TIMER0->mode02 = 0;
+    TIMER0->mode01 = 1;
+    TIMER0->mode00 = 0;
     
     TIMER0->compareValueA = 0x7C;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
     
