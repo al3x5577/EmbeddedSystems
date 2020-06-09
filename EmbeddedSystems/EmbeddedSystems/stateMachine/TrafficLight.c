@@ -13,6 +13,7 @@ enum {
 
 uint16_t timeVar = 0;
 uint8_t traffic_ready = 1;
+uint8_t button_pressed = 0;
 
 void trafficLight() {
     switch (trafficLightWithPerson_state) {
@@ -30,9 +31,16 @@ void trafficLight() {
                 traffic_ready = 1;
             }
             
-            if(traffic_ready && Taster1_get()){
+            if (Taster1_get()) {
+                button_pressed = 1;
+            }
+            
+            if(traffic_ready && button_pressed){
                 traffic_ready = 0;
+                button_pressed = 0;
+                
                 // goto step 1
+                timeVar = Timer_getTick();
                 trafficLightWithPerson_state = AUTO_YELLOW_PERSON_RED;
             }
             
@@ -48,8 +56,8 @@ void trafficLight() {
             turnOffD(4);
             
             if((Timer_getTick() - timeVar) >= 5000){
+                // goto step 2
                 timeVar = Timer_getTick();
-                // goto step 1
                 trafficLightWithPerson_state = AUTO_RED_PERSON_RED;
             }
             break;
@@ -65,7 +73,6 @@ void trafficLight() {
             
             if((Timer_getTick() - timeVar) >= 5000){
                 timeVar = Timer_getTick();
-                // goto step 1
                 trafficLightWithPerson_state = AUTO_RED_PERSON_GREEN;
             }
             break;
@@ -81,7 +88,6 @@ void trafficLight() {
             
             if((Timer_getTick() - timeVar) >= 30000){
                 timeVar = Timer_getTick();
-                // goto step 1
                 trafficLightWithPerson_state = AUTO_RED_PERSON_RED_2;
             }
             break;
@@ -97,7 +103,6 @@ void trafficLight() {
             
             if((Timer_getTick() - timeVar) >= 5000){
                 timeVar = Timer_getTick();
-                // goto step 1
                 trafficLightWithPerson_state = AUTO_YELLOWRED_PERSON_RED;
             }
             break;
@@ -113,7 +118,6 @@ void trafficLight() {
             
             if((Timer_getTick() - timeVar) >= 5000){
                 timeVar = Timer_getTick();
-                // goto step 1
                 trafficLightWithPerson_state = AUTO_GREEN_PERSON_RED;
             }
             break;
