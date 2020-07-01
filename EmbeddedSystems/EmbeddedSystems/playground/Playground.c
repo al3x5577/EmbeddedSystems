@@ -90,7 +90,7 @@ void playground() {
  */
 void lauflicht() {
     
-    if((Timer_getTick() - timeVarP) >= 200){
+    if((Timer_getTick() - timeVarP) >= 1000){
         timeVarP = Timer_getTick();
         
         
