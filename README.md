@@ -50,8 +50,14 @@ Timer0 triggeres an TIMER0_COMPA_vect interrupt every 1 ms. ISR increments an ui
 Timer_init() can either write directly to the registers or use a struct to write to the registers. To change behavior, change the function call inside Timer_init(). Default: initialise without struct.
 
 ### Traffic Light
-(only Task 2, not compatible with ES-Board)
+(only Task 2)
 Traffic Light state machine. There is one traffic light for cars and one for people. Normal state: cars can go, people have to wait. Button1 triggers state change. If the traffic light switched back to cars can go, the button has up to 30 sec delay until trigger will take effect.
+
+#### Parameter
+trafficLight(extraLeds)
+
+Set extraLeds to 0 if you want to use the on-board LEDs.
+Set extraLeds to 1 if you want to use LEDs connected to PortD (0..4). (Make shure to use Led_init(1) then)
 
 #### Hardware Setup
 - Auto-RED: PD0
@@ -64,6 +70,8 @@ Traffic Light state machine. There is one traffic light for cars and one for peo
 Call trafficLight() in a loop. There has to be a Timer_getTick() function that returns an uint16 representing millis.
 
 ### Playground
+(Updated so that it uses the timer tick function)
+
 Playground.h provides a playground() function. This function has to be called in a loop.
 
 #### Functionality
