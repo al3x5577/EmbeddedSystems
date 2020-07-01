@@ -20,6 +20,7 @@
  */
 void Taster_init() {
     
+    // Disable JT
     MCUCR |= (1 << JTD);
     MCUCR |= (1 << JTD);
     
