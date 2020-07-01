@@ -19,6 +19,10 @@
  -> Pin is input with pull-up
  */
 void Taster_init() {
+    
+    MCUCR |= (1 << JTD);
+    MCUCR |= (1 << JTD);
+    
     // set to inputs
     DDRC &= ~(1 << 2);
     DDRD &= ~( (1 << 7) | (1 << 6) | (1 << 5) );
