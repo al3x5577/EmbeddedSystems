@@ -1,14 +1,16 @@
 
 #include "Led.h"
 
-void Led_init(void) {
+void Led_init(uint_8 initD) {
     // Set PORTB to outputs
     DDRB = 0xFF;
     PORTB = 0x00;
     
-    // Set PORTD 0..4 to outputs
-    DDRD |= ( (1 << 4) | (1 << 3) | (1 << 2) | (1 << 1) | (1 << 0));
-    PORTD &= ~( (1 << 4) | (1 << 3) | (1 << 2) | (1 << 1) | (1 << 0));
+    if (initD) {
+        // Set PORTD 0..4 to outputs
+        DDRD |= ( (1 << 4) | (1 << 3) | (1 << 2) | (1 << 1) | (1 << 0));
+        PORTD &= ~( (1 << 4) | (1 << 3) | (1 << 2) | (1 << 1) | (1 << 0));
+    }
 }
 
 void turnOnD(uint8_t bit) {

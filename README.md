@@ -29,10 +29,11 @@ In this project we want to develop an embedded system based on an ATMEGA1284P.
 The gpio functions help handling the gpios. The board has 4 buttons and 8 leds for user purpose. 
 
 There are to init functions:
-- Led_init()
+- Led_init(int initD)
 - Taster_init()
 
-to setup the PORTS correctly.
+to setup the PORTs correctly. If you are using the ES-Board, set the prarmeter initD to 0. If you are using the old hardware setting, set this parameter to 1.
+(traffic light uses leds at PORTD)
 
 After setup the button states can be accessed by functions:
 TasterX_get(), where X is between 1 and 4.
