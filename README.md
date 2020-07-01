@@ -2,7 +2,15 @@
  Repo for Embedded  Systems lecture project.
  (This software is developt for a specific hardware)
  
- ### Hardware setting:
+ ### Known issues
+ - Button 4 is always active
+ 
+ ### Hardware setting (new):
+ - CPU: ATMEGA1284P (40 pin)
+ - Programmer: diamex ISP-PRog-NG
+ - some leds and buttons
+ 
+ ### Hardware setting (old):
  - CPU: ATMEGA328P U (28 pin)
  - Programmer: diamex ALL-AVR-PROG
  - some leds and buttons
@@ -41,7 +49,7 @@ Timer0 triggeres an TIMER0_COMPA_vect interrupt every 1 ms. ISR increments an ui
 Timer_init() can either write directly to the registers or use a struct to write to the registers. To change behavior, change the function call inside Timer_init(). Default: initialise without struct.
 
 ### Traffic Light
-(only Task 2)
+(only Task 2, not compatible with ES-Board)
 Traffic Light state machine. There is one traffic light for cars and one for people. Normal state: cars can go, people have to wait. Button1 triggers state change. If the traffic light switched back to cars can go, the button has up to 30 sec delay until trigger will take effect.
 
 #### Hardware Setup
@@ -57,8 +65,8 @@ Call trafficLight() in a loop. There has to be a Timer_getTick() function that r
 ### Playground
 Playground.h provides a playground() function. This function has to be called in a loop.
 
-#### Function
-There are four programmes available with the funtion. (One for each button)
+#### Functionality
+There are four programmes available with this funtion. (One for each button)
 
 The Startup mode is for choosing the program. It is visualised by the led pattern: 10011001. 
 To go back to this mode hold button 1 and 2 for max half a second. If you do so, all leds will turn on, then off and then the indicator pattern will show up.
