@@ -722,7 +722,7 @@ void playground() {
 	uint16_t __ticks;
 	__tmp = ((F_CPU) / 4e3) * __ms;
      416:	4a e7       	ldi	r20, 0x7A	; 122
-     418:	53 e4       	ldi	r21, 0x43	; 67
+     418:	55 e4       	ldi	r21, 0x45	; 69
      41a:	6d 89       	ldd	r22, Y+21	; 0x15
      41c:	7e 89       	ldd	r23, Y+22	; 0x16
      41e:	8f 89       	ldd	r24, Y+23	; 0x17
@@ -786,8 +786,8 @@ void playground() {
      486:	9e 8f       	std	Y+30, r25	; 0x1e
      488:	8d 8f       	std	Y+29, r24	; 0x1d
      48a:	0f c0       	rjmp	.+30     	; 0x4aa <__LOCK_REGION_LENGTH__+0xaa>
-     48c:	89 e1       	ldi	r24, 0x19	; 25
-     48e:	90 e0       	ldi	r25, 0x00	; 0
+     48c:	80 e9       	ldi	r24, 0x90	; 144
+     48e:	91 e0       	ldi	r25, 0x01	; 1
      490:	98 a3       	std	Y+32, r25	; 0x20
      492:	8f 8f       	std	Y+31, r24	; 0x1f
      494:	8f 8d       	ldd	r24, Y+31	; 0x1f
@@ -897,7 +897,7 @@ _delay_loop_2(uint16_t __count)
 	uint16_t __ticks;
 	__tmp = ((F_CPU) / 4e3) * __ms;
      510:	4a e7       	ldi	r20, 0x7A	; 122
-     512:	53 e4       	ldi	r21, 0x43	; 67
+     512:	55 e4       	ldi	r21, 0x45	; 69
      514:	69 81       	ldd	r22, Y+1	; 0x01
      516:	7a 81       	ldd	r23, Y+2	; 0x02
      518:	8b 81       	ldd	r24, Y+3	; 0x03
@@ -961,8 +961,8 @@ _delay_loop_2(uint16_t __count)
      580:	98 a7       	std	Y+40, r25	; 0x28
      582:	8f a3       	std	Y+39, r24	; 0x27
      584:	0f c0       	rjmp	.+30     	; 0x5a4 <__LOCK_REGION_LENGTH__+0x1a4>
-     586:	89 e1       	ldi	r24, 0x19	; 25
-     588:	90 e0       	ldi	r25, 0x00	; 0
+     586:	80 e9       	ldi	r24, 0x90	; 144
+     588:	91 e0       	ldi	r25, 0x01	; 1
      58a:	9a a7       	std	Y+42, r25	; 0x2a
      58c:	89 a7       	std	Y+41, r24	; 0x29
      58e:	89 a5       	ldd	r24, Y+41	; 0x29
@@ -1066,7 +1066,7 @@ _delay_loop_2(uint16_t __count)
 	__tmp = ((F_CPU) / 4e3) * __ms;
      608:	30 e0       	ldi	r19, 0x00	; 0
      60a:	4a e7       	ldi	r20, 0x7A	; 122
-     60c:	53 e4       	ldi	r21, 0x43	; 67
+     60c:	55 e4       	ldi	r21, 0x45	; 69
      60e:	6d 81       	ldd	r22, Y+5	; 0x05
      610:	7e 81       	ldd	r23, Y+6	; 0x06
      612:	8f 81       	ldd	r24, Y+7	; 0x07
@@ -1130,8 +1130,8 @@ _delay_loop_2(uint16_t __count)
      67a:	9a ab       	std	Y+50, r25	; 0x32
      67c:	89 ab       	std	Y+49, r24	; 0x31
      67e:	0f c0       	rjmp	.+30     	; 0x69e <__LOCK_REGION_LENGTH__+0x29e>
-     680:	89 e1       	ldi	r24, 0x19	; 25
-     682:	90 e0       	ldi	r25, 0x00	; 0
+     680:	80 e9       	ldi	r24, 0x90	; 144
+     682:	91 e0       	ldi	r25, 0x01	; 1
      684:	9c ab       	std	Y+52, r25	; 0x34
      686:	8b ab       	std	Y+51, r24	; 0x33
      688:	8b a9       	ldd	r24, Y+51	; 0x33
@@ -1235,7 +1235,7 @@ _delay_loop_2(uint16_t __count)
 	__tmp = ((F_CPU) / 4e3) * __ms;
      702:	30 e0       	ldi	r19, 0x00	; 0
      704:	4a e7       	ldi	r20, 0x7A	; 122
-     706:	53 e4       	ldi	r21, 0x43	; 67
+     706:	55 e4       	ldi	r21, 0x45	; 69
      708:	69 85       	ldd	r22, Y+9	; 0x09
      70a:	7a 85       	ldd	r23, Y+10	; 0x0a
      70c:	8b 85       	ldd	r24, Y+11	; 0x0b
@@ -1299,8 +1299,8 @@ _delay_loop_2(uint16_t __count)
      774:	9c af       	std	Y+60, r25	; 0x3c
      776:	8b af       	std	Y+59, r24	; 0x3b
      778:	0f c0       	rjmp	.+30     	; 0x798 <__LOCK_REGION_LENGTH__+0x398>
-     77a:	89 e1       	ldi	r24, 0x19	; 25
-     77c:	90 e0       	ldi	r25, 0x00	; 0
+     77a:	80 e9       	ldi	r24, 0x90	; 144
+     77c:	91 e0       	ldi	r25, 0x01	; 1
      77e:	9e af       	std	Y+62, r25	; 0x3e
      780:	8d af       	std	Y+61, r24	; 0x3d
      782:	8d ad       	ldd	r24, Y+61	; 0x3d
@@ -1412,7 +1412,7 @@ _delay_loop_2(uint16_t __count)
      80e:	20 e0       	ldi	r18, 0x00	; 0
      810:	30 e0       	ldi	r19, 0x00	; 0
      812:	4a e7       	ldi	r20, 0x7A	; 122
-     814:	53 e4       	ldi	r21, 0x43	; 67
+     814:	55 e4       	ldi	r21, 0x45	; 69
      816:	69 89       	ldd	r22, Y+17	; 0x11
      818:	7a 89       	ldd	r23, Y+18	; 0x12
      81a:	8b 89       	ldd	r24, Y+19	; 0x13
@@ -1497,8 +1497,8 @@ _delay_loop_2(uint16_t __count)
      8ac:	ce 01       	movw	r24, r28
      8ae:	8f 5a       	subi	r24, 0xAF	; 175
      8b0:	9f 4f       	sbci	r25, 0xFF	; 255
-     8b2:	29 e1       	ldi	r18, 0x19	; 25
-     8b4:	30 e0       	ldi	r19, 0x00	; 0
+     8b2:	20 e9       	ldi	r18, 0x90	; 144
+     8b4:	31 e0       	ldi	r19, 0x01	; 1
      8b6:	fc 01       	movw	r30, r24
      8b8:	31 83       	std	Z+1, r19	; 0x01
      8ba:	20 83       	st	Z, r18
@@ -1626,7 +1626,7 @@ _delay_loop_2(uint16_t __count)
      97c:	20 e0       	ldi	r18, 0x00	; 0
      97e:	30 e0       	ldi	r19, 0x00	; 0
      980:	4a e7       	ldi	r20, 0x7A	; 122
-     982:	53 e4       	ldi	r21, 0x43	; 67
+     982:	55 e4       	ldi	r21, 0x45	; 69
      984:	6d 85       	ldd	r22, Y+13	; 0x0d
      986:	7e 85       	ldd	r23, Y+14	; 0x0e
      988:	8f 85       	ldd	r24, Y+15	; 0x0f
@@ -1711,8 +1711,8 @@ _delay_loop_2(uint16_t __count)
      a1a:	ce 01       	movw	r24, r28
      a1c:	89 5b       	subi	r24, 0xB9	; 185
      a1e:	9f 4f       	sbci	r25, 0xFF	; 255
-     a20:	29 e1       	ldi	r18, 0x19	; 25
-     a22:	30 e0       	ldi	r19, 0x00	; 0
+     a20:	20 e9       	ldi	r18, 0x90	; 144
+     a22:	31 e0       	ldi	r19, 0x01	; 1
      a24:	fc 01       	movw	r30, r24
      a26:	31 83       	std	Z+1, r19	; 0x01
      a28:	20 83       	st	Z, r18
@@ -2004,7 +2004,7 @@ void lauflicht() {
      c06:	20 e0       	ldi	r18, 0x00	; 0
      c08:	30 e0       	ldi	r19, 0x00	; 0
      c0a:	4a e7       	ldi	r20, 0x7A	; 122
-     c0c:	53 e4       	ldi	r21, 0x43	; 67
+     c0c:	55 e4       	ldi	r21, 0x45	; 69
      c0e:	6b 81       	ldd	r22, Y+3	; 0x03
      c10:	7c 81       	ldd	r23, Y+4	; 0x04
      c12:	8d 81       	ldd	r24, Y+5	; 0x05
@@ -2068,8 +2068,8 @@ void lauflicht() {
      c7a:	9c 87       	std	Y+12, r25	; 0x0c
      c7c:	8b 87       	std	Y+11, r24	; 0x0b
      c7e:	0f c0       	rjmp	.+30     	; 0xc9e <lauflicht+0x174>
-     c80:	89 e1       	ldi	r24, 0x19	; 25
-     c82:	90 e0       	ldi	r25, 0x00	; 0
+     c80:	80 e9       	ldi	r24, 0x90	; 144
+     c82:	91 e0       	ldi	r25, 0x01	; 1
      c84:	9e 87       	std	Y+14, r25	; 0x0e
      c86:	8d 87       	std	Y+13, r24	; 0x0d
      c88:	8d 85       	ldd	r24, Y+13	; 0x0d
@@ -2337,7 +2337,7 @@ void testBoard() {
      e1e:	20 e0       	ldi	r18, 0x00	; 0
      e20:	30 e0       	ldi	r19, 0x00	; 0
      e22:	4a e7       	ldi	r20, 0x7A	; 122
-     e24:	53 e4       	ldi	r21, 0x43	; 67
+     e24:	55 e4       	ldi	r21, 0x45	; 69
      e26:	6d 81       	ldd	r22, Y+5	; 0x05
      e28:	7e 81       	ldd	r23, Y+6	; 0x06
      e2a:	8f 81       	ldd	r24, Y+7	; 0x07
@@ -2401,8 +2401,8 @@ void testBoard() {
      e92:	9e 87       	std	Y+14, r25	; 0x0e
      e94:	8d 87       	std	Y+13, r24	; 0x0d
      e96:	0f c0       	rjmp	.+30     	; 0xeb6 <testBoard+0xda>
-     e98:	89 e1       	ldi	r24, 0x19	; 25
-     e9a:	90 e0       	ldi	r25, 0x00	; 0
+     e98:	80 e9       	ldi	r24, 0x90	; 144
+     e9a:	91 e0       	ldi	r25, 0x01	; 1
      e9c:	98 8b       	std	Y+16, r25	; 0x10
      e9e:	8f 87       	std	Y+15, r24	; 0x0f
      ea0:	8f 85       	ldd	r24, Y+15	; 0x0f
@@ -2497,7 +2497,7 @@ void testBoard() {
      f0e:	20 e0       	ldi	r18, 0x00	; 0
      f10:	30 e0       	ldi	r19, 0x00	; 0
      f12:	4a e7       	ldi	r20, 0x7A	; 122
-     f14:	53 e4       	ldi	r21, 0x43	; 67
+     f14:	55 e4       	ldi	r21, 0x45	; 69
      f16:	69 81       	ldd	r22, Y+1	; 0x01
      f18:	7a 81       	ldd	r23, Y+2	; 0x02
      f1a:	8b 81       	ldd	r24, Y+3	; 0x03
@@ -2561,8 +2561,8 @@ void testBoard() {
      f82:	98 8f       	std	Y+24, r25	; 0x18
      f84:	8f 8b       	std	Y+23, r24	; 0x17
      f86:	0f c0       	rjmp	.+30     	; 0xfa6 <testBoard+0x1ca>
-     f88:	89 e1       	ldi	r24, 0x19	; 25
-     f8a:	90 e0       	ldi	r25, 0x00	; 0
+     f88:	80 e9       	ldi	r24, 0x90	; 144
+     f8a:	91 e0       	ldi	r25, 0x01	; 1
      f8c:	9a 8f       	std	Y+26, r25	; 0x1a
      f8e:	89 8f       	std	Y+25, r24	; 0x19
      f90:	89 8d       	ldd	r24, Y+25	; 0x19
@@ -2763,7 +2763,7 @@ void testTasterLed() {
     1092:	09 f5       	brne	.+66     	; 0x10d6 <Timer_init_withoutStruct+0x8e>
     1094:	87 e4       	ldi	r24, 0x47	; 71
     1096:	90 e0       	ldi	r25, 0x00	; 0
-    1098:	2e e3       	ldi	r18, 0x3E	; 62
+    1098:	29 ef       	ldi	r18, 0xF9	; 249
     109a:	fc 01       	movw	r30, r24
     109c:	20 83       	st	Z, r18
     109e:	85 e4       	ldi	r24, 0x45	; 69
