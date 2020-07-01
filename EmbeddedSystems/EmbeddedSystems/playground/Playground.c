@@ -171,7 +171,7 @@ void increment() {
 void testBoard() {
     static int state_testBoard = 0;
     
-    if((Timer_getTick() - timeVarP) >= 1000){
+    if((Timer_getTick() - timeVarP) >= 500){
         timeVarP = Timer_getTick();
         
         if (state_testBoard) {
