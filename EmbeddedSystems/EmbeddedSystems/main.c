@@ -37,7 +37,7 @@ int main(void) {
     */
     while (1) {
 		
-		if (Taster2_get()) {
+		/*if (Taster2_get()) {
 			toggle_asdf = !toggle_asdf;
 		}
 		
@@ -57,11 +57,11 @@ int main(void) {
 			}
 		}else {
 			PORTB = 0x00;
-		}
+		}*/
         
         
-        trafficLight();
-        //playground();
+        //trafficLight();
+        playground();
     }
 }
 
