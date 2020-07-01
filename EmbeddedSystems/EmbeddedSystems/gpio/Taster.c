@@ -2,8 +2,8 @@
 #include "Taster.h"
 
 // If logic is set wrong, change these
-#define TASTER_RETURN_VALUE_LOW 1
-#define TASTER_RETURN_VALUE_HIGH 0
+#define TASTER_RETURN_VALUE_LOW 0
+#define TASTER_RETURN_VALUE_HIGH 1
 
 
 /**
