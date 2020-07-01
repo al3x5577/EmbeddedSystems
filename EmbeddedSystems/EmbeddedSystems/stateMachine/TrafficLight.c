@@ -30,20 +30,20 @@ void trafficLight(uint8_t extraLeds) {
                 turnOffD(4);    // green
             } else {
                 // red
-                Led2_off();
-                Led3_off();
+                Led2_Off();
+                Led3_Off();
                 
                 // yellow
-                Led4_off();
-                Led5_off();
+                Led4_Off();
+                Led5_Off();
                 
                 // green
-                Led6_on();
-                Led7_on();
+                Led6_On();
+                Led7_On();
                 
                 // person
-                Led1_on();  //red
-                Led8_off();  //green
+                Led1_On();  //red
+                Led8_Off();  //green
             }
             
             
@@ -79,20 +79,20 @@ void trafficLight(uint8_t extraLeds) {
                 turnOffD(4);
             } else {
                 // red
-                Led2_off();
-                Led3_off();
+                Led2_Off();
+                Led3_Off();
                 
                 // yellow
-                Led4_on();
-                Led5_on();
+                Led4_On();
+                Led5_On();
                 
                 // green
-                Led6_off();
-                Led7_off();
+                Led6_Off();
+                Led7_Off();
                 
                 // person
-                Led1_on();  //red
-                Led8_off();  //green
+                Led1_On();  //red
+                Led8_Off();  //green
             }
             
             if((Timer_getTick() - timeVar) >= 5000){
@@ -114,20 +114,20 @@ void trafficLight(uint8_t extraLeds) {
                 turnOffD(4);
             } else {
                 // red
-                Led2_on();
-                Led3_on();
+                Led2_On();
+                Led3_On();
                 
                 // yellow
-                Led4_off();
-                Led5_off();
+                Led4_Off();
+                Led5_Off();
                 
                 // green
-                Led6_off();
-                Led7_off();
+                Led6_Off();
+                Led7_Off();
                 
                 // person
-                Led1_on();  //red
-                Led8_off();  //green
+                Led1_On();  //red
+                Led8_Off();  //green
             }
             
             if((Timer_getTick() - timeVar) >= 5000){
@@ -148,20 +148,20 @@ void trafficLight(uint8_t extraLeds) {
                 turnOnD(4);
             } else {
                 // red
-                Led2_on();
-                Led3_on();
+                Led2_On();
+                Led3_On();
                 
                 // yellow
-                Led4_off();
-                Led5_off();
+                Led4_Off();
+                Led5_Off();
                 
                 // green
-                Led6_off();
-                Led7_off();
+                Led6_Off();
+                Led7_Off();
                 
                 // person
-                Led1_off();  //red
-                Led8_on();  //green
+                Led1_Off();  //red
+                Led8_On();  //green
             }
             
             if((Timer_getTick() - timeVar) >= 30000){
@@ -182,20 +182,20 @@ void trafficLight(uint8_t extraLeds) {
                 turnOffD(4);
             } else {
                 // red
-                Led2_on();
-                Led3_on();
+                Led2_On();
+                Led3_On();
                 
                 // yellow
-                Led4_off();
-                Led5_off();
+                Led4_Off();
+                Led5_Off();
                 
                 // green
-                Led6_off();
-                Led7_off();
+                Led6_Off();
+                Led7_Off();
                 
                 // person
-                Led1_on();  //red
-                Led8_off();  //green
+                Led1_On();  //red
+                Led8_Off();  //green
             }
             
             if((Timer_getTick() - timeVar) >= 5000){
@@ -216,20 +216,20 @@ void trafficLight(uint8_t extraLeds) {
                 turnOffD(4);
             } else {
                 // red
-                Led2_on();
-                Led3_on();
+                Led2_On();
+                Led3_On();
                 
                 // yellow
-                Led4_on();
-                Led5_on();
+                Led4_On();
+                Led5_On();
                 
                 // green
-                Led6_off();
-                Led7_off();
+                Led6_Off();
+                Led7_Off();
                 
                 // person
-                Led1_on();  //red
-                Led8_off();  //green
+                Led1_On();  //red
+                Led8_Off();  //green
             }
             
             if((Timer_getTick() - timeVar) >= 5000){
