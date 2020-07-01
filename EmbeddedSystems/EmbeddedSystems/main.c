@@ -22,7 +22,7 @@
 
 int main(void) {
 	
-    Led_init();
+    Led_init(0);	// Don't set LEDs at PORTD
 	Taster_init();
     Timer_init();
 	sei();

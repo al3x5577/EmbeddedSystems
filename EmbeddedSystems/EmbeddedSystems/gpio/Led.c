@@ -1,7 +1,7 @@
 
 #include "Led.h"
 
-void Led_init(uint_8 initD) {
+void Led_init(uint8_t initD) {
     // Set PORTB to outputs
     DDRB = 0xFF;
     PORTB = 0x00;

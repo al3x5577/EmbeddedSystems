@@ -6,7 +6,7 @@
 /**
 Initialisiert die Hardware fuer die Taster
 */
-void Taster_init(uint_8 initD);
+void Taster_init(void);
 
 /**
 Gibt den aktuellen Status der Tasten aus. 
