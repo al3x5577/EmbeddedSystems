@@ -1,6 +1,7 @@
 
 #include "Playground.h"
 
+uint16_t timeVarP = 0;
 
 /**
 modes:
@@ -25,24 +26,28 @@ void playground() {
             Led1_On();
             _delay_ms(500);
             Led1_Off();
+            timeVar = Timer_getTick();
         } else if (Taster2_get()) {
             mode = 2;
             PORTB = 0x00;
             Led2_On();
             _delay_ms(500);
             Led2_Off();
+            timeVar = Timer_getTick();
         } else if (Taster3_get()) {
             mode = 3;
             PORTB = 0x00;
             Led3_On();
             _delay_ms(500);
             Led3_Off();
+            timeVar = Timer_getTick();
         } else if (Taster4_get()) {
             mode = 4;
             PORTB = 0x00;
             Led4_On();
             _delay_ms(500);
             Led4_Off();
+            timeVar = Timer_getTick();
         }
         
     } else {    // run
@@ -83,32 +88,37 @@ void playground() {
  Only one led is active at once
  */
 void lauflicht() {
-    static int laufCount = 0;
-    static int direction = 0;   // 0=right, 1=left
     
-    if (direction) {    // left
-        if (laufCount <= 1) {
-            direction = 0;
-            laufCount++;
-        } else {
-            laufCount--;
+    if((Timer_getTick() - timeVarP) >= 200){
+        timeVar = Timer_getTick();
+        
+        
+        static int laufCount = 0;
+        static int direction = 0;   // 0=right, 1=left
+        
+        if (direction) {    // left
+            if (laufCount <= 1) {
+                direction = 0;
+                laufCount++;
+            } else {
+                laufCount--;
+            }
+        }else { // right
+            if (laufCount >= 8) {
+                direction = 1;
+                laufCount--;
+            } else {
+                laufCount++;
+            }
         }
-    }else { // right
-        if (laufCount >= 8) {
-            direction = 1;
-            laufCount--;
-        } else {
-            laufCount++;
-        }
+        
+        // create byte
+        int ledByte = 1;
+        ledByte = ledByte << (laufCount - 1);
+        
+        // set Port
+        PORTB = ledByte;
     }
-    
-    // create byte
-    int ledByte = 1;
-    ledByte = ledByte << (laufCount - 1);
-    
-    // set Port
-    PORTB = ledByte;
-    _delay_ms(200);
 }
 
 /**
