@@ -60,8 +60,8 @@ int main(void) {
 		}*/
         
         
-        //trafficLight();
-        playground();
+        trafficLight(0);
+        //playground();
     }
 }
 
