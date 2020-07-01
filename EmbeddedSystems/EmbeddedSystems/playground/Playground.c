@@ -170,14 +170,17 @@ void increment() {
  */
 void testBoard() {
     static int state_testBoard = 0;
-    if (state_testBoard) {
-		state_testBoard = 0;
-        PORTB = 0x00;
-        _delay_ms(500);
-    }else {
-		state_testBoard = 1;
-        PORTB = 0xFF;
-        _delay_ms(500);
+    
+    if((Timer_getTick() - timeVarP) >= 1000){
+        timeVarP = Timer_getTick();
+        
+        if (state_testBoard) {
+            state_testBoard = 0;
+            PORTB = 0x00;
+        }else {
+            state_testBoard = 1;
+            PORTB = 0xFF;
+        }
     }
 }
 
