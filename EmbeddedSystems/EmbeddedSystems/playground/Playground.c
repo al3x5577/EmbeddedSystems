@@ -26,28 +26,28 @@ void playground() {
             Led1_On();
             _delay_ms(500);
             Led1_Off();
-            timeVar = Timer_getTick();
+            timeVarP = Timer_getTick();
         } else if (Taster2_get()) {
             mode = 2;
             PORTB = 0x00;
             Led2_On();
             _delay_ms(500);
             Led2_Off();
-            timeVar = Timer_getTick();
+            timeVarP = Timer_getTick();
         } else if (Taster3_get()) {
             mode = 3;
             PORTB = 0x00;
             Led3_On();
             _delay_ms(500);
             Led3_Off();
-            timeVar = Timer_getTick();
+            timeVarP = Timer_getTick();
         } else if (Taster4_get()) {
             mode = 4;
             PORTB = 0x00;
             Led4_On();
             _delay_ms(500);
             Led4_Off();
-            timeVar = Timer_getTick();
+            timeVarP = Timer_getTick();
         }
         
     } else {    // run
@@ -71,6 +71,7 @@ void playground() {
                 break;
             case 3:
                 lauflicht();
+				break;
             case 4:
                 increment();
                 break;
@@ -90,7 +91,7 @@ void playground() {
 void lauflicht() {
     
     if((Timer_getTick() - timeVarP) >= 200){
-        timeVar = Timer_getTick();
+        timeVarP = Timer_getTick();
         
         
         static int laufCount = 0;
