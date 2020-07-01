@@ -24,7 +24,7 @@ int main(void) {
 	
     Led_init(0);	// Don't set LEDs at PORTD
 	Taster_init();
-    Timer_init();
+    Timer_init(16); // Init timer with 16MHZ clock
 	sei();
 	
     uint8_t state_testBoard = 0;

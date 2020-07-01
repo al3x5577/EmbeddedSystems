@@ -27,11 +27,11 @@ typedef struct TIMER_REG{
 
 volatile uint16_t timer_count = 0;
 
-void Timer_init() {
-    Timer_init_withoutStruct();
+void Timer_init(uint8_t clockFreqMhz) {
+    Timer_init_withoutStruct(clockFreqMhz);
 }
 
-void Timer_init_withStruct() {
+void Timer_init_withStruct(uint8_t clockFreqMhz) {
     TIMER_REG_t *TIMER0 = (TIMER_REG_t*)(0x44);
     
     // datasheet page 97
@@ -40,30 +40,58 @@ void Timer_init_withStruct() {
     TIMER0->mode01 = 1;
     TIMER0->mode00 = 0;
     
-    TIMER0->compareValueA = 0x7C;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
-    
-    TIMER0->prescaler = 2;  // set prescaler to 1/8
+    switch (clockFreqMhz) {
+        case 16:
+            // extern osc (16 MHZ)
+            TIMER0->compareValueA = 62;   // dez 62; range 0 - 62 -> 63 cycles till interrupt
+            TIMER0->prescaler = 3;  // set prescaler to 1/64
+            break;
+            
+        default:
+            // inter osc (8 MHZ divided by 8 -> 1 MHZ clock)
+            TIMER0->compareValueA = 0x7C;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
+            TIMER0->prescaler = 2;  // set prescaler to 1/8
+            break;
+    }
     
     TIMSK0 &= ~(1 << OCIE0B);   // disable Output Compare Match B Interrupt
     TIMSK0 |= (1 << OCIE0A);    // enable Output Compare Match A Interrupt
     TIMSK0 &= ~(1 << TOIE0);    // disable timer overflow interrupt
 }
 
-void Timer_init_withoutStruct() {
+void Timer_init_withoutStruct(uint8_t clockFreqMhz) {
     // datasheet page 97
     // set mode to clear timer on compare (CTC)
     TCCR0B &= ~(1 << WGM02);
     TCCR0A |= (1 << WGM01);
     TCCR0A &= ~(1 << WGM00);
     
-    // set OCR0A-reg (top value of timer)
-    OCR0A = 0x7C;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
     
-    // set prescaler to 1/8
-    TCCR0B &= ~(1 << CS02);
-    TCCR0B |= (1 << CS01);
-    TCCR0B &= ~(1 << CS00);
-    
+    switch (clockFreqMhz) {
+        case 16:
+            // extern osc (16 MHZ)
+            
+            // set OCR0A-reg (top value of timer)
+            OCR0A = 62;   // dez 62; range 0 - 62 -> 63 cycles till interrupt
+            
+            // set prescaler to 1/64
+            TCCR0B &= ~(1 << CS02);
+            TCCR0B |= (1 << CS01);
+            TCCR0B |= (1 << CS00);
+            break;
+            
+        default:
+            // inter osc (8 MHZ divided by 8 -> 1 MHZ clock)
+            
+            // set OCR0A-reg (top value of timer)
+            OCR0A = 0x7C;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
+            
+            // set prescaler to 1/8
+            TCCR0B &= ~(1 << CS02);
+            TCCR0B |= (1 << CS01);
+            TCCR0B &= ~(1 << CS00);
+            break;
+    }
     
     TIMSK0 &= ~(1 << OCIE0B);   // disable Output Compare Match B Interrupt
     TIMSK0 |= (1 << OCIE0A);    // enable Output Compare Match A Interrupt

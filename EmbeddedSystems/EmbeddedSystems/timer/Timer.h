@@ -4,10 +4,9 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-void Timer_init(void);
+void Timer_init(uint8_t clockFreqMhz);
 
 uint16_t Timer_getTick(void);
 
-void loop_blink_with_interrupt(void);
 
 #endif /* TIMER_H_ */
