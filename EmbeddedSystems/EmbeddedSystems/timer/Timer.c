@@ -43,7 +43,7 @@ void Timer_init_withStruct(uint8_t clockFreqMhz) {
     switch (clockFreqMhz) {
         case 16:
             // extern osc (16 MHZ)
-            TIMER0->compareValueA = 62;   // dez 62; range 0 - 62 -> 63 cycles till interrupt
+            TIMER0->compareValueA = 249;   // dez 249; range 0 - 249 -> 250 cycles till interrupt
             TIMER0->prescaler = 3;  // set prescaler to 1/64
             break;
             
@@ -72,7 +72,7 @@ void Timer_init_withoutStruct(uint8_t clockFreqMhz) {
             // extern osc (16 MHZ)
             
             // set OCR0A-reg (top value of timer)
-            OCR0A = 62;   // dez 62; range 0 - 62 -> 63 cycles till interrupt
+            OCR0A = 249;   // dez 249; range 0 - 249 -> 250 cycles till interrupt
             
             // set prescaler to 1/64
             TCCR0B &= ~(1 << CS02);
