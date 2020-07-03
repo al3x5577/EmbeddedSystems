@@ -1,6 +1,5 @@
 
 #include "Uart.h"
-#include <string.h>
 
 void uart_init(unsigned int baud) {
     cli();
