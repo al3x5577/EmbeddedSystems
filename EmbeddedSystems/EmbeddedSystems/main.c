@@ -63,8 +63,23 @@ int main(void) {
 			PORTB = 0x00;
 		}*/
         
-        uart_send("Hallo Welt!!");
-        trafficLight(0);
+        
+        if ( (Timer_getTick() - last_time) >= 500 ) {
+            last_time = Timer_getTick();
+            Led7_Off();
+            Led8_Off();
+            
+            uart_send("Hallo Welt!!");
+            
+            while ( !(UCSR0A & (1 << TXC0)) )
+                ;
+            
+            Led7_On();
+            Led8_On();
+            
+        }
+        
+        //trafficLight(0);
         //playground();
     }
 }
