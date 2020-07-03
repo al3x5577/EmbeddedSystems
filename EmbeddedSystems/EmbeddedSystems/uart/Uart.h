@@ -5,7 +5,10 @@
 #include <string.h>
 
 
-void uart_init(void);
+// Global interrrupt should be disabled while calling this function
+void uart_init(unsigned int baud);
+
+
 void uart_send(char* string);
 
 #endif /* MY_UART_H_ */

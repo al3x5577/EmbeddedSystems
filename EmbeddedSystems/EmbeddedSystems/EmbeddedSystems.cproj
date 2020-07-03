@@ -195,6 +195,12 @@
     <Compile Include="timer\Timer.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="uart\Uart.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="uart\Uart.h">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="gpio\" />
@@ -203,6 +209,8 @@
     <Folder Include="stateMachine\" />
     <Folder Include="timer\" />
     <Folder Include="timer\" />
+    <Folder Include="uart\" />
+    <Folder Include="uart\" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

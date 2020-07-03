@@ -14,3 +14,5 @@ stateMachine\TrafficLight.c
 
 timer\Timer.c
 
+uart\Uart.c
+

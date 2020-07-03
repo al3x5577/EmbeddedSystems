@@ -14,10 +14,11 @@
 #include "playground/Playground.h"
 #include "timer/Timer.h"
 #include "stateMachine/TrafficLight.h"
+#include "uart/Uart.h"
 #include <avr/interrupt.h>
 
 
-
+#define MY_BAUD 9600
 
 
 int main(void) {
@@ -25,6 +26,7 @@ int main(void) {
     Led_init(0);	// Don't set LEDs at PORTD
 	Taster_init();
     Timer_init(16); // Init timer with 16MHZ clock
+	uart_init(9600);
 	sei();
 	
     uint8_t state_testBoard = 0;
@@ -35,6 +37,8 @@ int main(void) {
     Toggle PORTB every 500ms -> LEDs blink with 1 Hz, accuracy: +- 70 us
     (There could be a lag if timer_count was cleared, approximately every 65,5 seconds)
     */
+	
+	uart_send("Hallo Welt!!");
     while (1) {
 		
 		/*if (Taster2_get()) {
