@@ -18,9 +18,6 @@
 #include <avr/interrupt.h>
 
 
-#define MY_BAUD 9600
-
-
 int main(void) {
 	
     Led_init(0);	// Don't set LEDs at PORTD
