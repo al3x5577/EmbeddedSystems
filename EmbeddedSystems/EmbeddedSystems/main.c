@@ -38,7 +38,7 @@ int main(void) {
     (There could be a lag if timer_count was cleared, approximately every 65,5 seconds)
     */
 	
-	uart_send("Hallo Welt!!");
+	
     while (1) {
 		
 		/*if (Taster2_get()) {
@@ -63,7 +63,7 @@ int main(void) {
 			PORTB = 0x00;
 		}*/
         
-        
+        uart_send("Hallo Welt!!");
         trafficLight(0);
         //playground();
     }
