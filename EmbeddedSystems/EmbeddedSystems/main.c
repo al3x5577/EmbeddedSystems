@@ -37,7 +37,7 @@ int main(void) {
     Toggle PORTB every 500ms -> LEDs blink with 1 Hz, accuracy: +- 70 us
     (There could be a lag if timer_count was cleared, approximately every 65,5 seconds)
     */
-	
+    uint8_t aksfjbalsdkjb = 0;
 	
     while (1) {
 		
@@ -63,23 +63,31 @@ int main(void) {
 			PORTB = 0x00;
 		}*/
         
-        
-        if ( (Timer_getTick() - last_time) >= 500 ) {
-            last_time = Timer_getTick();
-            Led7_Off();
-            Led8_Off();
-            
-            if(uart_send("Hallo Welt!!") == -1) {
-                Led1_On();
+        if (aksfjbalsdkjb == 0) {
+            if ( (Timer_getTick() - last_time) >= 500 ) {
+                last_time = Timer_getTick();
+                
+                if(uart_send("Hallo Welt!!") == -1) {
+                    Led1_On();
+                }
+                
+                while ( !(UCSR0A & (1 << TXC0)) )
+                    ;
+                
+                Led7_On();
+                Led8_On();
+                aksfjbalsdkjb = 1;
             }
-            
-            while ( !(UCSR0A & (1 << TXC0)) )
-                ;
-            
-            Led7_On();
-            Led8_On();
-            
+        }else {
+            if ( (Timer_getTick() - last_time) >= 200 ) {
+                last_time = Timer_getTick();
+                Led7_Off();
+                Led8_Off();
+                aksfjbalsdkjb = 0;
+            }
         }
+        
+        
         
         //trafficLight(0);
         //playground();
