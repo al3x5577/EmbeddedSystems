@@ -86,7 +86,7 @@ int main(void) {
             }
         }*/
         
-        uart_send("Hallo asdfajn");
+        uart_send("Hallo asdfajns");
         //PORTB = 0x00;
         //PORTB = uart_recv();
         
