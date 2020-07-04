@@ -34,7 +34,7 @@ void uart_send(char* string) {
         ;
     
     // Write byte to transmit register
-    UDR0 = 0x2a;
+    UDR0 = 0x41;
     
     
 }
