@@ -69,7 +69,9 @@ int main(void) {
             Led7_Off();
             Led8_Off();
             
-            uart_send("Hallo Welt!!");
+            if(uart_send("Hallo Welt!!") == -1) {
+                Led1_On();
+            }
             
             while ( !(UCSR0A & (1 << TXC0)) )
                 ;

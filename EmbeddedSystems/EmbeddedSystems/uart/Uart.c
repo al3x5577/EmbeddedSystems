@@ -13,7 +13,7 @@ void uart_init(unsigned int baud) {
     
 }
 
-void uart_send(char* string) {
+int uart_send(char* string) {
     
     /*int len = strlen(string);
     
@@ -36,5 +36,8 @@ void uart_send(char* string) {
     // Write byte to transmit register
     UDR0 = 0x41;
     
-    
+    if ( !(UCSR0A & (1 << FE0)) ) {
+        return -1;
+    }
+    return 0;
 }
