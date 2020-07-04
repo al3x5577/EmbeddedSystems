@@ -33,7 +33,7 @@ void uart_send(char* string) {
 
 unsigned char uart_recv() {
     /* Wait for data to be received */
-    while ( !(UCSRnA & (1<<RXCn)) )
+    while ( !(UCSR0A & (1<<RXC0)) )
         ;
     /* Get and return received data from buffer */
     return UDR0;
