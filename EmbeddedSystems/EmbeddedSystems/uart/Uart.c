@@ -1,9 +1,10 @@
 
 #include "Uart.h"
 
-void uart_init(unsigned int baud) {
+void uart_init() {
     
     // Set baud rate
+    unsigned int baud = 103;
     UBRR0H = (unsigned char) (baud >> 8);
     UBRR0L = (unsigned char) baud;
 	
