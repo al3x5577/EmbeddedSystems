@@ -2,6 +2,16 @@
 #include "Uart.h"
 
 /**
+Ring-Buffer
+https://www.mikrocontroller.net/articles/FIFO
+*/
+struct Buffer {
+  unsigned char data[RING_BUFFER_UART_SIZE];
+  uint16_t read; // points to the oldest byte
+  uint16_t write; // points to the first free field
+} buffer = {{}, 0, 0};
+
+/**
  Initialisaton of UART-Port
  - 9600 baud
  - 8 bit data
@@ -27,14 +37,6 @@ void uart_init_isr() {
     
 }
 
-ISR(USART0_UDRE_vect){
-    if (data to send) {
-        send data
-    }else {
-        UCSR0A &= ~(1 << UDRE0);
-    }
-}
-
 /**
  Send a String to UART
  (function could be blocking for some time if a large string is passed)
@@ -53,8 +55,22 @@ void uart_send(char* string) {
         // Write byte to transmit register
         UDR0 = string[i];
     }
+}
+
+uint16_t uart_send_isr(char* string) {
     
+    int len = strlen(string);
     
+    // Iterate over string
+    for (int i = 0; i < len; i++) {
+        if (buff_put(string[i]) == 1) {
+            // Buffer overflow
+            return i++;
+        }
+    }
+    
+    UCSR0A |= (1 << UDRE0);
+    return 0;
 }
 
 /**
@@ -67,3 +83,67 @@ unsigned char uart_recv() {
     /* Get and return received data from buffer */
     return UDR0;
 }
+
+
+ISR(USART0_UDRE_vect){
+    unsigned char pByte;
+    if (buff_get(&pByte) == 0) {
+        UDR0 = pByte;
+    }else {
+        UCSR0A &= ~(1 << UDRE0);
+    }
+}
+
+
+
+/**
+ Puts a byte to the buffer
+ 
+ Return:
+ - BUFFER_FAIL: buffer overflow
+ - BUFFER_SUCCESS: byte is put in the buffer
+ */
+uint8_t buff_put(unsigned char byte)
+{
+
+  if ( ( buffer.write + 1 == buffer.read ) ||
+       ( buffer.read == 0 && buffer.write + 1 == BUFFER_SIZE ) )
+    return BUFFER_FAIL; // overflow
+
+  buffer.data[buffer.write] = byte;
+
+  buffer.write++;
+  if (buffer.write >= RING_BUFFER_UART_SIZE)
+    buffer.write = 0;
+
+  return BUFFER_SUCCESS;
+}
+
+//
+// Holt 1 Byte aus dem Ringbuffer, sofern mindestens eines abholbereit ist
+//
+// Returns:
+//     BUFFER_FAIL       der Ringbuffer ist leer. Es kann kein Byte geliefert werden.
+//     BUFFER_SUCCESS    1 Byte wurde geliefert
+//
+/**
+ Takes one byte out of the buffer
+ 
+ Return:
+ - BUFFER_FAIL: buffer empty
+ - BUFFER_SUCCESS: byte is pulled out and stored in pByte
+ */
+uint8_t buff_get(unsigned char *pByte)
+{
+  if (buffer.read == buffer.write)
+    return BUFFER_FAIL;
+
+  *pByte = buffer.data[buffer.read];
+
+  buffer.read++;
+  if (buffer.read >= RING_BUFFER_UART_SIZE)
+    buffer.read = 0;
+
+  return BUFFER_SUCCESS;
+}
+
