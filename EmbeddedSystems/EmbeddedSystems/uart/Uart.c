@@ -33,8 +33,9 @@ int uart_send(char* string) {
     while ( !(UCSR0A & (1 << UDRE0)) )
         ;
     
+    unsigned char data = 'A';
     // Write byte to transmit register
-    UDR0 = 0x41;
+    UDR0 = data;
     
     if ( !(UCSR0A & (1 << FE0)) ) {
         return -1;
