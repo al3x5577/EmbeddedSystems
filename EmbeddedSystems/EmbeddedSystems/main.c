@@ -88,6 +88,7 @@ int main(void) {
         }*/
         
         uart_send("Hallo asdfajn");
+        PORTB = 0x00
         PORTB = uart_recv();
         
         //trafficLight(0);

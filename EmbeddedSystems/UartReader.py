@@ -14,6 +14,9 @@ ser = serial.Serial(
 print("Connected to: " + ser.portstr + "\n")
 
 try:
+    txt = 'ABC'.encode('utf-8')
+    print(txt)
+    ser.write(txt)
     while True:
         r = ser.read()
         if len(r) > 0:
