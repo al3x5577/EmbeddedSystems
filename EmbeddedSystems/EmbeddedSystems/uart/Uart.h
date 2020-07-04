@@ -9,7 +9,9 @@
 void uart_init(unsigned int baud);
 
 
-int uart_send(char* string);
+void uart_send(char* string);
+
+unsigned char uart_recv(void);
 
 #endif /* MY_UART_H_ */
 

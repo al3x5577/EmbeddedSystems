@@ -89,7 +89,7 @@ int main(void) {
             }
         }*/
         
-        PORTB = 0xff;
+        PORTB = uart_recv();
         
         //trafficLight(0);
         //playground();

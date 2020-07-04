@@ -3,7 +3,7 @@ from time import sleep
 import serial
 
 ser = serial.Serial(
-    port='/dev/tty.usbserial-14210',
+    port='/dev/tty.usbserial-14430',
     baudrate=9600,
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
@@ -16,8 +16,8 @@ print("Connected to: " + ser.portstr + "\n")
 try:
     while True:
         r = ser.read()
-        print(r)
-        sleep(0.2)
+        if len(r) > 0:
+            print(r)
 except KeyboardInterrupt:
     ser.close()
     print("\nExit\n");

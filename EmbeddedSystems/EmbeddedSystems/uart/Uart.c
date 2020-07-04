@@ -13,9 +13,9 @@ void uart_init(unsigned int baud) {
     
 }
 
-int uart_send(char* string) {
+void uart_send(char* string) {
     
-    /*int len = strlen(string);
+    int len = strlen(string);
     
     // Iterate over string
     for (int i = 0; i < len; i++) {
@@ -26,19 +26,15 @@ int uart_send(char* string) {
         
         // Write byte to transmit register
         UDR0 = string[i];
-    }*/
+    }
     
     
-    // Wait for transmit register to be empty
-    while ( !(UCSR0A & (1 << UDRE0)) )
+}
+
+unsigned char uart_recv() {
+    /* Wait for data to be received */
+    while ( !(UCSRnA & (1<<RXCn)) )
         ;
-    
-    unsigned char data = 'A';
-    // Write byte to transmit register
-    UDR0 = data;
-    PORTB = data;
-    
-    while ( !(UCSR0A & (1 << UDRE0)) )
-        ;
-    return 0;
+    /* Get and return received data from buffer */
+    return UDR0;
 }
