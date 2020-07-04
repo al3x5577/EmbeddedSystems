@@ -28,67 +28,9 @@ int main(void) {
 	uart_init();
 	sei();
 	
-    uint8_t state_testBoard = 0;
-    uint16_t last_time = 0;
-	uint8_t  toggle_asdf = 1;
-    
-    /**
-    Toggle PORTB every 500ms -> LEDs blink with 1 Hz, accuracy: +- 70 us
-    (There could be a lag if timer_count was cleared, approximately every 65,5 seconds)
-    */
-	
     while (1) {
-		
-		/*if (Taster2_get()) {
-			toggle_asdf = !toggle_asdf;
-		}
-		
-		if (toggle_asdf) {
-			// Check if time difference is more than 500 ms
-			if ( (Timer_getTick() - last_time) >= 500 ) {
-				last_time = Timer_getTick();
-				
-				// toggle leds
-				if (state_testBoard) {
-					state_testBoard = 0;
-					PORTB = 0x00;
-					}else {
-					state_testBoard = 1;
-					PORTB = 0xFF;
-				}
-			}
-		}else {
-			PORTB = 0x00;
-		}*/
-        
-        /*if (aksfjbalsdkjb == 0) {
-            if ( (Timer_getTick() - last_time) >= 500 ) {
-                last_time = Timer_getTick();
-                
-                if(uart_send("Hallo Welt!!") == -1) {
-                    Led1_On();
-                }
-                
-                while ( !(UCSR0A & (1 << TXC0)) )
-                    ;
-                
-                Led7_On();
-                Led8_On();
-                Led2_Off();
-                aksfjbalsdkjb = 1;
-            }
-        }else {
-            if ( (Timer_getTick() - last_time) >= 200 ) {
-                last_time = Timer_getTick();
-                Led7_Off();
-                Led8_Off();
-                aksfjbalsdkjb = 0;
-            }
-        }*/
         
         uart_send("Hallo asdfajns\n");
-        //PORTB = 0x00;
-        //PORTB = uart_recv();
         
         //trafficLight(0);
         //playground();
