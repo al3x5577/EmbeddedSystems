@@ -36,6 +36,7 @@ int uart_send(char* string) {
     unsigned char data = 'A';
     // Write byte to transmit register
     UDR0 = data;
+    PORTB = data;
     
     while ( !(UCSR0A & (1 << UDRE0)) )
         ;
