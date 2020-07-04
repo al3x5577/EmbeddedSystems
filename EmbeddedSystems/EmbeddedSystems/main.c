@@ -76,6 +76,7 @@ int main(void) {
                 
                 Led7_On();
                 Led8_On();
+                Led2_Off();
                 aksfjbalsdkjb = 1;
             }
         }else {
