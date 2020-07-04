@@ -18,7 +18,7 @@
 #include <avr/interrupt.h>
 
 #define CLK_F_MHZ 16
-#define MY_BAUD_UART 9600
+#define MY_BAUD_UART 103
 
 int main(void) {
 	

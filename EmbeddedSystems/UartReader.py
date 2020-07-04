@@ -14,13 +14,14 @@ ser = serial.Serial(
 print("Connected to: " + ser.portstr + "\n")
 
 try:
-    txt = 'cxsasd'.encode('utf-8')
-    print(txt)
-    ser.write(txt)
+
     while True:
-        r = ser.read()
-        if len(r) > 0:
-            print(r)
+        print(bytes([0x2a]))
+        ser.write(bytes([0x2a]))
+        sleep(0.2)
+        #r = ser.read()
+        #if len(r) > 0:
+        #    print(r)
 except KeyboardInterrupt:
     ser.close()
     print("\nExit\n");
