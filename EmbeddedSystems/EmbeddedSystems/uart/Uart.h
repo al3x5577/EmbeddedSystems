@@ -3,7 +3,7 @@
 
 #include <avr/io.h>
 #include <string.h>
-
+#include <avr/interrupt.h>
 
 // Global interrrupt should be disabled while calling this function
 void uart_init(void);
