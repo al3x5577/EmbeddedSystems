@@ -15,7 +15,7 @@ void uart_init(unsigned int baud) {
 
 void uart_send(char* string) {
     
-    int len = strlen(string);
+    /*int len = strlen(string);
     
     // Iterate over string
     for (int i = 0; i < len; i++) {
@@ -26,8 +26,15 @@ void uart_send(char* string) {
         
         // Write byte to transmit register
         UDR0 = string[i];
-    }
+    }*/
     
+    
+    // Wait for transmit register to be empty
+    while ( !(UCSR0A & (1 << UDRE0)) )
+        ;
+    
+    // Write byte to transmit register
+    UDR0 = 0x2a;
     
     
 }

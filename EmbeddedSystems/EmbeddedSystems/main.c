@@ -17,13 +17,16 @@
 #include "uart/Uart.h"
 #include <avr/interrupt.h>
 
+#define CLK_F_MHZ 16
+#define MY_BAUD_UART 9600
 
 int main(void) {
 	
+    cli();
     Led_init(0);	// Don't set LEDs at PORTD
 	Taster_init();
-    Timer_init(16); // Init timer with 16MHZ clock
-	uart_init(9600);
+    Timer_init(CLK_F_MHZ); // Init timer with 16MHZ clock
+	uart_init(MY_BAUD_UART);
 	sei();
 	
     uint8_t state_testBoard = 0;
