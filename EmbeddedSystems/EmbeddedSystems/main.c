@@ -37,8 +37,6 @@ int main(void) {
     Toggle PORTB every 500ms -> LEDs blink with 1 Hz, accuracy: +- 70 us
     (There could be a lag if timer_count was cleared, approximately every 65,5 seconds)
     */
-    
-    uart_send("");
 	
     while (1) {
 		
@@ -89,6 +87,7 @@ int main(void) {
             }
         }*/
         
+        uart_send("Hallo asdfajn");
         PORTB = uart_recv();
         
         //trafficLight(0);
