@@ -1,3 +1,5 @@
+from time import sleep
+
 import serial
 
 ser = serial.Serial(
@@ -14,7 +16,8 @@ print("Connected to: " + ser.portstr + "\n")
 try:
     while True:
         r = ser.read()
-        print (r)
+        print(r)
+        sleep(0.2)
 except KeyboardInterrupt:
     ser.close()
     print("\nExit\n");

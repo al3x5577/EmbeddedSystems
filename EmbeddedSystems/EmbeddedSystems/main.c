@@ -37,7 +37,8 @@ int main(void) {
     Toggle PORTB every 500ms -> LEDs blink with 1 Hz, accuracy: +- 70 us
     (There could be a lag if timer_count was cleared, approximately every 65,5 seconds)
     */
-    uint8_t aksfjbalsdkjb = 0;
+    
+    uart_send("");
 	
     while (1) {
 		
@@ -63,7 +64,7 @@ int main(void) {
 			PORTB = 0x00;
 		}*/
         
-        if (aksfjbalsdkjb == 0) {
+        /*if (aksfjbalsdkjb == 0) {
             if ( (Timer_getTick() - last_time) >= 500 ) {
                 last_time = Timer_getTick();
                 
@@ -86,9 +87,9 @@ int main(void) {
                 Led8_Off();
                 aksfjbalsdkjb = 0;
             }
-        }
+        }*/
         
-        
+        PORTB = 0xff;
         
         //trafficLight(0);
         //playground();
