@@ -7,7 +7,7 @@
 
 // Global interrrupt should be disabled while calling this function
 void uart_init(void);
-
+void uart_init_isr(void);
 
 void uart_send(char* string);
 
