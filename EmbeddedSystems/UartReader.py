@@ -19,7 +19,7 @@ try:
         #print(bytes([0x2a]))
         #ser.write(bytes([0x2a]))
         sleep(0.2)
-        r = ser.read(14)
+        r = ser.readline()
         if len(r) > 0:
             print(r)
 except KeyboardInterrupt:
