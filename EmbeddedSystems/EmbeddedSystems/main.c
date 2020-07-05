@@ -32,7 +32,7 @@ int main(void) {
 	
     while (1) {
         
-        if((Timer_getTick() - timeVarMain) >= 200){
+        if((Timer_getTick() - timeVarMain) >= 50){
             timeVarMain = Timer_getTick();
             
             if (uart_send_isr("Hallo Welt!\n") == 0) {
