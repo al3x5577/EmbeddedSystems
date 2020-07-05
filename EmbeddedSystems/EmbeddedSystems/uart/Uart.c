@@ -22,7 +22,7 @@ uint8_t buff_put(unsigned char byte)
 {
 
   if ( ( buffer.write + 1 == buffer.read ) ||
-       ( buffer.read == 0 && buffer.write + 1 == BUFFER_SIZE ) )
+       ( buffer.read == 0 && buffer.write + 1 == RING_BUFFER_UART_SIZE ) )
     return BUFFER_FAIL; // overflow
 
   buffer.data[buffer.write] = byte;
