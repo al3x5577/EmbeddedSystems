@@ -35,7 +35,7 @@ int main(void) {
         if((Timer_getTick() - timeVarMain) >= 50){
             timeVarMain = Timer_getTick();
             
-            if (uart_send_isr("Hallo Welt!\n") == 0) {
+            if (uart_send_isr("Hallo Welt!\n") == 0 && uart_send_isr("Kannst du mich hören?\n") == 0 ) {
                 Led6_On();
                 Led1_Off();
             }else {
