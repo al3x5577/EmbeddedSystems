@@ -81,6 +81,11 @@ void uart_init() {
     UCSR0C = (1 << UCSZ01) | (1 << UCSZ00); // b00000110 -> async USART, no parity, 1 stop-bit, 8 bit (set UCSZn2 in UCSR0C to 0)
     
 }
+/**
+ Initialisiation with ISR
+ Interrupts:
+ - USART Data Register Empty interrupt
+ */
 void uart_init_isr() {
     uart_init();
     
@@ -109,6 +114,17 @@ void uart_send(char* string) {
     }
 }
 
+/**
+ Non blocking alternative to uart_send.
+ (Initialisation with ISR has to be called before this!)
+ 
+ String will be stored in buffer (a ring buffer). If buffer is full, theposition of the byte
+ in string where the buffer was full is returned
+ 
+ Returns:
+ - 0 if successful
+ - position in string +1 where the error occured
+ */
 uint16_t uart_send_isr(char* string) {
     
     int len = strlen(string);
@@ -116,11 +132,16 @@ uint16_t uart_send_isr(char* string) {
     // Iterate over string
     for (int i = 0; i < len; i++) {
         if (buff_put(string[i]) == 1) {
+            
+            // Enable ISR anyways so that buffer will get empty
+            UCSR0A |= (1 << UDRE0);
+            
             // Buffer overflow
             return i++;
         }
     }
     
+    // Enable ISR
     UCSR0A |= (1 << UDRE0);
     return 0;
 }
@@ -136,12 +157,17 @@ unsigned char uart_recv() {
     return UDR0;
 }
 
-
+/**
+ ISR for USART Data Register Empty flag
+ */
 ISR(USART0_UDRE_vect){
     unsigned char pByte;
+    // Pull one byte from buffer and store it in pByte
     if (buff_get(&pByte) == 0) {
+        // Send byte
         UDR0 = pByte;
     }else {
+        // Buffer empty: disable interrupt
         UCSR0A &= ~(1 << UDRE0);
     }
 }
