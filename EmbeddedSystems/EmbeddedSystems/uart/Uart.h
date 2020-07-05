@@ -19,6 +19,14 @@ void uart_init(void);
 void uart_init_isr(void);
 
 void uart_send(char* string);
+/**
+ Function is not blocking! string will be stored in buffer and buffer will be send by ISR
+ 
+ Returns:
+ - 0 if successful
+ - position in string +1 where the error occured
+ */
+uint16_t uart_send_isr(char* string);
 
 unsigned char uart_recv(void);
 

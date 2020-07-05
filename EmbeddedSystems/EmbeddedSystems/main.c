@@ -25,12 +25,12 @@ int main(void) {
     Led_init(0);	// Don't set LEDs at PORTD
 	Taster_init();
     Timer_init(CLK_F_MHZ); // Init timer with 16MHZ clock
-	uart_init();
+	uart_init_isr();
 	sei();
 	
     while (1) {
         
-        uart_send("Hallo asdfajns\n");
+        uart_send_isr("Hallo Welt!\n");
         
         //trafficLight(0);
         //playground();
