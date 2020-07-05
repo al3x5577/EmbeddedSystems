@@ -21,8 +21,8 @@ struct Buffer {
 uint8_t buff_put(unsigned char byte)
 {
 
-  if ( ( buffer.write + 1 == buffer.read ) ||
-       ( buffer.read == 0 && buffer.write + 1 == RING_BUFFER_UART_SIZE ) )
+  if ( ( (buffer.write + 1) == buffer.read ) ||
+       ( buffer.read == 0 && (buffer.write + 1) == RING_BUFFER_UART_SIZE ) )
     return BUFFER_FAIL; // overflow
 
   buffer.data[buffer.write] = byte;
@@ -51,7 +51,7 @@ uint8_t buff_put(unsigned char byte)
 uint8_t buff_get(unsigned char *pByte)
 {
   if (buffer.read == buffer.write)
-    return BUFFER_FAIL;
+    return BUFFER_FAIL; // empty
 
   *pByte = buffer.data[buffer.read];
 
