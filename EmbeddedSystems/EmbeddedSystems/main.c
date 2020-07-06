@@ -37,7 +37,7 @@ int main(void) {
 	
     while (1) {
         
-        while ((data_s = uart_get_data()) && i <=49) {
+        while ((data_s = uart_get_data()) && i <= 48) {
             data[i] = data_s;
             i++;
         }
