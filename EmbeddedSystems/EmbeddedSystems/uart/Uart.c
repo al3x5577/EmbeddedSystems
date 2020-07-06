@@ -87,7 +87,6 @@ void uart_init() {
  - USART Data Register Empty interrupt
  */
 void uart_init_isr() {
-#define __UART_INIT_WITH_ISR__
     uart_init();
     
     // Data Register Empty Interrupt enable
@@ -127,9 +126,6 @@ void uart_send(char* string) {
  - position in string +1 where the error occured
  */
 uint16_t uart_send_isr(char* string) {
-#ifndef __UART_INIT_WITH_ISR__
-#warning "UART is initialised without ISR. Call uart_init_isr()!"
-#endif
     
     int len = strlen(string);
     
