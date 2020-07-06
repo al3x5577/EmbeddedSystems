@@ -29,7 +29,6 @@ int main(void) {
 	sei();
     
     uint16_t timeVarMain = 0;
-	
     while (1) {
         
         if((Timer_getTick() - timeVarMain) >= 100){
