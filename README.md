@@ -55,7 +55,7 @@ There are two options when using UART:
 1. Without ISR:
 Call uart_init(). Send data with uart_send(). uart_send() is blocking. 
 
-2. With ISR
+2. With ISR:
 Call uart_init_isr(). Send data with uart_send_isr(). Data will be stored in a ring-buffer with 512 byte space. For sendig Data Register Empty Interrupt is used.
 
 ### Traffic Light
