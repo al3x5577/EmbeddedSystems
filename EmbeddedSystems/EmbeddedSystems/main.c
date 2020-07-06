@@ -95,7 +95,8 @@ int main(void) {
                     break;
             }
         }
-        
+        i = 0;
+		
         /*
          // UART Echo
          while ((data_s = uart_get_data()) && i <= 48) {
