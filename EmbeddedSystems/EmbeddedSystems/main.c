@@ -8,6 +8,7 @@
 #include <avr/io.h>
 #define F_CPU 1000000
 #include <util/delay.h>
+#include <stdio.h>
 #include <string.h>
 
 #include "gpio/Taster.h"
@@ -30,12 +31,14 @@ int main(void) {
 	sei();
     
     uint16_t timeVarMain = 0;
+	char data;
+	
     while (1) {
         
-        if ((char data = uart_get_data())) {
+        if ((data = uart_get_data())) {
             char str[50];
             
-            sprintf(str, "Received: %c\n", data)
+            sprintf(str, "Received: %c\n", data);
             
             uart_send_isr(str);
         }

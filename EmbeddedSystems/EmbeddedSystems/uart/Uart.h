@@ -1,7 +1,14 @@
 #ifndef MY_UART_H_
 #define MY_UART_H_
 
+#include <avr/io.h>
+#include <string.h>
+#include <avr/interrupt.h>
 
+/**
+Ring-Buffer
+https://www.mikrocontroller.net/articles/FIFO
+*/
 // Buffer
 #ifndef RING_BUFFER_UART_SIZE
 #define RING_BUFFER_UART_SIZE 512   // ATmega1284P has 16kB RAM
@@ -9,10 +16,11 @@
 #define BUFFER_FAIL     1
 #define BUFFER_SUCCESS  0
 
-
-#include <avr/io.h>
-#include <string.h>
-#include <avr/interrupt.h>
+struct Buffer {
+	unsigned char data[RING_BUFFER_UART_SIZE];
+	uint16_t read; // points to the oldest byte
+	uint16_t write; // points to the first free field
+} BUFFER_UART;
 
 /**
  (Global interrrupt should be disabled while calling this function)

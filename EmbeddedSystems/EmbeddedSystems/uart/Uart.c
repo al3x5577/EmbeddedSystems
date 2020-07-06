@@ -1,16 +1,6 @@
 
 #include "Uart.h"
 
-/**
-Ring-Buffer
-https://www.mikrocontroller.net/articles/FIFO
-*/
-struct Buffer {
-  unsigned char data[RING_BUFFER_UART_SIZE];
-  uint16_t read; // points to the oldest byte
-  uint16_t write; // points to the first free field
-} BUFFER_UART;
-
 struct Buffer bufferSend = {{}, 0, 0};
 struct Buffer bufferRecv = {{}, 0, 0};
 
@@ -176,6 +166,7 @@ unsigned char uart_recv() {
 }
 
 unsigned char uart_get_data() {
+	unsigned char pByte;
     // Pull one byte from buffer and store it in pByte
     if (buff_get(&pByte, &bufferRecv) == 0) {
         // Return byte
@@ -202,5 +193,5 @@ ISR(USART0_UDRE_vect){
 
 ISR(USART0_RX_vect){
     // Put received byte to bufferRecv (will read but don't save the value if buffer overflows)
-    buff_put(UDR0, bufferRecv);
+    buff_put(UDR0, &bufferRecv);
 }
