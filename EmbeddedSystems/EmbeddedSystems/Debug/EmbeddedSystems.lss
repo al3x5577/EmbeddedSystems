@@ -373,7 +373,6 @@ int main(void) {
     uint16_t timeVarMain = 0;
  214:	1a 82       	std	Y+2, r1	; 0x02
  216:	19 82       	std	Y+1, r1	; 0x01
-	#warning "This is a Warning!!!"
     while (1) {
         
         if((Timer_getTick() - timeVarMain) >= 100){
