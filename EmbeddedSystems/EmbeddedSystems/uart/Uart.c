@@ -9,10 +9,10 @@ struct Buffer {
   unsigned char data[RING_BUFFER_UART_SIZE];
   uint16_t read; // points to the oldest byte
   uint16_t write; // points to the first free field
-} buffer;
+} BUFFER_UART;
 
-buffer bufferSend = {{}, 0, 0};
-buffer bufferRecv = {{}, 0, 0};
+struct Buffer bufferSend = {{}, 0, 0};
+struct Buffer bufferRecv = {{}, 0, 0};
 
 /**
  Puts a byte to the buffer
@@ -21,7 +21,7 @@ buffer bufferRecv = {{}, 0, 0};
  - BUFFER_FAIL: buffer overflow
  - BUFFER_SUCCESS: byte is put in the buffer
  */
-uint8_t buff_put(unsigned char byte, buffer buf)
+uint8_t buff_put(unsigned char byte, struct Buffer buf)
 {
 
   if ( ( (buf.write + 1) == buf.read ) ||
@@ -52,7 +52,7 @@ uint8_t buff_put(unsigned char byte, buffer buf)
  - BUFFER_FAIL: buffer empty
  - BUFFER_SUCCESS: byte is pulled out and stored in pByte
  */
-uint8_t buff_get_send(unsigned char *pByte, buffer buf)
+uint8_t buff_get(unsigned char *pByte, struct Buffer buf)
 {
   if (buf.read == buf.write)
     return BUFFER_FAIL; // empty
@@ -97,7 +97,7 @@ void uart_init_isr() {
     UCSR0B |= (1 << UDRIE0);
     
     // Receive Complete Interrupt enable
-    UCSR0B |= (1 << RXCIE0);
+    //UCSR0B |= (1 << RXCIE0);
     
 }
 
