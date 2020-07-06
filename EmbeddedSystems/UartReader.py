@@ -13,16 +13,50 @@ ser = serial.Serial(
 
 print("Connected to: " + ser.portstr + "\n")
 
+
+def read():
+    r = ser.readline()
+    if len(r) > 0:
+        print(r)
+
+
 try:
 
     while True:
-        #print(bytes([0x2a]))
-        #ser.write(bytes([0x2a]))
-        ser.write(bytes('Hallo Welt!!!!!!!! '.encode('UTF-8')))
+
+        ser.write(bytes('11'.encode('UTF-8')))
         sleep(0.5)
-        r = ser.readline()
-        if len(r) > 0:
-            print(r)
+        read()
+
+        ser.write(bytes('21'.encode('UTF-8')))
+        sleep(0.5)
+        read()
+
+        ser.write(bytes('31'.encode('UTF-8')))
+        sleep(0.5)
+        read()
+
+        ser.write(bytes('41'.encode('UTF-8')))
+        sleep(0.5)
+        read()
+
+        ser.write(bytes('10'.encode('UTF-8')))
+        sleep(0.5)
+        read()
+
+        ser.write(bytes('20'.encode('UTF-8')))
+        sleep(0.5)
+        read()
+
+        ser.write(bytes('30'.encode('UTF-8')))
+        sleep(0.5)
+        read()
+
+        ser.write(bytes('40'.encode('UTF-8')))
+        sleep(0.5)
+        read()
+
+
 except KeyboardInterrupt:
     ser.close()
     print("\nExit\n");
