@@ -41,7 +41,7 @@ int main(void) {
             data[i] = data_s;
             i++;
         }
-        data[i] = '\0';
+        data[i+1] = '\0';
         
         if (i > 0) {
             char str[65];

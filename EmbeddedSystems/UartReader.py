@@ -14,11 +14,13 @@ ser = serial.Serial(
 print("Connected to: " + ser.portstr + "\n")
 
 try:
+    ser.write(bytes(
+        'Hallo Welt!!!!!!!! Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetu'.encode(
+            'UTF-8')))
 
     while True:
         #print(bytes([0x2a]))
         #ser.write(bytes([0x2a]))
-        ser.write(bytes('Hallo Welt!!!!!!!!'.encode('UTF-8')))
         sleep(0.5)
         r = ser.readline()
         if len(r) > 0:
