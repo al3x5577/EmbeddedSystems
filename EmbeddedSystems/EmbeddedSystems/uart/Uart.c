@@ -9,7 +9,10 @@ struct Buffer {
   unsigned char data[RING_BUFFER_UART_SIZE];
   uint16_t read; // points to the oldest byte
   uint16_t write; // points to the first free field
-} buffer = {{}, 0, 0};
+} buffer;
+
+buffer bufferSend = {{}, 0, 0};
+buffer bufferRecv = {{}, 0, 0};
 
 /**
  Puts a byte to the buffer
@@ -18,19 +21,19 @@ struct Buffer {
  - BUFFER_FAIL: buffer overflow
  - BUFFER_SUCCESS: byte is put in the buffer
  */
-uint8_t buff_put(unsigned char byte)
+uint8_t buff_put(unsigned char byte, buffer buf)
 {
 
-  if ( ( (buffer.write + 1) == buffer.read ) ||
-       ( buffer.read == 0 && (buffer.write + 1) == RING_BUFFER_UART_SIZE ) )
+  if ( ( (buf.write + 1) == buf.read ) ||
+       ( buf.read == 0 && (buf.write + 1) == RING_BUFFER_UART_SIZE ) )
     return BUFFER_FAIL; // overflow
 
-  buffer.data[buffer.write] = byte;
+  buf.data[buf.write] = byte;
 
-  buffer.write++;
+  buf.write++;
     
-  if (buffer.write >= RING_BUFFER_UART_SIZE)
-    buffer.write = 0;
+  if (buf.write >= RING_BUFFER_UART_SIZE)
+    buf.write = 0;
 
   return BUFFER_SUCCESS;
 }
@@ -49,16 +52,16 @@ uint8_t buff_put(unsigned char byte)
  - BUFFER_FAIL: buffer empty
  - BUFFER_SUCCESS: byte is pulled out and stored in pByte
  */
-uint8_t buff_get(unsigned char *pByte)
+uint8_t buff_get_send(unsigned char *pByte, buffer buf)
 {
-  if (buffer.read == buffer.write)
+  if (buf.read == buf.write)
     return BUFFER_FAIL; // empty
 
-  *pByte = buffer.data[buffer.read];
+  *pByte = buf.data[buf.read];
 
-  buffer.read++;
-  if (buffer.read >= RING_BUFFER_UART_SIZE)
-    buffer.read = 0;
+  buf.read++;
+  if (buf.read >= RING_BUFFER_UART_SIZE)
+    buf.read = 0;
 
   return BUFFER_SUCCESS;
 }
@@ -92,6 +95,9 @@ void uart_init_isr() {
     
     // Data Register Empty Interrupt enable
     UCSR0B |= (1 << UDRIE0);
+    
+    // Receive Complete Interrupt enable
+    UCSR0B |= (1 << RXCIE0);
     
 }
 
@@ -132,7 +138,7 @@ uint16_t uart_send_isr(char* string) {
     
     // Iterate over string
     for (int i = 0; i < len; i++) {
-        if (buff_put(string[i]) == 1) {
+        if (buff_put(string[i], bufferSend) == 1) {
             
             // Enable ISR anyways so that buffer will get empty
             UCSR0A |= (1 << UDRE0);
@@ -164,11 +170,15 @@ unsigned char uart_recv() {
 ISR(USART0_UDRE_vect){
     unsigned char pByte;
     // Pull one byte from buffer and store it in pByte
-    if (UDR0 == 0 && buff_get(&pByte) == 0) {
+    if (UDR0 == 0 && buff_get(&pByte, bufferSend) == 0) {
         // Send byte
         UDR0 = pByte;
     }else {
         // Buffer empty: disable interrupt
         UCSR0A &= ~(1 << UDRE0);
     }
+}
+
+ISR(USART0_RX_vect){
+    
 }
