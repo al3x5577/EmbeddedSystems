@@ -55,5 +55,10 @@ Reads one byte from UART-Port and returns it
 */
 unsigned char uart_recv(void);
 
+/**
+Returns 1 if there is data in the buffer, 0 if not
+*/
+uint8_t buf_available(struct Buffer *buf);
+
 #endif /* MY_UART_H_ */
 

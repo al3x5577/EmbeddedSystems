@@ -66,6 +66,17 @@ uint8_t buff_get(unsigned char *pByte, struct Buffer *buf)
   return BUFFER_SUCCESS;
 }
 
+/**
+ Returns 1 if there is data in the buffer, 0 if not
+ */
+uint8_t buf_available(struct Buffer *buf){
+    if (buf->read == buf->write){
+        return 0; // empty
+    }else {
+        return 1;
+    }
+}
+
 
 /**
  Initialisaton of UART-Port
@@ -97,7 +108,7 @@ void uart_init_isr() {
     UCSR0B |= (1 << UDRIE0);
     
     // Receive Complete Interrupt enable
-    //UCSR0B |= (1 << RXCIE0);
+    UCSR0B |= (1 << RXCIE0);
     
 }
 
@@ -164,13 +175,23 @@ unsigned char uart_recv() {
     return UDR0;
 }
 
+unsigned char uart_get_data() {
+    // Pull one byte from buffer and store it in pByte
+    if (buff_get(&pByte, &bufferRecv) == 0) {
+        // Return byte
+        return pByte;
+    }else {
+        return 0;
+    }
+}
+
 /**
  ISR for USART Data Register Empty flag
  */
 ISR(USART0_UDRE_vect){
     unsigned char pByte;
     // Pull one byte from buffer and store it in pByte
-    if (UDR0 == 0 && buff_get(&pByte, &bufferSend) == 0) {
+    if (buff_get(&pByte, &bufferSend) == 0) {
         // Send byte
         UDR0 = pByte;
     }else {
@@ -180,5 +201,6 @@ ISR(USART0_UDRE_vect){
 }
 
 ISR(USART0_RX_vect){
-    
+    // Put received byte to bufferRecv (will read but don't save the value if buffer overflows)
+    buff_put(UDR0, bufferRecv);
 }
