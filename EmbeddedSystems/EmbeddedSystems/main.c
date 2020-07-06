@@ -31,14 +31,22 @@ int main(void) {
 	sei();
     
     uint16_t timeVarMain = 0;
-	char data;
+    char data_s;
+	char data[50];
+    int i = 0;
 	
     while (1) {
         
-        if ((data = uart_get_data())) {
-            char str[50];
+        while ((data_s = uart_get_data()) && i <=49) {
+            data[i] = data_s;
+            i++;
+        }
+        data[i] = '\0';
+        
+        if () {
+            char str[65];
             
-            sprintf(str, "Received: %c\n", data);
+            sprintf(str, "Received: %s\n", data);
             
             uart_send_isr(str);
         }
