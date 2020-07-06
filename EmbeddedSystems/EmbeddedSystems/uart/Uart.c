@@ -21,19 +21,19 @@ struct Buffer bufferRecv = {{}, 0, 0};
  - BUFFER_FAIL: buffer overflow
  - BUFFER_SUCCESS: byte is put in the buffer
  */
-uint8_t buff_put(unsigned char byte, struct Buffer buf)
+uint8_t buff_put(unsigned char byte, struct Buffer *buf)
 {
 
-  if ( ( (buf.write + 1) == buf.read ) ||
-       ( buf.read == 0 && (buf.write + 1) == RING_BUFFER_UART_SIZE ) )
+  if ( ( (buf->write + 1) == buf->read ) ||
+       ( buf->read == 0 && (buf->write + 1) == RING_BUFFER_UART_SIZE ) )
     return BUFFER_FAIL; // overflow
 
-  buf.data[buf.write] = byte;
+  buf->data[buf->write] = byte;
 
-  buf.write++;
+  buf->write++;
     
-  if (buf.write >= RING_BUFFER_UART_SIZE)
-    buf.write = 0;
+  if (buf->write >= RING_BUFFER_UART_SIZE)
+    buf->write = 0;
 
   return BUFFER_SUCCESS;
 }
@@ -52,16 +52,16 @@ uint8_t buff_put(unsigned char byte, struct Buffer buf)
  - BUFFER_FAIL: buffer empty
  - BUFFER_SUCCESS: byte is pulled out and stored in pByte
  */
-uint8_t buff_get(unsigned char *pByte, struct Buffer buf)
+uint8_t buff_get(unsigned char *pByte, struct Buffer *buf)
 {
-  if (buf.read == buf.write)
+  if (buf->read == buf->write)
     return BUFFER_FAIL; // empty
 
-  *pByte = buf.data[buf.read];
+  *pByte = buf->data[buf->read];
 
-  buf.read++;
-  if (buf.read >= RING_BUFFER_UART_SIZE)
-    buf.read = 0;
+  buf->read++;
+  if (buf->read >= RING_BUFFER_UART_SIZE)
+    buf->read = 0;
 
   return BUFFER_SUCCESS;
 }
@@ -138,7 +138,7 @@ uint16_t uart_send_isr(char* string) {
     
     // Iterate over string
     for (int i = 0; i < len; i++) {
-        if (buff_put(string[i], bufferSend) == 1) {
+        if (buff_put(string[i], &bufferSend) == 1) {
             
             // Enable ISR anyways so that buffer will get empty
             UCSR0A |= (1 << UDRE0);
@@ -170,7 +170,7 @@ unsigned char uart_recv() {
 ISR(USART0_UDRE_vect){
     unsigned char pByte;
     // Pull one byte from buffer and store it in pByte
-    if (UDR0 == 0 && buff_get(&pByte, bufferSend) == 0) {
+    if (UDR0 == 0 && buff_get(&pByte, &bufferSend) == 0) {
         // Send byte
         UDR0 = pByte;
     }else {
