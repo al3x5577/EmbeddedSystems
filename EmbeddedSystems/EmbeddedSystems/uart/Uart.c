@@ -126,6 +126,9 @@ void uart_send(char* string) {
  - position in string +1 where the error occured
  */
 uint16_t uart_send_isr(char* string) {
+#ifndef __INIT_WITH_ISR__
+#warning "UART is initialised without ISR. Call uart_init_isr()!"
+#endif
     
     int len = strlen(string);
     
