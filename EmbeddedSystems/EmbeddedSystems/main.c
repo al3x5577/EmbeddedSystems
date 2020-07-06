@@ -43,13 +43,15 @@ int main(void) {
         }
         data[i] = '\0';
         
-        if () {
+        if (i > 0) {
             char str[65];
             
             sprintf(str, "Received: %s\n", data);
             
             uart_send_isr(str);
         }
+        
+        i = 0;
         
         /*if((Timer_getTick() - timeVarMain) >= 100){
             timeVarMain = Timer_getTick();
