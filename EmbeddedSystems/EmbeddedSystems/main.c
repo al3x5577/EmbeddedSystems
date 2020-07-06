@@ -8,6 +8,7 @@
 #include <avr/io.h>
 #define F_CPU 1000000
 #include <util/delay.h>
+#include <string.h>
 
 #include "gpio/Taster.h"
 #include "gpio/Led.h"
@@ -31,7 +32,15 @@ int main(void) {
     uint16_t timeVarMain = 0;
     while (1) {
         
-        if((Timer_getTick() - timeVarMain) >= 100){
+        if ((char data = uart_get_data())) {
+            char str[50];
+            
+            sprintf(str, "Received: %c\n", data)
+            
+            uart_send_isr(str);
+        }
+        
+        /*if((Timer_getTick() - timeVarMain) >= 100){
             timeVarMain = Timer_getTick();
             
             if (uart_send_isr("Hallo Welt!\n") == 0 && uart_send_isr("Kannst du mich hoeren?\n") == 0 && uart_send_isr("Das sieht sehr gut aus!!!!\n") == 0 ) {
@@ -41,7 +50,7 @@ int main(void) {
                 Led6_Off();
                 Led1_On();
             }
-        }
+        }*/
         
         //trafficLight(0);
         //playground();

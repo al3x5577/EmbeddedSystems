@@ -60,5 +60,7 @@ Returns 1 if there is data in the buffer, 0 if not
 */
 uint8_t buf_available(struct Buffer *buf);
 
+unsigned char uart_get_data(void);
+
 #endif /* MY_UART_H_ */
 
