@@ -28,6 +28,7 @@ uint8_t buff_put(unsigned char byte)
   buffer.data[buffer.write] = byte;
 
   buffer.write++;
+    
   if (buffer.write >= RING_BUFFER_UART_SIZE)
     buffer.write = 0;
 
@@ -163,7 +164,7 @@ unsigned char uart_recv() {
 ISR(USART0_UDRE_vect){
     unsigned char pByte;
     // Pull one byte from buffer and store it in pByte
-    if (buff_get(&pByte) == 0) {
+    if (UDR0 == 0 && buff_get(&pByte) == 0) {
         // Send byte
         UDR0 = pByte;
     }else {
