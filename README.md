@@ -49,6 +49,15 @@ Timer0 triggeres an TIMER0_COMPA_vect interrupt every 1 ms. ISR increments an ui
 
 Timer_init() can either write directly to the registers or use a struct to write to the registers. To change behavior, change the function call inside Timer_init(). Default: initialise without struct.
 
+### UART
+There are two options when using UART:
+
+1. Without ISR:
+Call uart_init(). Send data with uart_send(). uart_send() is blocking. 
+
+2. With ISR
+Call uart_init_isr(). Send data with uart_send_isr(). Data will be stored in a ring-buffer with 512 byte space. For sendig Data Register Empty Interrupt is used.
+
 ### Traffic Light
 (only Task 2)
 Traffic Light state machine. There is one traffic light for cars and one for people. Normal state: cars can go, people have to wait. Button1 triggers state change. If the traffic light switched back to cars can go, the button has up to 30 sec delay until trigger will take effect.
