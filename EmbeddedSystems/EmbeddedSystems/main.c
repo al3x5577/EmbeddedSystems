@@ -49,17 +49,17 @@ int main(void) {
 			
             switch (data[0]) {
                 case '1':
-                    if (data[1]) {
+                    if (data[1] == '1') {
                         Led1_On();
                         uart_send_isr("Led1 On");
-                    }else {
+                    }else if (data[1] == '0') {
                         Led1_Off();
                         uart_send_isr("Led1 Off");
                     }
                     break;
                     
                 case '2':
-                    if (data[1]) {
+                    if (data[1] == '1') {
                         Led2_On();
                         uart_send_isr("Led2 On");
                     }else {
@@ -69,7 +69,7 @@ int main(void) {
                     break;
                     
                 case '3':
-                    if (data[1]) {
+                    if (data[1] == '1') {
                         Led3_On();
                         uart_send_isr("Led3 On");
                     }else {
@@ -79,7 +79,7 @@ int main(void) {
                     break;
                     
                 case '4':
-                    if (data[1]) {
+                    if (data[1] == '1') {
                         Led4_On();
                         uart_send_isr("Led4 On");
                     }else {
