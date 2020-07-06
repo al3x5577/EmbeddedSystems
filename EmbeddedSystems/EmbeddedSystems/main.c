@@ -34,6 +34,7 @@ int main(void) {
     char data_s;
     char data[50] = {0};
     int i = 0;
+	char str[65];
 	
     while (1) {
         
@@ -45,6 +46,7 @@ int main(void) {
         
         
         if (i > 0) {
+			
             switch (data[0]) {
                 case 1:
                     if (data[1]) {
@@ -87,7 +89,7 @@ int main(void) {
                     break;
                     
                 default:
-                    char str[65];
+                    
                     sprintf(str, "Received: %s\n", data);
                     uart_send_isr(str);
                     break;
