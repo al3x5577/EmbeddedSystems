@@ -24,7 +24,7 @@ time = 0.7
 
 try:
 
-    while True:
+    while False:
 
         ser.write(bytes('11'.encode('UTF-8')))
         sleep(time)
@@ -58,6 +58,9 @@ try:
         sleep(time)
         read()
 
+    while True:
+        read()
+        sleep(1.5)
 
 except KeyboardInterrupt:
     ser.close()

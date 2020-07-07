@@ -28,7 +28,7 @@ void adc_init() {
 }
 
 uint32_t adc_get_LM35() {
-    if (LM35_Array[index_LM35] == 0) {
+    if (LM35_Array[7] == 0) {
         return 0; // Not enoght data in Array
     }
     
@@ -43,7 +43,7 @@ uint32_t adc_get_LM35() {
 }
 
 uint32_t adc_get_Poti() {
-    if (Poti_Array[index_Poti] == 0) {
+    if (Poti_Array[7] == 0) {
         return 0; // Not enoght data in Array
     }
     
@@ -59,7 +59,7 @@ uint32_t adc_get_Poti() {
 
 ISR(ADC_vect){
     volatile uint16_t res = ADC;
-    
+    Led6_On();
     switch (pin) {
         case Temperatur:
             if (index_LM35 >= 8 || index_LM35 == 0) {
