@@ -3,15 +3,10 @@
 
 #include "adc.h"
 
-enum adc_select {
-    Temperatur = 0,
-    Poti = 1
-} pin = 0;
-
 uint16_t LM35_Array[8] = {0};
-uint8_t index_LM35 = 0;
+uint8_t index_LM35 = 110;
 uint16_t Poti_Array[8] = {0};
-uint8_t index_Poti = 0;
+uint8_t index_Poti = 110;
 
 void adc_init() {
     ADMUX = 0;  // AREF, Right Adjust, ADC0
@@ -64,27 +59,29 @@ ISR(ADC_vect){
     switch (ADMUX) {
         case 0:
 			Led7_On();
-            if (index_LM35 >= 8 || index_LM35 == 0) {
-                LM35_Array[0] = res;
-                index_LM35 = 1;
-            }else {
+            if (index_LM35 == 42) {
+                index_LM35 = 0; // Trash first conversion
+            }else if (index_LM35 >= 0 && index_LM35 <= 7) {
                 LM35_Array[index_LM35] = res;
                 index_LM35++;
+            }else {
+                index_LM35 = 42;
             }
-            pin = Poti;
+            
             ADMUX = 1;
             break;
             
         case 1:
-			Led8_On();
-            if (index_Poti >= 8 || index_Poti == 0) {
-                Poti_Array[0] = res;
-                index_Poti = 1;
-            }else {
+            Led8_On();
+            if (index_Poti == 42) {
+                index_Poti = 0; // Trash first conversion
+            }else if (index_Poti >= 0 && index_Poti <= 7) {
                 Poti_Array[index_Poti] = res;
                 index_Poti++;
+            }else {
+                index_Poti = 42;
             }
-            pin = Temperatur;
+            
             ADMUX = 0;
             break;
             
