@@ -24,7 +24,7 @@ void adc_init() {
     while (ADCSRA & (1 << ADSC));   // wait till first conversion is finished
     uint16_t trash = ADC;
     
-    ADCSRA |= (1 << ADIE); // ADC interrupt
+    ADCSRA |= (1 << ADIE) | (1 << ADSC); // ADC interrupt
 }
 
 uint32_t adc_get_LM35() {
@@ -59,7 +59,6 @@ uint32_t adc_get_Poti() {
 
 ISR(ADC_vect){
     volatile uint16_t res = ADC;
-    Led6_On();
     switch (pin) {
         case Temperatur:
             if (index_LM35 >= 8 || index_LM35 == 0) {
