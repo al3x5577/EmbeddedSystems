@@ -59,9 +59,9 @@ uint8_t buff_put(unsigned char byte, struct Buffer *buf)
  */
 uint8_t buff_get(unsigned char *pByte, struct Buffer *buf)
 {
-    // Data Register Empty Interrupt enable
+    // Data Register Empty Interrupt disable
     UCSR0B &= ~(1 << UDRIE0);
-    // Receive Complete Interrupt enable
+    // Receive Complete Interrupt disable
     UCSR0B &= ~(1 << RXCIE0);
     
     if (buf->read == buf->write){
@@ -91,9 +91,24 @@ uint8_t buff_get(unsigned char *pByte, struct Buffer *buf)
  Returns 1 if there is data in the buffer, 0 if not
  */
 uint8_t buf_available(struct Buffer *buf){
+    // Data Register Empty Interrupt disable
+    UCSR0B &= ~(1 << UDRIE0);
+    // Receive Complete Interrupt disable
+    UCSR0B &= ~(1 << RXCIE0);
+    
     if (buf->read == buf->write){
+        // Data Register Empty Interrupt enable
+        UCSR0B |= (1 << UDRIE0);
+        // Receive Complete Interrupt enable
+        UCSR0B |= (1 << RXCIE0);
+        
         return 0; // empty
     }else {
+        // Data Register Empty Interrupt enable
+        UCSR0B |= (1 << UDRIE0);
+        // Receive Complete Interrupt enable
+        UCSR0B |= (1 << RXCIE0);
+        
         return 1;
     }
 }

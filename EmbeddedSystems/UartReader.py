@@ -20,40 +20,42 @@ def read():
         print(r)
 
 
+time = 0.7
+
 try:
 
     while True:
 
         ser.write(bytes('11'.encode('UTF-8')))
-        sleep(0.5)
+        sleep(time)
         read()
 
         ser.write(bytes('21'.encode('UTF-8')))
-        sleep(0.5)
+        sleep(time)
         read()
 
         ser.write(bytes('31'.encode('UTF-8')))
-        sleep(0.5)
+        sleep(time)
         read()
 
         ser.write(bytes('41'.encode('UTF-8')))
-        sleep(0.5)
+        sleep(time)
         read()
 
         ser.write(bytes('10'.encode('UTF-8')))
-        sleep(0.5)
+        sleep(time)
         read()
 
         ser.write(bytes('20'.encode('UTF-8')))
-        sleep(0.5)
+        sleep(time)
         read()
 
         ser.write(bytes('30'.encode('UTF-8')))
-        sleep(0.5)
+        sleep(time)
         read()
 
         ser.write(bytes('40'.encode('UTF-8')))
-        sleep(0.5)
+        sleep(time)
         read()
 
 
