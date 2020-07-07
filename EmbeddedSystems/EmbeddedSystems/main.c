@@ -43,6 +43,8 @@ int main(void) {
         if((Timer_getTick() - timeVarMain) >= 2000){
             timeVarMain = Timer_getTick();
             
+            
+            
             sprintf(str, "Temperatur: %i\n", adc_get_LM35());
             uart_send_isr(str);
             

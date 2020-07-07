@@ -50,7 +50,9 @@ uint32_t adc_get_Poti() {
     uint32_t avg = 0;
     
     for (int i = 0; i < 8; i++) {
+        ADCSRA &= (1 << ADIE);
         avg += Poti_Array[i];
+        ADCSRA |= (1 << ADIE);
     }
     avg = avg / 8;
     
