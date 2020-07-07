@@ -40,15 +40,23 @@ int main(void) {
 	
     while (1) {
         
-        if((Timer_getTick() - timeVarMain) >= 5000){
+        if((Timer_getTick() - timeVarMain) >= 500){
             timeVarMain = Timer_getTick();
             PORTB = 0;
             
-            sprintf(str, "Temperatur: %d\n", adc_get_LM35());
-            uart_send_isr(str);
+            uint32_t LM35 = adc_get_LM35();
+            uint32_t Poti = adc_get_Poti();
             
-            sprintf(str, "Poti: %d\n", adc_get_Poti());
-            uart_send_isr(str);
+            if (LM35) {
+                sprintf(str, "Temperatur: %d\n", LM35);
+                uart_send_isr(str);
+            }
+            
+            if (Poti) {
+                sprintf(str, "Poti: %d\n", Poti);
+                uart_send_isr(str);
+            }
+            
         }
         
         
