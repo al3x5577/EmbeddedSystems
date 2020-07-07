@@ -18,6 +18,7 @@
 #include "stateMachine/TrafficLight.h"
 #include "uart/Uart.h"
 #include <avr/interrupt.h>
+#include "adc/adc.h"
 
 #define CLK_F_MHZ 16
 
@@ -28,9 +29,10 @@ int main(void) {
 	Taster_init();
     Timer_init(CLK_F_MHZ); // Init timer with 16MHZ clock
 	uart_init_isr();
+    adc_init()
 	sei();
     
-    uint16_t timeVarMain = 0;
+    uint16_t timeVarMain = Timer_getTick();
     char data_s;
     char data[50] = {0};
     int i = 0;
@@ -38,7 +40,18 @@ int main(void) {
 	
     while (1) {
         
-        while ((data_s = uart_get_data()) && i <= 48) {
+        if((Timer_getTick() - timeVarMain) >= 2000){
+            timeVarMain = Timer_getTick();
+            
+            sprintf(str, "Temperatur: %i\n", adc_get_LM35());
+            uart_send_isr(str);
+            
+            sprintf(str2, "Poti: %i\n", adc_get_Poti());
+            uart_send_isr(str2);
+        }
+        
+        
+        /*while ((data_s = uart_get_data()) && i <= 48) {
             data[i] = data_s;
             i++;
         }
@@ -95,7 +108,7 @@ int main(void) {
                     break;
             }
         }
-        i = 0;
+        i = 0;*/
 		
         /*
          // UART Echo

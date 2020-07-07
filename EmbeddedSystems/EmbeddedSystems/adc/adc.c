@@ -27,7 +27,7 @@ void adc_init() {
     ADCSRA |= (1 << ADIE); // ADC interrupt
 }
 
-uint16_t adc_get_LM35() {
+uint32_t adc_get_LM35() {
     if (LM35_Array[index_LM35] == 0) {
         return 0; // Not enoght data in Array
     }
@@ -42,7 +42,7 @@ uint16_t adc_get_LM35() {
     return avg;
 }
 
-uint16_t adc_get_Poti() {
+uint32_t adc_get_Poti() {
     if (Poti_Array[index_Poti] == 0) {
         return 0; // Not enoght data in Array
     }
