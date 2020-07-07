@@ -48,6 +48,7 @@ int main(void) {
             uint32_t Poti = adc_get_Poti();
             
             if (LM35) {
+                Led
                 sprintf(str, "Temperatur: %d\n", LM35);
                 uart_send_isr(str);
             }

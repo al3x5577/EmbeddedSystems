@@ -23,7 +23,6 @@ void adc_init() {
 }
 
 uint32_t adc_get_LM35() {
-    return LM35_Array[0];
     if (LM35_Array[7] == 0) {
         return 0; // Not enoght data in Array
     }
@@ -39,7 +38,6 @@ uint32_t adc_get_LM35() {
 }
 
 uint32_t adc_get_Poti() {
-    return Poti_Array[0];
     if (Poti_Array[7] == 0) {
         return 0; // Not enoght data in Array
     }
