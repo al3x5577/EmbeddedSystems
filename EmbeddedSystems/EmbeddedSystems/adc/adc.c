@@ -57,7 +57,7 @@ uint32_t adc_get_Poti() {
 }
 
 ISR(ADC_vect){
-    volatile uint16_t res = ADC;
+    uint16_t res = ADC;
     switch (ADMUX) {
         case 0:
 			Led7_On();
@@ -93,7 +93,7 @@ ISR(ADC_vect){
         default:
             break;
     }
-    char tmp[12];
+    char tmp[15];
     sprintf(tmp, "Res: %d\n", res);
     uart_send_isr(tmp);
     
