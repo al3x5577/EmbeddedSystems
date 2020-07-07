@@ -4,9 +4,9 @@
 #include "adc.h"
 
 uint16_t LM35_Array[8] = {0};
-uint8_t index_LM35 = 110;
+uint8_t index_LM35 = 42;
 uint16_t Poti_Array[8] = {0};
-uint8_t index_Poti = 110;
+uint8_t index_Poti = 42;
 
 void adc_init() {
     ADMUX = 0;  // AREF, Right Adjust, ADC0
@@ -66,10 +66,8 @@ ISR(ADC_vect){
             }else if (index_LM35 >= 0 && index_LM35 <= 7) {
                 LM35_Array[index_LM35] = res;
                 index_LM35++;
-            }else if (index_LM35 == 8) {
-                ADMUX = 1;
-                index_LM35 = 110;
             }else {
+                ADMUX = 1;
                 index_LM35 = 42;
             }
             
@@ -82,10 +80,8 @@ ISR(ADC_vect){
             }else if (index_Poti >= 0 && index_Poti <= 7) {
                 Poti_Array[index_Poti] = res;
                 index_Poti++;
-            }else if (index_Poti == 8) {
-                ADMUX = 0;
-                index_Poti = 110;
             }else {
+                ADMUX = 0;
                 index_Poti = 42;
             }
             break;
@@ -93,9 +89,6 @@ ISR(ADC_vect){
         default:
             break;
     }
-    char tmp[15];
-    sprintf(tmp, "Res: %d\n", res);
-    uart_send_isr(tmp);
     
     ADCSRA |= (1 << ADSC);
 }
