@@ -3,7 +3,9 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <string.h>
 #include "../gpio/Led.h"
+#include "../uart/Uart.h"
 
 void adc_init(void);
 

@@ -64,6 +64,9 @@ ISR(ADC_vect){
             if (index_LM35 == 42) {
                 index_LM35 = 0; // Trash first conversion
             }else if (index_LM35 >= 0 && index_LM35 <= 7) {
+                char tmp[50];
+                sprintf(tmp, "Temp: %d\n", res);
+                uart_send_isr(tmp);
                 LM35_Array[index_LM35] = res;
                 index_LM35++;
             }else if (index_LM35 == 8) {
