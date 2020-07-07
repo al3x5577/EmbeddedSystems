@@ -66,11 +66,13 @@ ISR(ADC_vect){
             }else if (index_LM35 >= 0 && index_LM35 <= 7) {
                 LM35_Array[index_LM35] = res;
                 index_LM35++;
+            }else if (index_LM35 == 8) {
+                ADMUX = 1;
+                index_LM35 = 110;
             }else {
                 index_LM35 = 42;
             }
             
-            ADMUX = 1;
             break;
             
         case 1:
@@ -80,11 +82,12 @@ ISR(ADC_vect){
             }else if (index_Poti >= 0 && index_Poti <= 7) {
                 Poti_Array[index_Poti] = res;
                 index_Poti++;
+            }else if (index_Poti == 8) {
+                ADMUX = 0;
+                index_Poti = 110;
             }else {
                 index_Poti = 42;
             }
-            
-            ADMUX = 0;
             break;
             
         default:
