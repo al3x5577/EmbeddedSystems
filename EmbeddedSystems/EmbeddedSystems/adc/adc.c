@@ -64,7 +64,7 @@ ISR(ADC_vect){
             if (index_LM35 == 42) {
                 index_LM35 = 0; // Trash first conversion
             }else if (index_LM35 >= 0 && index_LM35 <= 7) {
-                char tmp[50];
+                char tmp[12];
                 sprintf(tmp, "Temp: %d\n", res);
                 uart_send_isr(tmp);
                 LM35_Array[index_LM35] = res;
@@ -83,6 +83,9 @@ ISR(ADC_vect){
             if (index_Poti == 42) {
                 index_Poti = 0; // Trash first conversion
             }else if (index_Poti >= 0 && index_Poti <= 7) {
+                char tmp[12];
+                sprintf(tmp, "Poti: %d\n", res);
+                uart_send_isr(tmp);
                 Poti_Array[index_Poti] = res;
                 index_Poti++;
             }else if (index_Poti == 8) {
