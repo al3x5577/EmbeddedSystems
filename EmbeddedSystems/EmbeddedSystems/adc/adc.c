@@ -74,6 +74,7 @@ ISR(ADC_vect){
                 index_LM35++;
             }
             pin = Poti;
+            ADMUX |= (1 << MUX0);
             break;
             
         case Poti:
@@ -86,6 +87,7 @@ ISR(ADC_vect){
                 index_Poti++;
             }
             pin = Temperatur;
+            ADMUX &= ~(1 << MUX0);
             break;
             
         default:
