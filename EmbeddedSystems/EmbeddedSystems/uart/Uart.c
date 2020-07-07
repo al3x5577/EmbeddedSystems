@@ -64,8 +64,14 @@ uint8_t buff_get(unsigned char *pByte, struct Buffer *buf)
     // Receive Complete Interrupt enable
     UCSR0B &= ~(1 << RXCIE0);
     
-    if (buf->read == buf->write)
-      return BUFFER_FAIL; // empty
+    if (buf->read == buf->write){
+        // Data Register Empty Interrupt enable
+        UCSR0B |= (1 << UDRIE0);
+        // Receive Complete Interrupt enable
+        UCSR0B |= (1 << RXCIE0);
+        
+        return BUFFER_FAIL; // empty
+    }
 
     *pByte = buf->data[buf->read];
 
