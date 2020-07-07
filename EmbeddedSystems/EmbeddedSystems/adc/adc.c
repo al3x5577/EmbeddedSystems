@@ -61,8 +61,8 @@ uint32_t adc_get_Poti() {
 
 ISR(ADC_vect){
     volatile uint16_t res = ADC;
-    switch (pin) {
-        case Temperatur:
+    switch (ADMUX) {
+        case 1:
 			Led7_On();
             if (index_LM35 >= 8 || index_LM35 == 0) {
                 LM35_Array[0] = res;
@@ -72,10 +72,10 @@ ISR(ADC_vect){
                 index_LM35++;
             }
             pin = Poti;
-            ADMUX |= (1 << MUX0);
+            ADMUX = 2;
             break;
             
-        case Poti:
+        case 2:
 			Led8_On();
             if (index_Poti >= 8 || index_Poti == 0) {
                 Poti_Array[0] = res;
@@ -85,7 +85,7 @@ ISR(ADC_vect){
                 index_Poti++;
             }
             pin = Temperatur;
-            ADMUX &= ~(1 << MUX0);
+            ADMUX = 1;
             break;
             
         default:
