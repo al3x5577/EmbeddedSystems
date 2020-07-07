@@ -13,19 +13,34 @@ struct Buffer bufferRecv = {{}, 0, 0};
  */
 uint8_t buff_put(unsigned char byte, struct Buffer *buf)
 {
+    // Data Register Empty Interrupt disable
+    UCSR0B &= ~(1 << UDRIE0);
+    // Receive Complete Interrupt disable
+    UCSR0B &= ~(1 << RXCIE0);
 
-  if ( ( (buf->write + 1) == buf->read ) ||
-       ( buf->read == 0 && (buf->write + 1) == RING_BUFFER_UART_SIZE ) )
-    return BUFFER_FAIL; // overflow
+    if ( ( (buf->write + 1) == buf->read ) ||
+        ( buf->read == 0 && (buf->write + 1) == RING_BUFFER_UART_SIZE ) ) {
+        
+        // Data Register Empty Interrupt enable
+        UCSR0B |= (1 << UDRIE0);
+        // Receive Complete Interrupt enable
+        UCSR0B |= (1 << RXCIE0);
+        return BUFFER_FAIL; // overflow
+    }
 
-  buf->data[buf->write] = byte;
+    buf->data[buf->write] = byte;
 
-  buf->write++;
+    buf->write++;
     
-  if (buf->write >= RING_BUFFER_UART_SIZE)
-    buf->write = 0;
+    if (buf->write >= RING_BUFFER_UART_SIZE)
+        buf->write = 0;
+    
+    // Data Register Empty Interrupt enable
+    UCSR0B |= (1 << UDRIE0);
+    // Receive Complete Interrupt enable
+    UCSR0B |= (1 << RXCIE0);
 
-  return BUFFER_SUCCESS;
+    return BUFFER_SUCCESS;
 }
 
 //
@@ -44,16 +59,26 @@ uint8_t buff_put(unsigned char byte, struct Buffer *buf)
  */
 uint8_t buff_get(unsigned char *pByte, struct Buffer *buf)
 {
-  if (buf->read == buf->write)
-    return BUFFER_FAIL; // empty
+    // Data Register Empty Interrupt enable
+    UCSR0B &= ~(1 << UDRIE0);
+    // Receive Complete Interrupt enable
+    UCSR0B &= ~(1 << RXCIE0);
+    
+    if (buf->read == buf->write)
+      return BUFFER_FAIL; // empty
 
-  *pByte = buf->data[buf->read];
+    *pByte = buf->data[buf->read];
 
-  buf->read++;
-  if (buf->read >= RING_BUFFER_UART_SIZE)
-    buf->read = 0;
+    buf->read++;
+    if (buf->read >= RING_BUFFER_UART_SIZE)
+      buf->read = 0;
 
-  return BUFFER_SUCCESS;
+    // Data Register Empty Interrupt enable
+    UCSR0B |= (1 << UDRIE0);
+    // Receive Complete Interrupt enable
+    UCSR0B |= (1 << RXCIE0);
+    
+    return BUFFER_SUCCESS;
 }
 
 /**
