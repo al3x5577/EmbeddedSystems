@@ -44,10 +44,10 @@ int main(void) {
             timeVarMain = Timer_getTick();
             
             
-            sprintf(str, "Temperatur: %i\n", adc_get_LM35());
+            sprintf(str, "Temperatur: %d\n", adc_get_LM35());
             uart_send_isr(str);
             
-            sprintf(str, "Poti: %i\n", adc_get_Poti());
+            sprintf(str, "Poti: %d\n", adc_get_Poti());
             uart_send_isr(str);
         }
         
