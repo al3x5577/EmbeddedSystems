@@ -28,7 +28,6 @@ void adc_init() {
 }
 
 uint32_t adc_get_LM35() {
-	Led7_Off();
     if (LM35_Array[7] == 0) {
         return 0; // Not enoght data in Array
     }
@@ -44,7 +43,6 @@ uint32_t adc_get_LM35() {
 }
 
 uint32_t adc_get_Poti() {
-	Led8_Off();
     if (Poti_Array[7] == 0) {
         return 0; // Not enoght data in Array
     }
