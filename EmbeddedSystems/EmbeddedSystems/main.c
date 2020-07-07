@@ -40,9 +40,9 @@ int main(void) {
 	
     while (1) {
         
-        if((Timer_getTick() - timeVarMain) >= 2000){
+        if((Timer_getTick() - timeVarMain) >= 5000){
             timeVarMain = Timer_getTick();
-            
+            PORTB = 0;
             
             
             sprintf(str, "Temperatur: %i\n", adc_get_LM35());
