@@ -51,40 +51,40 @@ int main(void) {
                 case '1':
                     if (data[1] == '1') {
                         Led1_On();
-                        uart_send_isr("Led1 On");
+                        uart_send_isr("Led1 On\n");
                     }else if (data[1] == '0') {
                         Led1_Off();
-                        uart_send_isr("Led1 Off");
+                        uart_send_isr("Led1 Off\n");
                     }
                     break;
                     
                 case '2':
                     if (data[1] == '1') {
                         Led2_On();
-                        uart_send_isr("Led2 On");
+                        uart_send_isr("Led2 On\n");
                     }else {
                         Led2_Off();
-                        uart_send_isr("Led2 Off");
+                        uart_send_isr("Led2 Off\n");
                     }
                     break;
                     
                 case '3':
                     if (data[1] == '1') {
                         Led3_On();
-                        uart_send_isr("Led3 On");
+                        uart_send_isr("Led3 On\n");
                     }else {
                         Led3_Off();
-                        uart_send_isr("Led3 Off");
+                        uart_send_isr("Led3 Off\n");
                     }
                     break;
                     
                 case '4':
                     if (data[1] == '1') {
                         Led4_On();
-                        uart_send_isr("Led4 On");
+                        uart_send_isr("Led4 On\n");
                     }else {
                         Led4_Off();
-                        uart_send_isr("Led4 Off");
+                        uart_send_isr("Led4 Off\n");
                     }
                     break;
                     
