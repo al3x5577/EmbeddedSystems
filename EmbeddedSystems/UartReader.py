@@ -44,15 +44,15 @@ try:
         sleep(0.5)
         read()
 
-        ser.write(bytes('22'.encode('UTF-8')))
+        ser.write(bytes('20'.encode('UTF-8')))
         sleep(0.5)
         read()
 
-        ser.write(bytes('32'.encode('UTF-8')))
+        ser.write(bytes('30'.encode('UTF-8')))
         sleep(0.5)
         read()
 
-        ser.write(bytes('42'.encode('UTF-8')))
+        ser.write(bytes('40'.encode('UTF-8')))
         sleep(0.5)
         read()
 
