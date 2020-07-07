@@ -162,6 +162,12 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="adc\adc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="adc\adc.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="gpio\Led.c">
       <SubType>compile</SubType>
     </Compile>
@@ -203,6 +209,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="adc\" />
+    <Folder Include="adc\" />
     <Folder Include="gpio\" />
     <Folder Include="playground\" />
     <Folder Include="stateMachine\" />

@@ -2,6 +2,8 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+adc\adc.c
+
 gpio\Led.c
 
 gpio\Taster.c
