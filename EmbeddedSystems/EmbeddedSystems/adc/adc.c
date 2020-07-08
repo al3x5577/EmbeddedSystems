@@ -58,10 +58,6 @@ ISR(ADC_vect){
 	Led3_Off();
     uint16_t res = ADC;
     
-    char str[20];
-    sprintf(str, "Res: %d\n", ADCSRA);
-    uart_send_isr(str);
-    
     switch (ADMUX & (1 << MUX0)) {
         case 0:
 			Led7_On();
@@ -75,6 +71,9 @@ ISR(ADC_vect){
                 ADMUX |= (1 << MUX0);
                 index_LM35 = 42;
                 Led4_Off();
+                char str[20];
+                sprintf(str, "Res: %d\n", ADCSRA);
+                uart_send_isr(str);
             }
             break;
             
@@ -90,6 +89,9 @@ ISR(ADC_vect){
                 ADMUX &= ~(1 << MUX0);
                 index_Poti = 42;
                 Led4_Off();
+                char str[20];
+                sprintf(str, "Res: %d\n", ADCSRA);
+                uart_send_isr(str);
             }
             break;
             
