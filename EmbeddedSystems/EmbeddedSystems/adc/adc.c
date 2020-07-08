@@ -9,14 +9,16 @@ uint16_t Poti_Array[8] = {0};
 uint8_t index_Poti = 42;
 
 void adc_init() {
-    ADMUX = 0;  // AREF, Right Adjust, ADC0
+    ADMUX = 0x00;  // AREF, Right Adjust, ADC0
     
-    ADCSRB = 3; // Set trigger to Timer0 Compare Match
+    // ADCSRB = 3; // Set trigger to Timer0 Compare Match
     
     ADCSRA |= (1 << ADPS0) | (1 << ADPS1) | (1 << ADPS2); // Set prescaler to 128
     ADCSRA |= (1 << ADEN) | (1 << ADSC); // Set ADC enable
     
     ADCSRA |= (1 << ADIE); // ADC interrupt
+    usart_send_isr("ADC init complete\n");
+    Led6_On();
 }
 
 uint16_t adc_get_LM35() {
@@ -53,23 +55,31 @@ uint16_t adc_get_Poti() {
 
 ISR(ADC_vect){
     uint16_t res = ADC;
+    
+    char str[20];
+    sprintf(str, "Res: %d\n", res);
+    usart_send_isr(str);
+    
     switch (ADMUX & (1 << MUX0)) {
         case 0:
 			Led7_On();
             if (index_LM35 == 42) {
                 index_LM35 = 0; // Trash first conversion
+                Led4_On();
             }else if (index_LM35 >= 0 && index_LM35 <= 7) {
                 LM35_Array[index_LM35] = res;
                 index_LM35++;
             }else {
                 ADMUX |= (1 << MUX0);
                 index_LM35 = 42;
+                Led4_Off();
             }
             break;
             
         case 1:
             Led8_On();
             if (index_Poti == 42) {
+                Led5_On();
                 index_Poti = 0; // Trash first conversion
             }else if (index_Poti >= 0 && index_Poti <= 7) {
                 Poti_Array[index_Poti] = res;
@@ -77,6 +87,7 @@ ISR(ADC_vect){
             }else {
                 ADMUX &= ~(1 << MUX0);
                 index_Poti = 42;
+                Led4_Off();
             }
             break;
             
