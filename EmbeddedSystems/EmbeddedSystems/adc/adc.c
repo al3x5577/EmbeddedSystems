@@ -13,16 +13,13 @@ void adc_init() {
     
     ADCSRB = 3; // Set trigger to Timer0 Compare Match
     
-    ADCSRA = 7; // Set prescaler to 128
-    ADCSRA |= (1 << ADEN) | (1 << ADSC); // Set ADC enable, no Auto trigger | (1 << ADATE)
+    ADCSRA |= (1 << ADPS0) | (1 << ADPS1) | (1 << ADPS2); // Set prescaler to 128
+    ADCSRA |= (1 << ADEN) | (1 << ADSC); // Set ADC enable
     
-    while (ADCSRA & (1 << ADSC));   // wait till first conversion is finished
-    uint16_t trash = ADC;
-    
-    ADCSRA |= (1 << ADIE) | (1 << ADSC); // ADC interrupt
+    ADCSRA |= (1 << ADIE); // ADC interrupt
 }
 
-uint32_t adc_get_LM35() {
+uint16_t adc_get_LM35() {
     if (LM35_Array[7] == 0) {
         return 0; // Not enoght data in Array
     }
@@ -34,10 +31,10 @@ uint32_t adc_get_LM35() {
     }
     avg = avg / 8;
     
-    return avg;
+    return (avg & 0xffff);  // Return a 16 bit value
 }
 
-uint32_t adc_get_Poti() {
+uint16_t adc_get_Poti() {
     if (Poti_Array[7] == 0) {
         return 0; // Not enoght data in Array
     }
@@ -51,12 +48,12 @@ uint32_t adc_get_Poti() {
     }
     avg = avg / 8;
     
-    return avg;
+    return (avg & 0xffff);  // Return a 16 bit value
 }
 
 ISR(ADC_vect){
     uint16_t res = ADC;
-    switch (ADMUX) {
+    switch (ADMUX & (1 << MUX0)) {
         case 0:
 			Led7_On();
             if (index_LM35 == 42) {
@@ -65,10 +62,9 @@ ISR(ADC_vect){
                 LM35_Array[index_LM35] = res;
                 index_LM35++;
             }else {
-                ADMUX = 1;
+                ADMUX |= (1 << MUX0);
                 index_LM35 = 42;
             }
-            
             break;
             
         case 1:
@@ -79,7 +75,7 @@ ISR(ADC_vect){
                 Poti_Array[index_Poti] = res;
                 index_Poti++;
             }else {
-                ADMUX = 0;
+                ADMUX &= ~(1 << MUX0);
                 index_Poti = 42;
             }
             break;

@@ -9,8 +9,8 @@
 
 void adc_init(void);
 
-uint32_t adc_get_LM35(void);
-uint32_t adc_get_Poti(void);
+uint16_t adc_get_LM35(void);
+uint16_t adc_get_Poti(void);
 
 #endif /* MY_ADC_H_ */
 
