@@ -73,7 +73,7 @@ ISR(ADC_vect){
                 index_LM35 = 42;
                 Led4_Off();
                 
-                if (temp_index1 == 0xffff) {
+                if (temp_index1 >= 0xff) {
                     char str[20];
                     sprintf(str, "Res: %d\n", ADCSRA);
                     uart_send_isr(str);
@@ -98,7 +98,7 @@ ISR(ADC_vect){
                 index_Poti = 42;
                 Led4_Off();
                 
-                if (temp_index2 == 0xffff) {
+                if (temp_index2 >= 0xff) {
                     char str[20];
                     sprintf(str, "Res: %d\n", ADCSRA);
                     uart_send_isr(str);
