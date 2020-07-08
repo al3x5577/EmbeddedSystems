@@ -3,13 +3,13 @@
 
 #include "adc.h"
 
-uint16_t LM35_Array[8] = {0};
-uint8_t index_LM35 = 42;
-uint16_t Poti_Array[8] = {0};
-uint8_t index_Poti = 42;
+volatile uint16_t LM35_Array[8] = {0};
+volatile uint8_t index_LM35 = 42;
+volatile uint16_t Poti_Array[8] = {0};
+volatile uint8_t index_Poti = 42;
 
-uint16_t temp_index1 = 0;
-uint16_t temp_index2 = 0;
+volatile uint16_t temp_index1 = 0;
+volatile uint16_t temp_index2 = 0;
 
 void adc_init() {
     // ADMUX = 0x00;  // AREF, Right Adjust, ADC0
@@ -57,11 +57,11 @@ uint16_t adc_get_Poti() {
 
 ISR(ADC_vect){
 	Led3_Off();
-    uint16_t res = ADC;
+    volatile uint16_t res = ADC;
     
-    if (temp_index1 >= 0xff) {
+    if (temp_index1 >= 0x00ff) {
         char str[20];
-        sprintf(str, "Res: %d\n", ADCSRA);
+        sprintf(str, "Res: %d\n", res);
         uart_send_isr(str);
         temp_index1 = 0;
     }else {
