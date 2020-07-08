@@ -8,7 +8,8 @@ uint8_t index_LM35 = 42;
 uint16_t Poti_Array[8] = {0};
 uint8_t index_Poti = 42;
 
-uint8_t temp_index = 0;
+uint16_t temp_index1 = 0;
+uint16_t temp_index2 = 0;
 
 void adc_init() {
     // ADMUX = 0x00;  // AREF, Right Adjust, ADC0
@@ -71,9 +72,16 @@ ISR(ADC_vect){
                 ADMUX |= (1 << MUX0);
                 index_LM35 = 42;
                 Led4_Off();
-                char str[20];
-                sprintf(str, "Res: %d\n", ADCSRA);
-                uart_send_isr(str);
+                
+                if (temp_index1 == 0xffff) {
+                    char str[20];
+                    sprintf(str, "Res: %d\n", ADCSRA);
+                    uart_send_isr(str);
+                    temp_index1 = 0;
+                }else {
+                    temp_index1++;
+                }
+                
             }
             break;
             
@@ -89,9 +97,15 @@ ISR(ADC_vect){
                 ADMUX &= ~(1 << MUX0);
                 index_Poti = 42;
                 Led4_Off();
-                char str[20];
-                sprintf(str, "Res: %d\n", ADCSRA);
-                uart_send_isr(str);
+                
+                if (temp_index2 == 0xffff) {
+                    char str[20];
+                    sprintf(str, "Res: %d\n", ADCSRA);
+                    uart_send_isr(str);
+                    temp_index1 = 0;
+                }else {
+                    temp_index2++;
+                }
             }
             break;
             
