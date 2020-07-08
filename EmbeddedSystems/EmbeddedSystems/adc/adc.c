@@ -8,6 +8,8 @@ uint8_t index_LM35 = 42;
 uint16_t Poti_Array[8] = {0};
 uint8_t index_Poti = 42;
 
+uint8_t temp_index = 0;
+
 void adc_init() {
     ADMUX = 0x00;  // AREF, Right Adjust, ADC0
     
@@ -57,9 +59,22 @@ ISR(ADC_vect){
     uint16_t res = ADC;
     ADC = 0;
     
-    char str[20];
-    sprintf(str, "Res: %d\n", res);
-    uart_send_isr(str);
+    uint8_t uart_success = 1;
+    if (uart_success) {
+        char str[20];
+        sprintf(str, "Res: %d\n", res);
+        if (uart_send_isr(str) > 0){
+            uart_success = 0;
+            i++;
+        }
+    }else {
+        i++;
+        if (i >= 100) {
+            i = 0;
+            uart_success = 1;
+        }
+    }
+    
     
     switch (ADMUX & (1 << MUX0)) {
         case 0:
