@@ -43,6 +43,7 @@ int main(void) {
         if((Timer_getTick() - timeVarMain) >= 500){
             timeVarMain = Timer_getTick();
             
+            while (ADCSRA & (1 << ADSC));
             ADCSRA |= (1 << ADSC);
             
             /*uint16_t LM35 = adc_get_LM35();
