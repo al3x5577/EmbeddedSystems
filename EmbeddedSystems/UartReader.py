@@ -15,9 +15,10 @@ print("Connected to: " + ser.portstr + "\n")
 
 
 def read():
-    r = ser.readline()
+    r = ser.readlines()
     if len(r) > 0:
-        print(r)
+        for line in r:
+            print(line)
 
 
 time = 0.7

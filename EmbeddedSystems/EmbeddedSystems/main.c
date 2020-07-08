@@ -40,13 +40,17 @@ int main(void) {
 	
     while (1) {
         
-        if((Timer_getTick() - timeVarMain) >= 500){
+        if (Taster1_get()) {
+            ADCSRA |= (1 << ADSC);
+        }
+        
+        /*if((Timer_getTick() - timeVarMain) >= 500){
             timeVarMain = Timer_getTick();
             
-            while (ADCSRA & (1 << ADSC));
-            ADCSRA |= (1 << ADSC);
             
-            /*uint16_t LM35 = adc_get_LM35();
+            
+            
+            uint16_t LM35 = adc_get_LM35();
             uint16_t Poti = adc_get_Poti();
             
             if (LM35) {
@@ -59,9 +63,9 @@ int main(void) {
                 Led5_On();
                 sprintf(str, "Poti: %d\n", Poti);
                 uart_send_isr(str);
-            }*/
+            }
             
-        }
+        }*/
         
         
         /*while ((data_s = uart_get_data()) && i <= 48) {
