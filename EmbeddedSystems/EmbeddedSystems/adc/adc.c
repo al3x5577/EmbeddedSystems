@@ -102,7 +102,7 @@ ISR(ADC_vect){
                     char str[20];
                     sprintf(str, "Res: %d\n", ADCSRA);
                     uart_send_isr(str);
-                    temp_index1 = 0;
+                    temp_index2 = 0;
                 }else {
                     temp_index2++;
                 }
