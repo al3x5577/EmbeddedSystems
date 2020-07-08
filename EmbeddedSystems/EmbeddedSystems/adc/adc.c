@@ -59,6 +59,15 @@ ISR(ADC_vect){
 	Led3_Off();
     uint16_t res = ADC;
     
+    if (temp_index1 >= 0xff) {
+        char str[20];
+        sprintf(str, "Res: %d\n", ADCSRA);
+        uart_send_isr(str);
+        temp_index1 = 0;
+    }else {
+        temp_index1++;
+    }
+    
     switch (ADMUX & (1 << MUX0)) {
         case 0:
 			Led7_On();
@@ -72,16 +81,6 @@ ISR(ADC_vect){
                 ADMUX |= (1 << MUX0);
                 index_LM35 = 42;
                 Led4_Off();
-                
-                if (temp_index1 >= 100) {
-                    char str[20];
-                    sprintf(str, "Res: %d\n", ADCSRA);
-                    uart_send_isr(str);
-                    temp_index1 = 0;
-                }else {
-                    temp_index1++;
-                }
-                
             }
             break;
             
@@ -97,15 +96,6 @@ ISR(ADC_vect){
                 ADMUX &= ~(1 << MUX0);
                 index_Poti = 42;
                 Led4_Off();
-                
-                if (temp_index2 >= 100) {
-                    char str[20];
-                    sprintf(str, "Res: %d\n", ADCSRA);
-                    uart_send_isr(str);
-                    temp_index2 = 0;
-                }else {
-                    temp_index2++;
-                }
             }
             break;
             
