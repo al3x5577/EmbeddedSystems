@@ -2,6 +2,7 @@
 #define MY_ADC_H_
 
 #include <avr/io.h>
+#include <stdio.h>
 #include <avr/interrupt.h>
 #include <string.h>
 #include "../gpio/Led.h"

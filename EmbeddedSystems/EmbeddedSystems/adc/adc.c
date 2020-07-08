@@ -65,12 +65,12 @@ ISR(ADC_vect){
         sprintf(str, "Res: %d\n", res);
         if (uart_send_isr(str) > 0){
             uart_success = 0;
-            i++;
+            temp_index++;
         }
     }else {
-        i++;
-        if (i >= 100) {
-            i = 0;
+        temp_index++;
+        if (temp_index >= 100) {
+            temp_index = 0;
             uart_success = 1;
         }
     }
