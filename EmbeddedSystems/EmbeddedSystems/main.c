@@ -40,7 +40,7 @@ int main(void) {
 	
     while (1) {
         
-        if((Timer_getTick() - timeVarMain) >= 500){
+        /*if((Timer_getTick() - timeVarMain) >= 500){
             timeVarMain = Timer_getTick();
             
             uint16_t LM35 = adc_get_LM35();
@@ -58,7 +58,7 @@ int main(void) {
                 uart_send_isr(str);
             }
             
-        }
+        }*/
         
         
         /*while ((data_s = uart_get_data()) && i <= 48) {
