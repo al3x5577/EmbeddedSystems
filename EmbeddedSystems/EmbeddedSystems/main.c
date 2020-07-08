@@ -42,7 +42,6 @@ int main(void) {
         
         if((Timer_getTick() - timeVarMain) >= 500){
             timeVarMain = Timer_getTick();
-            PORTB = 0;
             
             uint16_t LM35 = adc_get_LM35();
             uint16_t Poti = adc_get_Poti();
