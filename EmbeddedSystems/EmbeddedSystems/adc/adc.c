@@ -24,9 +24,6 @@ void adc_init() {
 }
 
 uint16_t adc_get_LM35() {
-    if (LM35_Array[7] == 0) {
-        return 0; // Not enoght data in Array
-    }
     
     uint32_t avg = 0;
     
@@ -41,9 +38,6 @@ uint16_t adc_get_LM35() {
 }
 
 uint16_t adc_get_Poti() {
-    if (Poti_Array[7] == 0) {
-        return 0; // Not enoght data in Array
-    }
     
     uint32_t avg = 0;
     
@@ -74,8 +68,8 @@ ISR(ADC_vect){
     switch (ADMUX & (1 << MUX0)) {
         case 0:
 			Led7_On();
-            if (index_LM35 == 42) {
-                index_LM35 = 0; // Trash first conversion
+            if (index_LM35 == 42) { // Trash first conversion
+                index_LM35 = 0;
                 Led4_On();
             }else if (index_LM35 >= 0 && index_LM35 <= 7) {
                 LM35_Array[index_LM35] = res;
@@ -89,9 +83,9 @@ ISR(ADC_vect){
             
         case 1:
             Led8_On();
-            if (index_Poti == 42) {
+            if (index_Poti == 42) { // Trash first conversion
                 Led5_On();
-                index_Poti = 0; // Trash first conversion
+                index_Poti = 0;
             }else if (index_Poti >= 0 && index_Poti <= 7) {
                 Poti_Array[index_Poti] = res;
                 index_Poti++;

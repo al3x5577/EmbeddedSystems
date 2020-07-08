@@ -58,13 +58,11 @@ int main(void) {
             uint16_t Poti = adc_get_Poti();
             
             if (LM35) {
-                Led4_On();
                 sprintf(str, "Temperatur: %d\n", LM35);
                 uart_send_isr(str);
             }
             
             if (Poti) {
-                Led5_On();
                 sprintf(str, "Poti: %d\n", Poti);
                 uart_send_isr(str);
             }
