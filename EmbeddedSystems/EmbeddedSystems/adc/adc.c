@@ -17,7 +17,7 @@ void adc_init() {
     ADCSRA |= (1 << ADEN) | (1 << ADSC); // Set ADC enable
     
     ADCSRA |= (1 << ADIE); // ADC interrupt
-    usart_send_isr("ADC init complete\n");
+    uart_send_isr("ADC init complete\n");
     Led6_On();
 }
 
@@ -58,7 +58,7 @@ ISR(ADC_vect){
     
     char str[20];
     sprintf(str, "Res: %d\n", res);
-    usart_send_isr(str);
+    uart_send_isr(str);
     
     switch (ADMUX & (1 << MUX0)) {
         case 0:
