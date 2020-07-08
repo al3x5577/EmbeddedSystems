@@ -55,6 +55,7 @@ uint16_t adc_get_Poti() {
 
 ISR(ADC_vect){
     uint16_t res = ADC;
+    ADC = 0;
     
     char str[20];
     sprintf(str, "Res: %d\n", res);

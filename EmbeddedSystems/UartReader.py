@@ -15,7 +15,7 @@ print("Connected to: " + ser.portstr + "\n")
 
 
 def read():
-    r = ser.readline()
+    r = ser.read(100)
     if len(r) > 0:
         print(r)
 
