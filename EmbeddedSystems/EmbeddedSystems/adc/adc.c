@@ -11,14 +11,13 @@ uint8_t index_Poti = 42;
 uint8_t temp_index = 0;
 
 void adc_init() {
-    ADMUX = 0x00;  // AREF, Right Adjust, ADC0
+    // ADMUX = 0x00;  // AREF, Right Adjust, ADC0
     
     // ADCSRB = 3; // Set trigger to Timer0 Compare Match
     
     ADCSRA |= (1 << ADPS0) | (1 << ADPS1) | (1 << ADPS2); // Set prescaler to 128
-    ADCSRA |= (1 << ADEN) | (1 << ADSC); // Set ADC enable
+    ADCSRA |= (1 << ADEN) | (1 << ADSC) | (1 << ADIE); // Set ADC enable, start conversion, set ADC interrupt
     
-    ADCSRA |= (1 << ADIE); // ADC interrupt
     uart_send_isr("ADC init complete\n");
     Led6_On();
 }
@@ -56,8 +55,8 @@ uint16_t adc_get_Poti() {
 }
 
 ISR(ADC_vect){
+	Led2_Off();
     uint16_t res = ADC;
-    ADC = 0;
     
     /*uint8_t uart_success = 1;
     if (uart_success) {
