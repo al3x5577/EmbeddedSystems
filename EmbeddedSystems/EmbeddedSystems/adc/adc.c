@@ -59,7 +59,7 @@ ISR(ADC_vect){
     uint16_t res = ADC;
     ADC = 0;
     
-    uint8_t uart_success = 1;
+    /*uint8_t uart_success = 1;
     if (uart_success) {
         char str[20];
         sprintf(str, "Res: %d\n", res);
@@ -73,8 +73,10 @@ ISR(ADC_vect){
             temp_index = 0;
             uart_success = 1;
         }
-    }
-    
+    }*/
+    char str[20];
+    sprintf(str, "Res: %d\n", res);
+    uart_send_isr(str);
     
     switch (ADMUX & (1 << MUX0)) {
         case 0:
