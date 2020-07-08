@@ -74,7 +74,7 @@ ISR(ADC_vect){
         }
     }*/
     char str[20];
-    sprintf(str, "Res: %d\n", res);
+    sprintf(str, "Res: %d\n", ADCSRA);
     uart_send_isr(str);
     
     switch (ADMUX & (1 << MUX0)) {
