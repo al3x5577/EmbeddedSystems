@@ -40,27 +40,16 @@ int main(void) {
 	
     while (1) {
         
-        if (Taster1_get()) {
-			Led2_On();
-			ADCSRA &= ~(1 << ADEN);
-			ADCSRA &= ~(1 << ADIE); // ADC interrupt
-            ADCSRA |= (1 << ADSC);
-			ADCSRA |= (1 << ADEN);
-			
-            
-            while (ADCSRA & (1 << ADSC))
-                ;
-			Led2_Off();
-        }
-        
         if((Timer_getTick() - timeVarMain) >= 500){
             timeVarMain = Timer_getTick();
             
             if ( i == 0){
 				Led1_On();
+                Led2_Off();
 				i = 1;
 			}else  {
 				Led1_Off();
+                Led2_On();
 				i = 0;
 			}
             

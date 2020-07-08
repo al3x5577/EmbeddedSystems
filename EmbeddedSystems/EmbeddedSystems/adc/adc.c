@@ -55,24 +55,9 @@ uint16_t adc_get_Poti() {
 }
 
 ISR(ADC_vect){
-	Led2_Off();
+	Led3_Off();
     uint16_t res = ADC;
     
-    /*uint8_t uart_success = 1;
-    if (uart_success) {
-        char str[20];
-        sprintf(str, "Res: %d\n", res);
-        if (uart_send_isr(str) > 0){
-            uart_success = 0;
-            temp_index++;
-        }
-    }else {
-        temp_index++;
-        if (temp_index >= 100) {
-            temp_index = 0;
-            uart_success = 1;
-        }
-    }*/
     char str[20];
     sprintf(str, "Res: %d\n", ADCSRA);
     uart_send_isr(str);
@@ -112,5 +97,6 @@ ISR(ADC_vect){
             break;
     }
     
-    // ADCSRA |= (1 << ADSC);   temporary moved lol
+    ADCSRA |= (1 << ADSC);
+    Led3_On();
 }
