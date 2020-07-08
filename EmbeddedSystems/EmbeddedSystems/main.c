@@ -44,8 +44,8 @@ int main(void) {
             timeVarMain = Timer_getTick();
             PORTB = 0;
             
-            uint32_t LM35 = adc_get_LM35();
-            uint32_t Poti = adc_get_Poti();
+            uint16_t LM35 = adc_get_LM35();
+            uint16_t Poti = adc_get_Poti();
             
             if (LM35) {
                 Led4_On();
