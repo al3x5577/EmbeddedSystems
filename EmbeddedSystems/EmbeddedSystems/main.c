@@ -44,6 +44,9 @@ int main(void) {
 			Led2_On();
             ADCSRA |= (1 << ADSC);
 			ADCSRA |= (1 << ADIE); // ADC interrupt
+            char str[20];
+            sprintf(str, "T: %d\n", ADCSRA);
+            uart_send_isr(str);
         }
         
         if((Timer_getTick() - timeVarMain) >= 500){
