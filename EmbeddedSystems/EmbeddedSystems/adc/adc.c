@@ -111,5 +111,5 @@ ISR(ADC_vect){
             break;
     }
     
-    ADCSRA |= (1 << ADSC);
+    // ADCSRA |= (1 << ADSC);   temporary moved lol
 }
