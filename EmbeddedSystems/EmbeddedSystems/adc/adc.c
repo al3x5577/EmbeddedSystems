@@ -61,7 +61,7 @@ ISR(ADC_vect){
 	Led3_Off();
     volatile uint16_t res = ADC;
     
-    if (temp_index1 >= 60) {
+    /*if (temp_index1 >= 60) {
         Led3_On();
         char str[20];
         sprintf(str, "Res: %d\n", res);
@@ -69,7 +69,7 @@ ISR(ADC_vect){
         temp_index1 = 0;
     }else {
         temp_index1++;
-    }
+    }*/
     
     switch (ADMUX & (1 << MUX0)) {
         case 0:
