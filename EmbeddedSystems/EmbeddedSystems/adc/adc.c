@@ -31,7 +31,9 @@ uint16_t adc_get_LM35() {
     uint32_t avg = 0;
     
     for (int i = 0; i < 8; i++) {
-        avg += LM35_Array[i];
+        ADCSRA &= ~(1 << ADIE);
+        avg += Poti_Array[i];
+        ADCSRA |= (1 << ADIE);
     }
     avg = avg / 8;
     
@@ -46,7 +48,7 @@ uint16_t adc_get_Poti() {
     uint32_t avg = 0;
     
     for (int i = 0; i < 8; i++) {
-        ADCSRA &= (1 << ADIE);
+        ADCSRA &= ~(1 << ADIE);
         avg += Poti_Array[i];
         ADCSRA |= (1 << ADIE);
     }
@@ -59,7 +61,8 @@ ISR(ADC_vect){
 	Led3_Off();
     volatile uint16_t res = ADC;
     
-    if (temp_index1 >= 0x00ff) {
+    if (temp_index1 >= 50) {
+        Led3_On();
         char str[20];
         sprintf(str, "Res: %d\n", res);
         uart_send_isr(str);
@@ -104,5 +107,4 @@ ISR(ADC_vect){
     }
     
     ADCSRA |= (1 << ADSC);
-    Led3_On();
 }
