@@ -64,8 +64,10 @@ int main(void) {
             }*/
             
             if (Poti) {
+                cli();
                 sprintf(str, "Poti: %d\n", Poti);
                 uart_send(str);
+                sei();
             }
             
         }
