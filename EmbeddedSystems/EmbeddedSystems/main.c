@@ -37,6 +37,7 @@ int main(void) {
     char data[50] = {0};
     int isafd = 0;
 	char str[65];
+    uint16_t Poti = 0;
 	
     while (1) {
         
@@ -55,7 +56,7 @@ int main(void) {
             
             
             //uint16_t LM35 = adc_get_LM35();
-            uint16_t Poti = adc_get_Poti();
+            Poti = adc_get_Poti();
             
             /*if (LM35) {
                 sprintf(str, "Temperatur: %d\n", LM35);
@@ -64,7 +65,7 @@ int main(void) {
             
             if (Poti) {
                 sprintf(str, "Poti: %d\n", Poti);
-                //uart_send_isr(str);
+                uart_send_isr(str);
             }
             
         }
