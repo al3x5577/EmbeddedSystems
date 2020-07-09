@@ -1,8 +1,8 @@
 
 #include "Uart.h"
 
-struct Buffer bufferSend = {{}, 0, 0};
-struct Buffer bufferRecv = {{}, 0, 0};
+volatile struct Buffer bufferSend = {{}, 0, 0};
+volatile struct Buffer bufferRecv = {{}, 0, 0};
 
 /**
  Puts a byte to the buffer
