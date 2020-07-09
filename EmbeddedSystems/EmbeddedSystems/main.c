@@ -54,7 +54,7 @@ int main(void) {
             }
             
             
-            uint16_t LM35 = adc_get_LM35();
+            /*uint16_t LM35 = adc_get_LM35();
             uint16_t Poti = adc_get_Poti();
             
             if (LM35) {
@@ -65,7 +65,7 @@ int main(void) {
             if (Poti) {
                 sprintf(str, "Poti: %d\n", Poti);
                 //uart_send_isr(str);
-            }
+            }*/
             
         }
         
