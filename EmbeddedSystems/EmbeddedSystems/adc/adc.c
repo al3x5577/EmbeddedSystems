@@ -9,7 +9,6 @@ volatile uint16_t Poti_Array[8] = {0};
 volatile uint8_t index_Poti = 42;
 
 volatile uint16_t temp_index1 = 0;
-volatile uint16_t temp_index2 = 0;
 
 void adc_init() {
     // ADMUX = 0x00;  // AREF, Right Adjust, ADC0
@@ -63,9 +62,19 @@ ISR(ADC_vect){
 	Led3_Off();
     volatile uint16_t res = ADC;
     
+    if ( temp_index1 == 0){
+        Led7_On();
+        Led8_Off();
+        temp_index1 = 1;
+    }else  {
+        Led7_Off();
+        Led8_On();
+        temp_index1 = 0;
+    }
+    
     switch (ADMUX & (1 << MUX0)) {
         case 0:
-			Led7_On();
+			//Led7_On();
             if (index_LM35 == 42) { // Trash first conversion
                 index_LM35 = 0;
                 Led4_On();
@@ -81,7 +90,7 @@ ISR(ADC_vect){
             break;
             
         case 1:
-            Led8_On();
+            //Led8_On();
             if (index_Poti == 42) { // Trash first conversion
                 Led5_On();
                 index_Poti = 0;
