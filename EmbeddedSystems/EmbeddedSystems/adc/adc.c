@@ -16,7 +16,7 @@ void adc_init() {
     // ADCSRB = 0; // Set trigger to free running mode
     
     ADCSRA |= (1 << ADPS0) | (1 << ADPS1) | (1 << ADPS2); // Set prescaler to 128
-    ADCSRA |= (1 << ADEN) | (1 << ADSC) | (1 << ADATE) | (1 << ADIE); // Set ADC enable, start conversion, set auto-trigger, set ADC interrupt
+    ADCSRA |= (1 << ADEN) | (1 << ADSC) | (1 << ADIE); // Set ADC enable, start conversion, set auto-trigger, set ADC interrupt
     
     ADMUX |= (1 << MUX0);
     
@@ -122,5 +122,5 @@ ISR(ADC_vect){
     }*/
     
     Led3_On();
-    // ADCSRA |= (1 << ADSC) | (1 << ADIE); auto trigger is enabled
+    ADCSRA |= (1 << ADSC) | (1 << ADIE);
 }
