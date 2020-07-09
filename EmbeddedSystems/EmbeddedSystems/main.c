@@ -63,12 +63,12 @@ int main(void) {
                 //uart_send_isr(str);
             }*/
             
-            if (Poti) {
-                cli();
-                sprintf(str, "Poti: %d\n", Poti);
-                uart_send(str);
-                sei();
-            }
+            
+            cli();
+            sprintf(str, "Poti: %d\n", Poti);
+            uart_send(str);
+            sei();
+            
             
         }
         
