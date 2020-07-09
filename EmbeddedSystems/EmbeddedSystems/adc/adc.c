@@ -66,7 +66,7 @@ ISR(ADC_vect){
     
     char str2[10];
     sprintf(str2, "Res: %d\n", res);
-    uart_send_isr(str2);
+    //uart_send_isr(str2);
     
     if ( temp_index1 == 0){
         Led7_On();
