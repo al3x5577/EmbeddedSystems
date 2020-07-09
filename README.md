@@ -3,7 +3,7 @@
  (This software is developt for a specific hardware)
  
  ### Known issues
- - Button 4 is always active
+ - ...
  
  ### Hardware setting (new):
  - CPU: ATMEGA1284P (40 pin)
