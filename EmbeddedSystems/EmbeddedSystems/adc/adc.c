@@ -65,7 +65,7 @@ ISR(ADC_vect){
     Led3_Off();
     
     char str2[10];
-    sprintf(str2, "Res: %d\n", res);
+    sprintf(str2, "Res: %d\n", 42);
     uart_send(str2);
     
     switch (ADMUX & (1 << MUX0)) {
