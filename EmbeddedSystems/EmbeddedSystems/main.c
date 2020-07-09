@@ -52,11 +52,7 @@ int main(void) {
                 index_LM352 = 0;
                 Led4_On();
             }else if (index_LM352 >= 0 && index_LM352 <= 7) {
-                //LM35_Array2[index_LM352] = res;
-                
-                sprintf(str, "Index: %d\n", index_LM352);
-                uart_send_isr(str);
-                
+                LM35_Array2[index_LM352] = Timer_getTick();;
                 index_LM352++;
                 
                 
@@ -72,6 +68,11 @@ int main(void) {
             }else {
                 index_LM352 = 42;
                 Led4_Off();
+                
+                for (int x = 0; x < 8; x++) {
+                    sprintf(str, "Array[%d]: %d\n", x, LM35_Array2[x]);
+                    uart_send_isr(str);
+                }
             }
             
             
