@@ -65,7 +65,7 @@ int main(void) {
             
             if (Poti) {
                 sprintf(str, "Poti: %d\n", Poti);
-                uart_send_isr(str);
+                uart_send(str);
             }
             
         }

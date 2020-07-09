@@ -18,7 +18,8 @@ def read():
     r = ser.readlines()
     if len(r) > 0:
         for line in r:
-            print(line)
+            if line.startswith(bytes('Poti'.encode('UTF-8'))):
+                print(line)
 
 
 time = 0.7
