@@ -13,7 +13,7 @@ volatile struct Buffer bufferRecv = {{}, 0, 0};
  */
 uint8_t buff_put(unsigned char byte, volatile struct Buffer *buf)
 {
-    // Data Register Empty Interrupt disable
+    // TX Complete Interrupt disable
     UCSR0B &= ~(1 << TXCIE0);
     // Receive Complete Interrupt disable
     UCSR0B &= ~(1 << RXCIE0);
@@ -21,7 +21,7 @@ uint8_t buff_put(unsigned char byte, volatile struct Buffer *buf)
     if ( ( (buf->write + 1) == buf->read ) ||
         ( buf->read == 0 && (buf->write + 1) == RING_BUFFER_UART_SIZE ) ) {
         
-        // Data Register Empty Interrupt enable
+        // TX Complete Interrupt enable
         UCSR0B |= (1 << TXCIE0);
         // Receive Complete Interrupt enable
         UCSR0B |= (1 << RXCIE0);
@@ -35,7 +35,7 @@ uint8_t buff_put(unsigned char byte, volatile struct Buffer *buf)
     if (buf->write >= RING_BUFFER_UART_SIZE)
         buf->write = 0;
     
-    // Data Register Empty Interrupt enable
+    // TX Complete Interrupt enable
     UCSR0B |= (1 << TXCIE0);
     // Receive Complete Interrupt enable
     UCSR0B |= (1 << RXCIE0);
@@ -59,13 +59,13 @@ uint8_t buff_put(unsigned char byte, volatile struct Buffer *buf)
  */
 uint8_t buff_get(unsigned char *pByte, volatile struct Buffer *buf)
 {
-    // Data Register Empty Interrupt disable
+    // TX Complete Interrupt disable
     UCSR0B &= ~(1 << TXCIE0);
     // Receive Complete Interrupt disable
     UCSR0B &= ~(1 << RXCIE0);
     
     if (buf->read == buf->write){
-        // Data Register Empty Interrupt enable
+        // TX Complete Interrupt enable
         UCSR0B |= (1 << TXCIE0);
         // Receive Complete Interrupt enable
         UCSR0B |= (1 << RXCIE0);
@@ -79,7 +79,7 @@ uint8_t buff_get(unsigned char *pByte, volatile struct Buffer *buf)
     if (buf->read >= RING_BUFFER_UART_SIZE)
       buf->read = 0;
 
-    // Data Register Empty Interrupt enable
+    // TX Complete Interrupt enable
     UCSR0B |= (1 << TXCIE0);
     // Receive Complete Interrupt enable
     UCSR0B |= (1 << RXCIE0);
@@ -91,20 +91,20 @@ uint8_t buff_get(unsigned char *pByte, volatile struct Buffer *buf)
  Returns 1 if there is data in the buffer, 0 if not
  */
 uint8_t buf_available(struct Buffer *buf){
-    // Data Register Empty Interrupt disable
+    // TX Complete Interrupt disable
     UCSR0B &= ~(1 << TXCIE0);
     // Receive Complete Interrupt disable
     UCSR0B &= ~(1 << RXCIE0);
     
     if (buf->read == buf->write){
-        // Data Register Empty Interrupt enable
+        // TX Complete Interrupt enable
         UCSR0B |= (1 << TXCIE0);
         // Receive Complete Interrupt enable
         UCSR0B |= (1 << RXCIE0);
         
         return 0; // empty
     }else {
-        // Data Register Empty Interrupt enable
+        // TX Complete Interrupt enable
         UCSR0B |= (1 << TXCIE0);
         // Receive Complete Interrupt enable
         UCSR0B |= (1 << RXCIE0);
@@ -229,7 +229,7 @@ unsigned char uart_get_data() {
 }
 
 /**
- ISR for USART Data Register Empty flag
+ ISR for USART Transmit Complete flag
  */
 ISR(USART0_TX_vect){
     unsigned char pByte;
