@@ -33,8 +33,7 @@ uint16_t adc_get_LM35() {
     }
     avg = avg / 8;
     
-    avg = avg * 4.883;   // convert to mV
-    avg = avg / 10;       // divide by factor of LM35-DZ
+    avg = (int) avg * 0.4883;   // convert to mV, divide by factor of LM35-DZ
     
     return (avg & 0xffff);  // Return a 16 bit value
 }
