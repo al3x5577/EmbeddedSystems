@@ -19,9 +19,6 @@ void adc_init() {
     // Set ADC enable, start conversion, set ADC interrupt
     ADCSRA |= (1 << ADEN) | (1 << ADSC) | (1 << ADIE);
     
-    // Set MUX to 00001
-    ADMUX |= (1 << MUX0);
-    
 #ifdef DEBUG_LEDS_ADC
     uart_send_isr("ADC init complete\n");
     Led6_On();
