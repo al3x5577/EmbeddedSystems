@@ -53,13 +53,12 @@ ISR(ADC_vect){
     volatile uint16_t res = ADC;
     Led3_Off();
     
-    /*char str2[10];
+    char str2[10];
     sprintf(str2, "Res: %d\n", 42);
-    uart_send(str2);*/
+    uart_send(str2);
     
     switch (ADMUX & (1 << MUX0)) {
         case 0:
-			//Led7_On();
             if (index_LM35 == 42) { // Trash first conversion
                 index_LM35 = 0;
                 Led4_On();
@@ -75,7 +74,6 @@ ISR(ADC_vect){
             break;
             
         case 1:
-            //Led8_On();
             if (index_Poti == 42) { // Trash first conversion
                 Led5_On();
                 index_Poti = 0;
