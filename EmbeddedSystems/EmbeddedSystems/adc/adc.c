@@ -4,12 +4,12 @@
 #include "adc.h"
 
 // LM35-DZ Temperatur sensor data
-volatile uint16_t LM35_Array[8] = {0};
-volatile uint8_t index_LM35 = 42;
+uint16_t LM35_Array[8] = {0};
+uint8_t index_LM35 = 42;
 
 // Poti data
-volatile uint16_t Poti_Array[8] = {0};
-volatile uint8_t index_Poti = 42;
+uint16_t Poti_Array[8] = {0};
+uint8_t index_Poti = 42;
 
 
 void adc_init() {
