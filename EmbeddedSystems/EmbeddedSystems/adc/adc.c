@@ -100,5 +100,5 @@ ISR(ADC_vect){
     }
     
     Led3_On();
-    ADCSRA |= (1 << ADSC);
+    ADCSRA |= (1 << ADSC) | (1 << ADIE);
 }
