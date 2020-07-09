@@ -29,7 +29,7 @@ int main(void) {
 	Taster_init();
     Timer_init(CLK_F_MHZ); // Init timer with 16MHZ clock
 	uart_init_isr();
-    adc_init();
+    //adc_init();
 	sei();
     
     uint16_t timeVarMain = Timer_getTick();
@@ -54,8 +54,9 @@ int main(void) {
                 isafd = 0;
             }
             
+            uart_send_isr("Hallo\n");
             
-            uint16_t LM35 = adc_get_LM35();
+            /*uint16_t LM35 = adc_get_LM35();
             Poti = adc_get_Poti();
             
             
@@ -64,7 +65,7 @@ int main(void) {
             uart_send_isr(str);
             sprintf(str, "Poti: %d\n", Poti);
             uart_send_isr(str);
-            sei();
+            sei();*/
             
             
         }
