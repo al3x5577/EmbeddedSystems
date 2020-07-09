@@ -18,6 +18,8 @@ void adc_init() {
     ADCSRA |= (1 << ADPS0) | (1 << ADPS1) | (1 << ADPS2); // Set prescaler to 128
     ADCSRA |= (1 << ADEN) | (1 << ADSC) | (1 << ADATE) | (1 << ADIE); // Set ADC enable, start conversion, set auto-trigger, set ADC interrupt
     
+    ADMUX |= (1 << MUX0);
+    
     uart_send_isr("ADC init complete\n");
     Led6_On();
 }
@@ -72,7 +74,18 @@ ISR(ADC_vect){
         temp_index1 = 0;
     }
     
-    switch (ADMUX & (1 << MUX0)) {
+    if (index_Poti == 42) { // Trash first conversion
+        Led5_On();
+        index_Poti = 0;
+    }else if (index_Poti >= 0 && index_Poti <= 7) {
+        Poti_Array[index_Poti] = res;
+        index_Poti++;
+    }else {
+        index_Poti = 42;
+        Led5_Off();
+    }
+    
+    /*switch (ADMUX & (1 << MUX0)) {
         case 0:
 			//Led7_On();
             if (index_LM35 == 42) { // Trash first conversion
@@ -106,7 +119,7 @@ ISR(ADC_vect){
             
         default:
             break;
-    }
+    }*/
     
     Led3_On();
     // ADCSRA |= (1 << ADSC) | (1 << ADIE); auto trigger is enabled
