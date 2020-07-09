@@ -4,12 +4,12 @@
 #include "adc.h"
 
 // LM35-DZ Temperatur sensor data
-uint16_t LM35_Array[8] = {0};
-uint8_t index_LM35 = 42;
+volatile uint16_t LM35_Array[8] = {0};
+volatile uint8_t index_LM35 = 42;
 
 // Poti data
-uint16_t Poti_Array[8] = {0};
-uint8_t index_Poti = 42;
+volatile uint16_t Poti_Array[8] = {0};
+volatile uint8_t index_Poti = 42;
 
 
 void adc_init() {
@@ -53,7 +53,7 @@ uint16_t adc_get_Poti() {
 }
 
 ISR(ADC_vect){
-    volatile uint16_t res = ADC;
+    uint16_t res = ADC;
 #ifdef DEBUG_LEDS_ADC
     Led3_Off();
 #endif
