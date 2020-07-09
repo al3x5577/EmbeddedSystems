@@ -68,6 +68,9 @@ Returns 1 if there is data in the buffer, 0 if not
 */
 uint8_t buf_available(struct Buffer *buf);
 
+/**
+ If there is data in the receive ringbuffer, one byte will be pulled and returned
+ */
 unsigned char uart_get_data(void);
 
 #endif /* MY_UART_H_ */
