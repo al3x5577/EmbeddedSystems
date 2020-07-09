@@ -37,21 +37,37 @@ int main(void) {
     char data[50] = {0};
     int i = 0;
 	char str[65];
+    
+    volatile uint16_t LM35_Array2[8] = {0};
+    volatile uint8_t index_LM352 = 42;
 	
     while (1) {
         
         if((Timer_getTick() - timeVarMain) >= 500){
             timeVarMain = Timer_getTick();
             
-            if ( i == 0){
-				Led1_On();
-                Led2_Off();
-				i = 1;
-			}else  {
-				Led1_Off();
-                Led2_On();
-				i = 0;
-			}
+            
+            
+            if (index_LM352 == 42) { // Trash first conversion
+                index_LM352 = 0;
+                Led4_On();
+            }else if (index_LM352 >= 0 && index_LM352 <= 7) {
+                //LM35_Array2[index_LM352] = res;
+                index_LM352++;
+                
+                if ( i == 0){
+                    Led1_On();
+                    Led2_Off();
+                    i = 1;
+                }else  {
+                    Led1_Off();
+                    Led2_On();
+                    i = 0;
+                }
+            }else {
+                index_LM352 = 42;
+                Led4_Off();
+            }
             
             
             uint16_t LM35 = adc_get_LM35();

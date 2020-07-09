@@ -61,7 +61,7 @@ try:
 
     while True:
         read()
-        sleep(0.1)
+        sleep(0.5)
 
 except KeyboardInterrupt:
     ser.close()
