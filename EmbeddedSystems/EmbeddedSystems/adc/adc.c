@@ -3,7 +3,7 @@
 
 #include "adc.h"
 
-#define DEBUG_LEDS
+//#define DEBUG_LEDS
 
 volatile uint16_t LM35_Array[8] = {0};
 volatile uint8_t index_LM35 = 42;
