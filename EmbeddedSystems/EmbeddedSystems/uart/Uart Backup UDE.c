@@ -140,8 +140,8 @@ void uart_init() {
 void uart_init_isr() {
     uart_init();
     
-    // TX Complete Interrupt enable
-    UCSR0B |= (1 << TXCIE0);
+    // Data Register Empty Interrupt enable
+    UCSR0B |= (1 << UDRIE0);
     
     // Receive Complete Interrupt enable
     UCSR0B |= (1 << RXCIE0);
@@ -182,28 +182,22 @@ void uart_send(char* string) {
 uint16_t uart_send_isr(char* string) {
     
     int len = strlen(string);
-    uint16_t ret = 0;
     
     // Iterate over string
     for (int i = 0; i < len; i++) {
         if (buff_put(string[i], &bufferSend) == 1) {
+            
+            // Enable ISR anyways so that buffer will get empty
+            UCSR0A |= (1 << UDRE0);
+            
             // Buffer overflow
-            ret = i++;
-            break;
+            return i++;
         }
     }
     
     // Enable ISR
-    if (UCSR0A & (1 << UDRE0)) {
-        unsigned char pByte;
-        // Pull one byte from buffer and store it in pByte
-        if (buff_get(&pByte, &bufferSend) == 0) {
-            // Send byte
-            UDR0 = pByte;
-        }
-    }
-    
-    return ret;
+    UCSR0A |= (1 << UDRE0);
+    return 0;
 }
 
 /**
@@ -231,12 +225,15 @@ unsigned char uart_get_data() {
 /**
  ISR for USART Data Register Empty flag
  */
-ISR(USART0_TX_vect){
+ISR(USART0_UDRE_vect){
     unsigned char pByte;
     // Pull one byte from buffer and store it in pByte
     if (buff_get(&pByte, &bufferSend) == 0) {
         // Send byte
         UDR0 = pByte;
+    }else {
+        // Buffer empty: disable interrupt
+        UCSR0A &= ~(1 << UDRE0);
     }
 }
 
