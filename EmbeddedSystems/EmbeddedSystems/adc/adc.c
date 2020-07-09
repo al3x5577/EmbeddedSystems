@@ -46,7 +46,15 @@ uint16_t adc_get_Poti() {
         avg += Poti_Array[i];
         ADCSRA |= (1 << ADIE);
     }
+    
+    char str2[20];
+    sprintf(str, "AVG: %d\n", avg);
+    uart_send_isr(str);
+    
     avg = avg / 8;
+    
+    sprintf(str, "AVG/8: %d\n", avg);
+    uart_send_isr(str);
     
     return (avg & 0xffff);  // Return a 16 bit value
 }
