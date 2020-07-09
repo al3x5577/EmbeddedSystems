@@ -18,7 +18,7 @@ def read():
     r = ser.readlines()
     if len(r) > 0:
         for line in r:
-            if line.startswith(bytes('Poti'.encode('UTF-8'))):
+            if line.startswith(bytes('Poti'.encode('UTF-8'))) or line.startswith(bytes('Temp'.encode('UTF-8'))):
                 print(line)
 
 
