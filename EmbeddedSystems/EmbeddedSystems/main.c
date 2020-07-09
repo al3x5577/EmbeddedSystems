@@ -54,7 +54,7 @@ int main(void) {
                 isafd = 0;
             }
             
-            PORTB = uart_send_isr("Hallo\n");
+            uart_send_isr("Hallo\n");
             
             /*uint16_t LM35 = adc_get_LM35();
             Poti = adc_get_Poti();
