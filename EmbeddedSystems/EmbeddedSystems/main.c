@@ -55,6 +55,9 @@ int main(void) {
                 //LM35_Array2[index_LM352] = res;
                 index_LM352++;
                 
+                sprintf(str, "Index: %d\n", index_LM352);
+                uart_send_isr(str);
+                
                 if ( i == 0){
                     Led1_On();
                     Led2_Off();
@@ -75,12 +78,12 @@ int main(void) {
             
             if (LM35) {
                 sprintf(str, "Temperatur: %d\n", LM35);
-                uart_send_isr(str);
+                //uart_send_isr(str);
             }
             
             if (Poti) {
                 sprintf(str, "Poti: %d\n", Poti);
-                uart_send_isr(str);
+                //uart_send_isr(str);
             }
             
         }
