@@ -35,7 +35,7 @@ int main(void) {
     uint16_t timeVarMain = Timer_getTick();
     char data_s;
     char data[50] = {0};
-    int i = 0;
+    int isafd = 0;
 	char str[65];
 	
     while (1) {
@@ -43,14 +43,14 @@ int main(void) {
         if((Timer_getTick() - timeVarMain) >= 500){
             timeVarMain = Timer_getTick();
             
-            if ( i == 0){
+            if ( isafd == 0){
                 Led1_On();
                 Led2_Off();
-                i = 1;
+                isafd = 1;
             }else  {
                 Led1_Off();
                 Led2_On();
-                i = 0;
+                isafd = 0;
             }
             
             
