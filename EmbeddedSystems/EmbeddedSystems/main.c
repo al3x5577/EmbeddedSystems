@@ -53,10 +53,12 @@ int main(void) {
                 Led4_On();
             }else if (index_LM352 >= 0 && index_LM352 <= 7) {
                 //LM35_Array2[index_LM352] = res;
-                index_LM352++;
                 
                 sprintf(str, "Index: %d\n", index_LM352);
                 uart_send_isr(str);
+                
+                index_LM352++;
+                
                 
                 if ( i == 0){
                     Led1_On();
