@@ -3,27 +3,27 @@
 
 #include "adc.h"
 
-//#define DEBUG_LEDS
-
+// LM35-DZ Temperatur sensor data
 volatile uint16_t LM35_Array[8] = {0};
 volatile uint8_t index_LM35 = 42;
+
+// Poti data
 volatile uint16_t Poti_Array[8] = {0};
 volatile uint8_t index_Poti = 42;
 
-volatile uint16_t temp_index1 = 0;
 
 void adc_init() {
-    // ADMUX = 0x00;  // AREF, Right Adjust, ADC0
+    // Set prescaler to 128
+    ADCSRA |= (1 << ADPS0) | (1 << ADPS1) | (1 << ADPS2);
     
-    // ADCSRB = 0; // Set trigger to free running mode
+    // Set ADC enable, start conversion, set ADC interrupt
+    ADCSRA |= (1 << ADEN) | (1 << ADSC) | (1 << ADIE);
     
-    ADCSRA |= (1 << ADPS0) | (1 << ADPS1) | (1 << ADPS2); // Set prescaler to 128
-    ADCSRA |= (1 << ADEN) | (1 << ADSC) | (1 << ADIE); // Set ADC enable, start conversion, set ADC interrupt
-    
+    // Set MUX to 00001
     ADMUX |= (1 << MUX0);
     
+#ifdef DEBUG_LEDS_ADC
     uart_send_isr("ADC init complete\n");
-#ifdef DEBUG_LEDS
     Led6_On();
 #endif
 }
@@ -57,7 +57,7 @@ uint16_t adc_get_Poti() {
 
 ISR(ADC_vect){
     volatile uint16_t res = ADC;
-#ifdef DEBUG_LEDS
+#ifdef DEBUG_LEDS_ADC
     Led3_Off();
 #endif
     
@@ -65,7 +65,7 @@ ISR(ADC_vect){
         case 0:
             if (index_LM35 == 42) { // Trash first conversion
                 index_LM35 = 0;
-#ifdef DEBUG_LEDS
+#ifdef DEBUG_LEDS_ADC
                 Led4_On();
 #endif
             }else if (index_LM35 >= 0 && index_LM35 <= 7) {
@@ -75,7 +75,7 @@ ISR(ADC_vect){
                 ADMUX &= ~(30); // Set MUX1..4 to 0
                 ADMUX |= (1 << MUX0);
                 index_LM35 = 42;
-#ifdef DEBUG_LEDS
+#ifdef DEBUG_LEDS_ADC
                 Led4_Off();
 #endif
             }
@@ -83,7 +83,7 @@ ISR(ADC_vect){
             
         case 1:
             if (index_Poti == 42) { // Trash first conversion
-#ifdef DEBUG_LEDS
+#ifdef DEBUG_LEDS_ADC
                 Led5_On();
 #endif
                 index_Poti = 0;
@@ -93,7 +93,7 @@ ISR(ADC_vect){
             }else {
                 ADMUX &= ~(31); // Set MUX0..4 to 0
                 index_Poti = 42;
-#ifdef DEBUG_LEDS
+#ifdef DEBUG_LEDS_ADC
                 Led5_Off();
 #endif
             }
@@ -102,7 +102,7 @@ ISR(ADC_vect){
         default:
             break;
     }
-#ifdef DEBUG_LEDS
+#ifdef DEBUG_LEDS_ADC
     Led3_On();
 #endif
     ADCSRA |= (1 << ADSC) | (1 << ADIE);
