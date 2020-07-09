@@ -63,16 +63,6 @@ ISR(ADC_vect){
 	Led3_Off();
     volatile uint16_t res = ADC;
     
-    /*if (temp_index1 >= 60) {
-        Led3_On();
-        char str[20];
-        sprintf(str, "Res: %d\n", res);
-        uart_send_isr(str);
-        temp_index1 = 0;
-    }else {
-        temp_index1++;
-    }*/
-    
     switch (ADMUX & (1 << MUX0)) {
         case 0:
 			Led7_On();
@@ -83,6 +73,7 @@ ISR(ADC_vect){
                 LM35_Array[index_LM35] = res;
                 index_LM35++;
             }else {
+                ADMUX &= ~(30); // Set MUX1..4 to 0
                 ADMUX |= (1 << MUX0);
                 index_LM35 = 42;
                 Led4_Off();
@@ -98,7 +89,7 @@ ISR(ADC_vect){
                 Poti_Array[index_Poti] = res;
                 index_Poti++;
             }else {
-                ADMUX &= ~(1 << MUX0);
+                ADMUX &= ~(31); // Set MUX0..4 to 0
                 index_Poti = 42;
                 Led5_Off();
             }
@@ -108,5 +99,6 @@ ISR(ADC_vect){
             break;
     }
     
+    Led3_On();
     ADCSRA |= (1 << ADSC);
 }
