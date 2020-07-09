@@ -33,6 +33,9 @@ uint16_t adc_get_LM35() {
     }
     avg = avg / 8;
     
+    avg = avg * 0.004883;   // convert to Volt
+    avg = avg / 0.01;       // divide by factor of LM35-DZ
+    
     return (avg & 0xffff);  // Return a 16 bit value
 }
 
