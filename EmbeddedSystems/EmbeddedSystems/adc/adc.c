@@ -48,13 +48,13 @@ uint16_t adc_get_Poti() {
     }
     
     char str2[20];
-    sprintf(str, "AVG: %d\n", avg);
-    uart_send_isr(str);
+    sprintf(str2, "AVG: %d\n", avg);
+    uart_send_isr(str2);
     
     avg = avg / 8;
     
-    sprintf(str, "AVG/8: %d\n", avg);
-    uart_send_isr(str);
+    sprintf(str2, "AVG/8: %d\n", avg);
+    uart_send_isr(str2);
     
     return (avg & 0xffff);  // Return a 16 bit value
 }
