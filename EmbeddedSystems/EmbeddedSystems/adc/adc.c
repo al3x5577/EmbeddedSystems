@@ -68,28 +68,7 @@ ISR(ADC_vect){
     sprintf(str2, "Res: %d\n", res);
     uart_send(str2);
     
-    if ( temp_index1 == 0){
-        Led7_On();
-        Led8_Off();
-        temp_index1 = 1;
-    }else  {
-        Led7_Off();
-        Led8_On();
-        temp_index1 = 0;
-    }
-    
-    if (index_Poti == 42) { // Trash first conversion
-        Led5_On();
-        index_Poti = 0;
-    }else if (index_Poti >= 0 && index_Poti <= 7) {
-        Poti_Array[index_Poti] = res;
-        index_Poti++;
-    }else {
-        index_Poti = 42;
-        Led5_Off();
-    }
-    
-    /*switch (ADMUX & (1 << MUX0)) {
+    switch (ADMUX & (1 << MUX0)) {
         case 0:
 			//Led7_On();
             if (index_LM35 == 42) { // Trash first conversion
@@ -123,7 +102,7 @@ ISR(ADC_vect){
             
         default:
             break;
-    }*/
+    }
     
     Led3_On();
     ADCSRA |= (1 << ADSC) | (1 << ADIE);
