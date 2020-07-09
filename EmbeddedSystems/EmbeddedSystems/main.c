@@ -55,16 +55,13 @@ int main(void) {
             }
             
             
-            //uint16_t LM35 = adc_get_LM35();
+            uint16_t LM35 = adc_get_LM35();
             Poti = adc_get_Poti();
-            
-            /*if (LM35) {
-                sprintf(str, "Temperatur: %d\n", LM35);
-                //uart_send_isr(str);
-            }*/
             
             
             cli();
+            sprintf(str, "Temp: %d\n", LM35);
+            uart_send(str);
             sprintf(str, "Poti: %d\n", Poti);
             uart_send(str);
             sei();
