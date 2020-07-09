@@ -61,9 +61,9 @@ int main(void) {
             
             cli();
             sprintf(str, "Temp: %d\n", LM35);
-            uart_send(str);
+            uart_send_isr(str);
             sprintf(str, "Poti: %d\n", Poti);
-            uart_send(str);
+            uart_send_isr(str);
             sei();
             
             
