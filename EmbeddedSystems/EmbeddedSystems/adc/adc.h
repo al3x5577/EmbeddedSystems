@@ -13,11 +13,14 @@
 // #define DEBUG_LEDS_ADC
 
 #include <avr/io.h>
-#include <stdio.h>
 #include <avr/interrupt.h>
+
+#ifdef DEBUG_LEDS_ADC
 #include <string.h>
+#include <stdio.h>
 #include "../gpio/Led.h"
 #include "../uart/Uart.h"
+#endif
 
 /**
  Initialises ADC with ISR
