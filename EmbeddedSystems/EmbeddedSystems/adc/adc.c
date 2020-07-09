@@ -3,6 +3,8 @@
 
 #include "adc.h"
 
+#define DEBUG_LEDS
+
 volatile uint16_t LM35_Array[8] = {0};
 volatile uint8_t index_LM35 = 42;
 volatile uint16_t Poti_Array[8] = {0};
@@ -21,7 +23,9 @@ void adc_init() {
     ADMUX |= (1 << MUX0);
     
     uart_send_isr("ADC init complete\n");
+#ifdef DEBUG_LEDS
     Led6_On();
+#endif
 }
 
 uint16_t adc_get_LM35() {
@@ -53,13 +57,17 @@ uint16_t adc_get_Poti() {
 
 ISR(ADC_vect){
     volatile uint16_t res = ADC;
+#ifdef DEBUG_LEDS
     Led3_Off();
+#endif
     
     switch (ADMUX & (1 << MUX0)) {
         case 0:
             if (index_LM35 == 42) { // Trash first conversion
                 index_LM35 = 0;
+#ifdef DEBUG_LEDS
                 Led4_On();
+#endif
             }else if (index_LM35 >= 0 && index_LM35 <= 7) {
                 LM35_Array[index_LM35] = res;
                 index_LM35++;
@@ -67,13 +75,17 @@ ISR(ADC_vect){
                 ADMUX &= ~(30); // Set MUX1..4 to 0
                 ADMUX |= (1 << MUX0);
                 index_LM35 = 42;
+#ifdef DEBUG_LEDS
                 Led4_Off();
+#endif
             }
             break;
             
         case 1:
             if (index_Poti == 42) { // Trash first conversion
+#ifdef DEBUG_LEDS
                 Led5_On();
+#endif
                 index_Poti = 0;
             }else if (index_Poti >= 0 && index_Poti <= 7) {
                 Poti_Array[index_Poti] = res;
@@ -81,14 +93,17 @@ ISR(ADC_vect){
             }else {
                 ADMUX &= ~(31); // Set MUX0..4 to 0
                 index_Poti = 42;
+#ifdef DEBUG_LEDS
                 Led5_Off();
+#endif
             }
             break;
             
         default:
             break;
     }
-    
+#ifdef DEBUG_LEDS
     Led3_On();
+#endif
     ADCSRA |= (1 << ADSC) | (1 << ADIE);
 }
