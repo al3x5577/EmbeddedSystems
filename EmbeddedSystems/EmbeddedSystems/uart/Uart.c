@@ -11,7 +11,7 @@ volatile struct Buffer bufferRecv = {{}, 0, 0};
  - BUFFER_FAIL: buffer overflow
  - BUFFER_SUCCESS: byte is put in the buffer
  */
-uint8_t buff_put(unsigned char byte, struct Buffer *buf)
+uint8_t buff_put(unsigned char byte, volatile struct Buffer *buf)
 {
     // Data Register Empty Interrupt disable
     UCSR0B &= ~(1 << UDRIE0);
@@ -57,7 +57,7 @@ uint8_t buff_put(unsigned char byte, struct Buffer *buf)
  - BUFFER_FAIL: buffer empty
  - BUFFER_SUCCESS: byte is pulled out and stored in pByte
  */
-uint8_t buff_get(unsigned char *pByte, struct Buffer *buf)
+uint8_t buff_get(unsigned char *pByte, volatile struct Buffer *buf)
 {
     // Data Register Empty Interrupt disable
     UCSR0B &= ~(1 << UDRIE0);
