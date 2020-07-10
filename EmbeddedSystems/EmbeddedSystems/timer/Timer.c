@@ -27,10 +27,6 @@ typedef struct TIMER_REG{
 
 volatile uint16_t timer_count = 0;
 
-void Timer_init(uint8_t clockFreqMhz) {
-    Timer_init_withoutStruct(clockFreqMhz);
-}
-
 void Timer_init_withStruct(uint8_t clockFreqMhz) {
     TIMER_REG_t *TIMER0 = (TIMER_REG_t*)(0x44);
     
@@ -96,6 +92,10 @@ void Timer_init_withoutStruct(uint8_t clockFreqMhz) {
     TIMSK0 &= ~(1 << OCIE0B);   // disable Output Compare Match B Interrupt
     TIMSK0 |= (1 << OCIE0A);    // enable Output Compare Match A Interrupt
     TIMSK0 &= ~(1 << TOIE0);    // disable timer overflow interrupt
+}
+
+void Timer_init(uint8_t clockFreqMhz) {
+    Timer_init_withoutStruct(clockFreqMhz);
 }
 
 uint16_t Timer_getTick() {
