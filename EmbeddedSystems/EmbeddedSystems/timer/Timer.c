@@ -27,7 +27,7 @@ typedef struct TIMER_REG{
 
 volatile uint16_t timer_count = 0;
 
-volatile void (*timer2_func)(void);
+void (*timer2_func)(void);
 
 void Timer_init_withStruct(uint8_t clockFreqMhz) {
     TIMER_REG_t *TIMER0 = (TIMER_REG_t*)(0x44);
@@ -96,7 +96,7 @@ void Timer_init_withoutStruct(uint8_t clockFreqMhz) {
     TIMSK0 &= ~(1 << TOIE0);    // disable timer overflow interrupt
 }
 
-void Timer2_init(uint8_t clockFreqMhz, volatile void (*f)(void)) {
+void Timer2_init(uint8_t clockFreqMhz, void (*f)(void)) {
     timer2_func = f;
     // datasheet page 97
     // set mode to clear timer on compare (CTC)

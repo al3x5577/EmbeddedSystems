@@ -12,7 +12,7 @@
 
 void Timer_init(uint8_t clockFreqMhz);
 
-void Timer2_init(uint8_t clockFreqMhz, volatile void (*f)(void));
+void Timer2_init(uint8_t clockFreqMhz, void (*f)(void));
 
 uint16_t Timer_getTick(void);
 
