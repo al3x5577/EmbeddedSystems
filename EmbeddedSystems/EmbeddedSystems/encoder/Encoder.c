@@ -75,6 +75,10 @@ int loop( void )
   for(;;){
     val += encode_read2();          // read a single step encoder
       
+      char str[30];
+      sprintf(str, "val: %d\n", val);
+      uart_send_isr(str);
+      
     // shift as many ones as count to byte
     int ledByte = 0;
     for (int i = 0; i < val; i++) {
