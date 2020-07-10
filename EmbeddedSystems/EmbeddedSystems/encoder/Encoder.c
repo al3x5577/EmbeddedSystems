@@ -73,7 +73,7 @@ int loop( void )
   sei();
 
   for(;;){
-    val += encode_read1();          // read a single step encoder
+    val += encode_read2();          // read a single step encoder
     PORTB = val;
   }
 }
