@@ -27,7 +27,7 @@ typedef struct TIMER_REG{
 
 volatile uint16_t timer_count = 0;
 
-void (*timer2_func)(void);
+volatile void (*timer2_func)(void);
 
 void Timer_init_withStruct(uint8_t clockFreqMhz) {
     TIMER_REG_t *TIMER0 = (TIMER_REG_t*)(0x44);
