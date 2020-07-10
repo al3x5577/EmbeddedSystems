@@ -125,6 +125,9 @@ uint16_t Timer_getTick() {
 ISR(TIMER0_COMPA_vect){
     timer_count++;
     
+    uart_send("A\n");
+    
+    
     // Adjust OCR0A, so that the interrupt will be called after given cycles, even though timer wont reset
     uint8_t dif_tcomp = 255 - TCNT0;
     OCR0A = COMPA_VAL - dif_tcomp;
@@ -133,6 +136,10 @@ ISR(TIMER0_COMPA_vect){
 volatile uint8_t asdjflk = 0;
 
 ISR(TIMER0_COMPB_vect){
+    
+    uart_send("B\n");
+    
+    
     if ( asdjflk == 0){
         Led7_On();
         Led8_Off();

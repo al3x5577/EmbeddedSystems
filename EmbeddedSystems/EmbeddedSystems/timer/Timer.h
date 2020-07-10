@@ -10,6 +10,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "../gpio/Led.h"
+#include "../uart/Uart.h"
 
 void Timer_init(uint8_t clockFreqMhz);
 
