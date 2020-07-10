@@ -77,7 +77,7 @@ int loop( void )
       
       char str[30];
       sprintf(str, "val: %d\n", val);
-      uart_send_isr(str);
+      uart_send(str);
       
     // shift as many ones as count to byte
     int ledByte = 0;
