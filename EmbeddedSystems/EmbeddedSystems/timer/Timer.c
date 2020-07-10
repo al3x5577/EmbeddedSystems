@@ -94,6 +94,45 @@ void Timer_init_withoutStruct(uint8_t clockFreqMhz) {
     TIMSK0 &= ~(1 << TOIE0);    // disable timer overflow interrupt
 }
 
+void Timer2_init(uint8_t clockFreqMhz) {
+    // datasheet page 97
+    // set mode to clear timer on compare (CTC)
+    TCCR2B &= ~(1 << WGM02);
+    TCCR2A |= (1 << WGM01);
+    TCCR2A &= ~(1 << WGM00);
+    
+    
+    switch (clockFreqMhz) {
+        case 16:
+            // extern osc (16 MHZ)
+            
+            // set OCR0A-reg (top value of timer)
+            OCR2A = T2_COMPA_VAL-1;   // dez 249; range 0 - 249 -> 250 cycles till interrupt
+            
+            // set prescaler to 1/64
+            TCCR2B &= ~(1 << CS02);
+            TCCR2B |= (1 << CS01);
+            TCCR2B |= (1 << CS00);
+            break;
+            
+        default:
+            // inter osc (8 MHZ divided by 8 -> 1 MHZ clock)
+            
+            // set OCR0A-reg (top value of timer)
+            OCR2A = T2_COMPA_VAL_8MHZ-1;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
+            
+            // set prescaler to 1/8
+            TCCR2B &= ~(1 << CS02);
+            TCCR2B |= (1 << CS01);
+            TCCR2B &= ~(1 << CS00);
+            break;
+    }
+    
+    TIMSK2 &= ~(1 << OCIE0B);   // disable Output Compare Match B Interrupt
+    TIMSK2 |= (1 << OCIE0A);    // enable Output Compare Match A Interrupt
+    TIMSK2 &= ~(1 << TOIE0);    // disable timer overflow interrupt
+}
+
 void Timer_init(uint8_t clockFreqMhz) {
     Timer_init_withoutStruct(clockFreqMhz);
 }
@@ -118,6 +157,20 @@ uint16_t Timer_getTick() {
  */
 ISR(TIMER0_COMPA_vect){
     timer_count++;
+}
+
+volatile uint8_t asdhfjlasdkf = 0;
+ISR(TIMER2_COMPA_vect){
+     if ( asdhfjlasdkf == 0){
+        Led7_On();
+        Led8_Off();
+        asdhfjlasdkf = 1;
+    }else  {
+        Led7_Off();
+        Led8_On();
+        asdhfjlasdkf = 0;
+    }
+
 }
 
 /**
