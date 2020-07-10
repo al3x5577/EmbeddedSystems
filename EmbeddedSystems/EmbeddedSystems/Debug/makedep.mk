@@ -4,6 +4,8 @@
 
 adc\adc.c
 
+encoder\Encoder.c
+
 gpio\Led.c
 
 gpio\Taster.c
