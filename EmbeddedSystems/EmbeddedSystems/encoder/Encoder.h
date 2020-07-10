@@ -12,6 +12,7 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include "../timer/Timer.h"
 
 #define PHASE_A     (PINC & 1<<PC6)
 #define PHASE_B     (PINC & 1<<PC7)
