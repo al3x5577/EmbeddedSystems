@@ -1,11 +1,11 @@
 
 #include "Encoder.h"
 
-volatile int enc_delta;          // -128 ... 127
-static int last;
+volatile int8_t enc_delta;          // -128 ... 127
+static int8_t last;
 
-void encoder_isr(){     // 1ms for manual movement
-  int new, diff;
+volatile void encoder_isr(){     // 1ms for manual movement
+  int8_t new, diff;
 
   new = 0;
   if( PHASE_A ) new = 3;
@@ -19,7 +19,7 @@ void encoder_isr(){     // 1ms for manual movement
 
 void encode_init( void ){
     Timer2_init(16, encoder_isr); // Init timer
-  int new;
+  int8_t new;
 
   new = 0;
   if( PHASE_A ) new = 3;
@@ -29,9 +29,9 @@ void encode_init( void ){
 }
 
 
-int encode_read1( void )         // read single step encoders
+int8_t encode_read1( void )         // read single step encoders
 {
-  int val;
+  int8_t val;
 
   cli();
   val = enc_delta;
@@ -41,9 +41,9 @@ int encode_read1( void )         // read single step encoders
 }
 
 
-int encode_read2( void )         // read two step encoders
+int8_t encode_read2( void )         // read two step encoders
 {
-  int val;
+  int8_t val;
 
   cli();
   val = enc_delta;
@@ -53,9 +53,9 @@ int encode_read2( void )         // read two step encoders
 }
 
 
-int encode_read4( void )         // read four step encoders
+int8_t encode_read4( void )         // read four step encoders
 {
-  int val;
+  int8_t val;
 
   cli();
   val = enc_delta;
