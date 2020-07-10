@@ -27,32 +27,34 @@ typedef struct TIMER_REG{
 
 volatile uint16_t timer_count = 0;
 
+void Timer_init(uint8_t clockFreqMhz) {
+    Timer_init_withoutStruct(clockFreqMhz);
+}
+
 void Timer_init_withStruct(uint8_t clockFreqMhz) {
     TIMER_REG_t *TIMER0 = (TIMER_REG_t*)(0x44);
     
     // datasheet page 97
-    // set mode to normal mode
+    // set mode to clear timer on compare (CTC)
     TIMER0->mode02 = 0;
-    TIMER0->mode01 = 0; // 1 for CTC
+    TIMER0->mode01 = 1;
     TIMER0->mode00 = 0;
     
     switch (clockFreqMhz) {
         case 16:
             // extern osc (16 MHZ)
             TIMER0->compareValueA = COMPA_VAL-1;   // dez 249; range 0 - 249 -> 250 cycles till interrupt
-            TIMER0->compareValueB = COMPB_VAL-1;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
             TIMER0->prescaler = 3;  // set prescaler to 1/64
             break;
             
         default:
             // inter osc (8 MHZ divided by 8 -> 1 MHZ clock)
             TIMER0->compareValueA = COMPA_VAL_8MHZ-1;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
-            TIMER0->compareValueB = COMPB_VAL_8MHZ-1;   // dez 62; range 0 - 62 -> 63 cycles till interrupt
             TIMER0->prescaler = 2;  // set prescaler to 1/8
             break;
     }
     
-    TIMSK0 |= (1 << OCIE0B);   // enable Output Compare Match B Interrupt
+    TIMSK0 &= ~(1 << OCIE0B);   // disable Output Compare Match B Interrupt
     TIMSK0 |= (1 << OCIE0A);    // enable Output Compare Match A Interrupt
     TIMSK0 &= ~(1 << TOIE0);    // disable timer overflow interrupt
 }
@@ -61,7 +63,7 @@ void Timer_init_withoutStruct(uint8_t clockFreqMhz) {
     // datasheet page 97
     // set mode to clear timer on compare (CTC)
     TCCR0B &= ~(1 << WGM02);
-    TCCR0A &= ~(1 << WGM01);
+    TCCR0A |= (1 << WGM01);
     TCCR0A &= ~(1 << WGM00);
     
     
@@ -71,9 +73,6 @@ void Timer_init_withoutStruct(uint8_t clockFreqMhz) {
             
             // set OCR0A-reg (top value of timer)
             OCR0A = COMPA_VAL-1;   // dez 249; range 0 - 249 -> 250 cycles till interrupt
-            
-            // set OCR0B-reg (top value B of timer)
-            OCR0B = COMPB_VAL-1;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
             
             // set prescaler to 1/64
             TCCR0B &= ~(1 << CS02);
@@ -87,9 +86,6 @@ void Timer_init_withoutStruct(uint8_t clockFreqMhz) {
             // set OCR0A-reg (top value of timer)
             OCR0A = COMPA_VAL_8MHZ-1;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
             
-            // set OCR0B-reg (top value B of timer)
-            OCR0B = COMPB_VAL_8MHZ-1;   // dez 62; range 0 - 62 -> 63 cycles till interrupt
-            
             // set prescaler to 1/8
             TCCR0B &= ~(1 << CS02);
             TCCR0B |= (1 << CS01);
@@ -97,22 +93,20 @@ void Timer_init_withoutStruct(uint8_t clockFreqMhz) {
             break;
     }
     
-    TIMSK0 |= (1 << OCIE0B);   // enable Output Compare Match B Interrupt
+    TIMSK0 &= ~(1 << OCIE0B);   // disable Output Compare Match B Interrupt
     TIMSK0 |= (1 << OCIE0A);    // enable Output Compare Match A Interrupt
     TIMSK0 &= ~(1 << TOIE0);    // disable timer overflow interrupt
 }
 
-void Timer_init(uint8_t clockFreqMhz) {
-    Timer_init_withoutStruct(clockFreqMhz);
-}
-
 uint16_t Timer_getTick() {
-    TIMSK0 &= ~((1 << OCIE0B) | (1 << OCIE0A));   // disable Output Compare Match A,B Interrupt
+    // disable Output Compare Match A Interrupt
+    TIMSK0 &= ~(1 << OCIE0A);
     
     // store timer_count in a temp int that can't get changed by ISR
     uint16_t temp_timer_count = timer_count;
     
-    TIMSK0 |= (1 << OCIE0B) | (1 << OCIE0A);   // enable Output Compare Match A,B Interrupt
+    // enable Output Compare Match A Interrupt
+    TIMSK0 |= (1 << OCIE0A);
 
     return temp_timer_count;
 }
@@ -124,36 +118,18 @@ uint16_t Timer_getTick() {
  */
 ISR(TIMER0_COMPA_vect){
     timer_count++;
-    
-    uart_send("A\n");
-    
-    
-    // Adjust OCR0A, so that the interrupt will be called after given cycles, even though timer wont reset
-    uint8_t dif_tcomp = 255 - TCNT0;
-    OCR0A = COMPA_VAL - dif_tcomp;
 }
 
-volatile uint8_t asdjflk = 0;
-
-ISR(TIMER0_COMPB_vect){
-    
-    uart_send("B\n");
-    
-    
-    if ( asdjflk == 0){
-        Led7_On();
-        Led8_Off();
-        asdjflk = 1;
-    }else {
-        Led7_Off();
-        Led8_On();
-        asdjflk = 0;
-    }
-    
-    // Adjust OCR0A, so that the interrupt will be called after given cycles, even though timer wont reset
-    uint8_t dif_tcomp = 255 - TCNT0;
-    OCR0B = COMPB_VAL - dif_tcomp;
-}
+/**
+ ( not used atm)
+ Timer overflow interrput:
+ - increase timer_count
+ - if timer_count is at max of uint16, set it to 0
+ */
+/*
+ISR(TIMER0_OVF_vect){
+    timer_count++;
+}*/
 
 
 /* Timer_init() aus Aufgabe 1

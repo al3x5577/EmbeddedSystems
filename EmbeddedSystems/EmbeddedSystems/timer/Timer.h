@@ -2,10 +2,7 @@
 #define TIMER_H_
 
 #define COMPA_VAL 250
-#define COMPB_VAL 135
-
 #define COMPA_VAL_8MHZ 125
-#define COMPB_VAL_8MHZ 63
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
