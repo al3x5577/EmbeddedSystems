@@ -137,7 +137,7 @@ ISR(TIMER0_COMPB_vect){
         Led7_On();
         Led8_Off();
         asdjflk = 1;
-    }else  {
+    }else {
         Led7_Off();
         Led8_On();
         asdjflk = 0;
