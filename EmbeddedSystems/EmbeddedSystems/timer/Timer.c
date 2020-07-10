@@ -73,7 +73,7 @@ void Timer_init_withoutStruct(uint8_t clockFreqMhz) {
             OCR0A = 249;   // dez 249; range 0 - 249 -> 250 cycles till interrupt
             
             // set OCR0B-reg (top value B of timer)
-            OCR0B = 34;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
+            OCR0B = 134;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
             
             // set prescaler to 1/64
             TCCR0B &= ~(1 << CS02);
