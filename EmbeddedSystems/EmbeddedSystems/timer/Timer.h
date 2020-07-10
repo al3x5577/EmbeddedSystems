@@ -10,8 +10,6 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-#include "../gpio/Led.h"
-
 void Timer_init(uint8_t clockFreqMhz);
 
 void Timer2_init(uint8_t clockFreqMhz, volatile void (*f)(void));
