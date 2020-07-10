@@ -22,13 +22,33 @@
 
 #define CLK_F_MHZ 16
 
+uint8_t iahsdfoads = 0;
+uint16_t afdsfasdf = 0;
+
+void Timer2Test() {
+    if (afdsfasdf == 500) {
+        if ( iahsdfoads == 0){
+            Led4_On();
+            Led5_Off();
+            iahsdfoads = 1;
+        }else  {
+            Led4_Off();
+            Led5_On();
+            iahsdfoads = 0;
+        }
+        afdsfasdf = 0;
+    }else {
+        afdsfasdf++;
+    }
+}
+
 int main(void) {
 	
     cli();
     Led_init(0);	// Don't set LEDs at PORTD
 	Taster_init();
     Timer_init(CLK_F_MHZ); // Init timer with 16MHZ clock
-    Timer2_init(CLK_F_MHZ); // Init timer with 16MHZ clock
+    Timer2_init(CLK_F_MHZ, Timer2Test); // Init timer with 16MHZ clock
 	uart_init_isr();
     adc_init();
 	sei();
