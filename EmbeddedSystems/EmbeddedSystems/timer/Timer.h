@@ -3,6 +3,7 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include "../gpio/Led.h"
 
 void Timer_init(uint8_t clockFreqMhz);
 

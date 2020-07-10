@@ -44,17 +44,19 @@ void Timer_init_withStruct(uint8_t clockFreqMhz) {
         case 16:
             // extern osc (16 MHZ)
             TIMER0->compareValueA = 249;   // dez 249; range 0 - 249 -> 250 cycles till interrupt
+            TIMER0->compareValueB = 124;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
             TIMER0->prescaler = 3;  // set prescaler to 1/64
             break;
             
         default:
             // inter osc (8 MHZ divided by 8 -> 1 MHZ clock)
             TIMER0->compareValueA = 0x7C;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
+            TIMER0->compareValueB = 63;   // dez 61; range 0 - 61 -> 62 cycles till interrupt
             TIMER0->prescaler = 2;  // set prescaler to 1/8
             break;
     }
     
-    TIMSK0 &= ~(1 << OCIE0B);   // disable Output Compare Match B Interrupt
+    TIMSK0 |= (1 << OCIE0B);   // enable Output Compare Match B Interrupt
     TIMSK0 |= (1 << OCIE0A);    // enable Output Compare Match A Interrupt
     TIMSK0 &= ~(1 << TOIE0);    // disable timer overflow interrupt
 }
@@ -74,6 +76,9 @@ void Timer_init_withoutStruct(uint8_t clockFreqMhz) {
             // set OCR0A-reg (top value of timer)
             OCR0A = 249;   // dez 249; range 0 - 249 -> 250 cycles till interrupt
             
+            // set OCR0B-reg (top value B of timer)
+            OCR0B = 34;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
+            
             // set prescaler to 1/64
             TCCR0B &= ~(1 << CS02);
             TCCR0B |= (1 << CS01);
@@ -86,6 +91,9 @@ void Timer_init_withoutStruct(uint8_t clockFreqMhz) {
             // set OCR0A-reg (top value of timer)
             OCR0A = 0x7C;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
             
+            // set OCR0B-reg (top value B of timer)
+            OCR0B = 124;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
+            
             // set prescaler to 1/8
             TCCR0B &= ~(1 << CS02);
             TCCR0B |= (1 << CS01);
@@ -93,26 +101,23 @@ void Timer_init_withoutStruct(uint8_t clockFreqMhz) {
             break;
     }
     
-    TIMSK0 &= ~(1 << OCIE0B);   // disable Output Compare Match B Interrupt
+    TIMSK0 |= (1 << OCIE0B);   // enable Output Compare Match B Interrupt
     TIMSK0 |= (1 << OCIE0A);    // enable Output Compare Match A Interrupt
     TIMSK0 &= ~(1 << TOIE0);    // disable timer overflow interrupt
 }
 
 uint16_t Timer_getTick() {
-    // disable global interrupt
-    cli();
+    TIMSK0 &= ~((1 << OCIE0B) | (1 << OCIE0A));   // disable Output Compare Match A,B Interrupt
     
     // store timer_count in a temp int that can't get changed by ISR
     uint16_t temp_timer_count = timer_count;
     
-    // enable global interrupt
-    sei();
+    TIMSK0 |= (1 << OCIE0B) | (1 << OCIE0A);   // enable Output Compare Match A,B Interrupt
 
     return temp_timer_count;
 }
 
 /**
- ( not used atm)
  Timer compare A interrput:
  - increase timer_count
  - if timer_count is at max of uint16, set it to 0
@@ -121,16 +126,19 @@ ISR(TIMER0_COMPA_vect){
     timer_count++;
 }
 
-/**
- ( not used atm)
- Timer overflow interrput:
- - increase timer_count
- - if timer_count is at max of uint16, set it to 0
- */
-/*
-ISR(TIMER0_OVF_vect){
-    timer_count++;
-}*/
+volatile uint8_t asdjflk = 0;
+
+ISR(TIMER0_COMPB_vect){
+    if ( asdjflk == 0){
+        Led7_On();
+        Led8_Off();
+        asdjflk = 1;
+    }else  {
+        Led7_Off();
+        Led8_On();
+        asdjflk = 0;
+    }
+}
 
 
 /* Timer_init() aus Aufgabe 1
