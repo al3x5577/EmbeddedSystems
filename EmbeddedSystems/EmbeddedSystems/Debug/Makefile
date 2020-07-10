@@ -35,6 +35,8 @@ LINKER_SCRIPT_DEP:=
 SUBDIRS :=  \
 ../adc/ \
 ../adc/ \
+../encoder/ \
+../encoder/ \
 ../gpio/ \
 ../playground/ \
 ../stateMachine/ \
@@ -48,6 +50,7 @@ SUBDIRS :=  \
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../adc/adc.c \
+../encoder/Encoder.c \
 ../gpio/Led.c \
 ../gpio/Taster.c \
 ../main.c \
@@ -65,6 +68,7 @@ ASM_SRCS +=
 
 OBJS +=  \
 adc/adc.o \
+encoder/Encoder.o \
 gpio/Led.o \
 gpio/Taster.o \
 main.o \
@@ -75,6 +79,7 @@ uart/Uart.o
 
 OBJS_AS_ARGS +=  \
 adc/adc.o \
+encoder/Encoder.o \
 gpio/Led.o \
 gpio/Taster.o \
 main.o \
@@ -85,6 +90,7 @@ uart/Uart.o
 
 C_DEPS +=  \
 adc/adc.d \
+encoder/Encoder.d \
 gpio/Led.d \
 gpio/Taster.d \
 main.d \
@@ -95,6 +101,7 @@ uart/Uart.d
 
 C_DEPS_AS_ARGS +=  \
 adc/adc.d \
+encoder/Encoder.d \
 gpio/Led.d \
 gpio/Taster.d \
 main.d \
@@ -118,6 +125,13 @@ LINKER_SCRIPT_DEP+=
 
 # AVR32/GNU C Compiler
 adc/adc.o: ../adc/adc.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include"  -O0 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=atmega1284p -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega1284p" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+encoder/Encoder.o: ../encoder/Encoder.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include"  -O0 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=atmega1284p -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega1284p" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
