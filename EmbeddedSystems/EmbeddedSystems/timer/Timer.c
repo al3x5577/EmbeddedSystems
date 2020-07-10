@@ -160,16 +160,23 @@ ISR(TIMER0_COMPA_vect){
 }
 
 volatile uint8_t asdhfjlasdkf = 0;
+volatile millisToCountLol = 0;
 ISR(TIMER2_COMPA_vect){
-     if ( asdhfjlasdkf == 0){
-        Led7_On();
-        Led8_Off();
-        asdhfjlasdkf = 1;
-    }else  {
-        Led7_Off();
-        Led8_On();
-        asdhfjlasdkf = 0;
+    if (millisToCountLol >= 500) {
+        if ( asdhfjlasdkf == 0){
+            Led7_On();
+            Led8_Off();
+            asdhfjlasdkf = 1;
+        }else  {
+            Led7_Off();
+            Led8_On();
+            asdhfjlasdkf = 0;
+        }
+        millisToCountLol = 0;
+    }else{
+        millisToCountLol++;
     }
+     
 
 }
 
