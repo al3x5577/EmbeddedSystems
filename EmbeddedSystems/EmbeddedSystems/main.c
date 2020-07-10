@@ -37,7 +37,7 @@ void Timer2Test() {
             iahsdfoads = 0;
         }
         afdsfasdf = 0;
-    }else {
+    }else{
         afdsfasdf++;
     }
 }
