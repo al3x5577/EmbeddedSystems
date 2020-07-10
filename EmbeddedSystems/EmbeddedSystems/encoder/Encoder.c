@@ -74,6 +74,14 @@ int loop( void )
 
   for(;;){
     val += encode_read2();          // read a single step encoder
-    PORTB = val;
+      
+    // shift as many ones as count to byte
+    int ledByte = 0;
+    for (int i = 0; i < val; i++) {
+        ledByte = ledByte << 1;
+        ledByte++;
+    }
+    // set Port
+    PORTB = ledByte;
   }
 }
