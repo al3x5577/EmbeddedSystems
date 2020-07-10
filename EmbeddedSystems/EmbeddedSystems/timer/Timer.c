@@ -27,6 +27,8 @@ typedef struct TIMER_REG{
 
 volatile uint16_t timer_count = 0;
 
+volatile void (*timer2_func)(void);
+
 void Timer_init_withStruct(uint8_t clockFreqMhz) {
     TIMER_REG_t *TIMER0 = (TIMER_REG_t*)(0x44);
     
@@ -94,7 +96,8 @@ void Timer_init_withoutStruct(uint8_t clockFreqMhz) {
     TIMSK0 &= ~(1 << TOIE0);    // disable timer overflow interrupt
 }
 
-void Timer2_init(uint8_t clockFreqMhz) {
+void Timer2_init(uint8_t clockFreqMhz, volatile void (*f)(void)) {
+    timer2_func = f;
     // datasheet page 97
     // set mode to clear timer on compare (CTC)
     TCCR2B &= ~(1 << WGM02);
@@ -159,25 +162,8 @@ ISR(TIMER0_COMPA_vect){
     timer_count++;
 }
 
-volatile uint8_t asdhfjlasdkf = 0;
-volatile millisToCountLol = 0;
 ISR(TIMER2_COMPA_vect){
-    if (millisToCountLol >= 500) {
-        if ( asdhfjlasdkf == 0){
-            Led7_On();
-            Led8_Off();
-            asdhfjlasdkf = 1;
-        }else  {
-            Led7_Off();
-            Led8_On();
-            asdhfjlasdkf = 0;
-        }
-        millisToCountLol = 0;
-    }else{
-        millisToCountLol++;
-    }
-     
-
+    (*timer2_func)();
 }
 
 /**
