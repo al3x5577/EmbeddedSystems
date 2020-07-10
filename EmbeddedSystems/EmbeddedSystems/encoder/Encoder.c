@@ -4,7 +4,7 @@
 volatile int8_t enc_delta;          // -128 ... 127
 static int8_t last;
 
-volatile void encoder_isr(){     // 1ms for manual movement
+void encoder_isr(){     // 1ms for manual movement
   int8_t new, diff;
 
   new = 0;
