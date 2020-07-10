@@ -31,23 +31,23 @@ void Timer_init_withStruct(uint8_t clockFreqMhz) {
     TIMER_REG_t *TIMER0 = (TIMER_REG_t*)(0x44);
     
     // datasheet page 97
-    // set mode to clear timer on compare (CTC)
+    // set mode to normal mode
     TIMER0->mode02 = 0;
-    TIMER0->mode01 = 1;
+    TIMER0->mode01 = 0; // 1 for CTC
     TIMER0->mode00 = 0;
     
     switch (clockFreqMhz) {
         case 16:
             // extern osc (16 MHZ)
-            TIMER0->compareValueA = 249;   // dez 249; range 0 - 249 -> 250 cycles till interrupt
-            TIMER0->compareValueB = 124;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
+            TIMER0->compareValueA = COMPA_VAL-1;   // dez 249; range 0 - 249 -> 250 cycles till interrupt
+            TIMER0->compareValueB = COMPB_VAL-1;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
             TIMER0->prescaler = 3;  // set prescaler to 1/64
             break;
             
         default:
             // inter osc (8 MHZ divided by 8 -> 1 MHZ clock)
-            TIMER0->compareValueA = 0x7C;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
-            TIMER0->compareValueB = 63;   // dez 61; range 0 - 61 -> 62 cycles till interrupt
+            TIMER0->compareValueA = COMPA_VAL_8MHZ-1;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
+            TIMER0->compareValueB = COMPB_VAL_8MHZ-1;   // dez 62; range 0 - 62 -> 63 cycles till interrupt
             TIMER0->prescaler = 2;  // set prescaler to 1/8
             break;
     }
@@ -61,7 +61,7 @@ void Timer_init_withoutStruct(uint8_t clockFreqMhz) {
     // datasheet page 97
     // set mode to clear timer on compare (CTC)
     TCCR0B &= ~(1 << WGM02);
-    TCCR0A |= (1 << WGM01);
+    TCCR0A &= ~(1 << WGM01);
     TCCR0A &= ~(1 << WGM00);
     
     
@@ -70,10 +70,10 @@ void Timer_init_withoutStruct(uint8_t clockFreqMhz) {
             // extern osc (16 MHZ)
             
             // set OCR0A-reg (top value of timer)
-            OCR0A = 249;   // dez 249; range 0 - 249 -> 250 cycles till interrupt
+            OCR0A = COMPA_VAL-1;   // dez 249; range 0 - 249 -> 250 cycles till interrupt
             
             // set OCR0B-reg (top value B of timer)
-            OCR0B = 134;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
+            OCR0B = COMPB_VAL-1;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
             
             // set prescaler to 1/64
             TCCR0B &= ~(1 << CS02);
@@ -85,10 +85,10 @@ void Timer_init_withoutStruct(uint8_t clockFreqMhz) {
             // inter osc (8 MHZ divided by 8 -> 1 MHZ clock)
             
             // set OCR0A-reg (top value of timer)
-            OCR0A = 0x7C;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
+            OCR0A = COMPA_VAL_8MHZ-1;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
             
             // set OCR0B-reg (top value B of timer)
-            OCR0B = 124;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
+            OCR0B = COMPB_VAL_8MHZ-1;   // dez 62; range 0 - 62 -> 63 cycles till interrupt
             
             // set prescaler to 1/8
             TCCR0B &= ~(1 << CS02);
@@ -124,6 +124,10 @@ uint16_t Timer_getTick() {
  */
 ISR(TIMER0_COMPA_vect){
     timer_count++;
+    
+    // Adjust OCR0A, so that the interrupt will be called after given cycles, even though timer wont reset
+    uint8_t dif_tcomp = 255 - TCNT0;
+    OCR0A = COMPA_VAL - dif_tcomp;
 }
 
 volatile uint8_t asdjflk = 0;
@@ -138,6 +142,10 @@ ISR(TIMER0_COMPB_vect){
         Led8_On();
         asdjflk = 0;
     }
+    
+    // Adjust OCR0A, so that the interrupt will be called after given cycles, even though timer wont reset
+    uint8_t dif_tcomp = 255 - TCNT0;
+    OCR0B = COMPB_VAL - dif_tcomp;
 }
 
 
