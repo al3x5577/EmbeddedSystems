@@ -69,12 +69,11 @@ int loop( void )
 {
   int32_t val = 0;
 
-  LEDS_DDR = 0xFF;
   encode_init();
   sei();
 
   for(;;){
     val += encode_read1();          // read a single step encoder
-    LEDS = val;
+    PORTB = val;
   }
 }
