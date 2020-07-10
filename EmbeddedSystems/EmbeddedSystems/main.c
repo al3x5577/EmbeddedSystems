@@ -19,28 +19,12 @@
 #include "uart/Uart.h"
 #include <avr/interrupt.h>
 #include "adc/adc.h"
+#include "encoder/Encoder.h"
 
 #define CLK_F_MHZ 16
 
 uint8_t iahsdfoads = 0;
 uint16_t afdsfasdf = 0;
-
-void Timer2Test() {
-    if (afdsfasdf == 500) {
-        if ( iahsdfoads == 0){
-            Led4_On();
-            Led5_Off();
-            iahsdfoads = 1;
-        }else  {
-            Led4_Off();
-            Led5_On();
-            iahsdfoads = 0;
-        }
-        afdsfasdf = 0;
-    }else{
-        afdsfasdf++;
-    }
-}
 
 int main(void) {
 	
@@ -48,9 +32,9 @@ int main(void) {
     Led_init(0);	// Don't set LEDs at PORTD
 	Taster_init();
     Timer_init(CLK_F_MHZ); // Init timer with 16MHZ clock
-    Timer2_init(CLK_F_MHZ, Timer2Test); // Init timer with 16MHZ clock
 	uart_init_isr();
     adc_init();
+    encode_init();
 	sei();
     
     uint16_t timeVarMain = Timer_getTick();
@@ -61,8 +45,8 @@ int main(void) {
     uint16_t Poti = 0;
 	
     while (1) {
-        
-        if((Timer_getTick() - timeVarMain) >= 500){
+        loop();
+        /*if((Timer_getTick() - timeVarMain) >= 500){
             timeVarMain = Timer_getTick();
             
             if ( isafd == 0){
@@ -87,7 +71,7 @@ int main(void) {
             sei();
             
             
-        }
+        }*/
         
         
         /*while ((data_s = uart_get_data()) && i <= 48) {
