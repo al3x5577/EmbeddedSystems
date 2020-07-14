@@ -111,6 +111,7 @@ void encoder_isr(){
     
     // Update enc_state
     
+    /*
     // If data pin 1 of encoder is HIGH, set val to bX1
     if (PHASE_B) {
         enc_state |= (1 << 0);
@@ -123,6 +124,10 @@ void encoder_isr(){
     }else{  // If data pin 2 of encoder is HIGH, set val to b0X
         enc_state &= ~(1 << 1);
     }
+     */
+    
+    enc_state = PINC & ( (1 << PC6) | (1 << PC7) );
+    
     new = enc_state;
     PORTB = enc_state;
     
