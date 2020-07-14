@@ -112,13 +112,13 @@ void encoder_isr(){
     // Update enc_state
     
     // If data pin 1 of encoder is HIGH, set val to bX1
-    if (PHASE_A) {
+    if (PHASE_B) {
         enc_state |= (1 << 0);
     }else{  // If data pin 1 of encoder is LOW, set val to bX0
         enc_state &= ~(1 << 0);
     }
     // If data pin 2 of encoder is HIGH, set val to b1X
-    if (PHASE_B) {
+    if (PHASE_A) {
         enc_state |= (1 << 1);
     }else{  // If data pin 2 of encoder is HIGH, set val to b0X
         enc_state &= ~(1 << 1);
