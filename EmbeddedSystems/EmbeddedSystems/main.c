@@ -48,7 +48,7 @@ int main(void) {
         if((Timer_getTick() - timeVarMain) >= 500){
             timeVarMain = Timer_getTick();
             
-            if ( isafd == 0){
+            /*if ( isafd == 0){
                 Led1_On();
                 Led2_Off();
                 isafd = 1;
@@ -56,7 +56,7 @@ int main(void) {
                 Led1_Off();
                 Led2_On();
                 isafd = 0;
-            }
+            }*/
             
             sprintf(str, "Val: %d\n", encoder_get());
             uart_send_isr(str);

@@ -125,6 +125,7 @@ void encoder_isr(){
         enc_state &= ~(1 << 1);
     }
     new = enc_state;
+    PORTB = enc_state;
     
     
     // If nothing changed, keep state
