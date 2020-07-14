@@ -29,17 +29,6 @@ void encode_init( void ){
 }
 
 
-int8_t encode_read1( void )         // read single step encoders
-{
-  int8_t val;
-
-  cli();
-  val = enc_delta;
-  enc_delta = 0;
-  sei();
-  return val;                   // counts since last call
-}
-
 
 int8_t encode_read2( void )         // read two step encoders
 {
@@ -53,17 +42,6 @@ int8_t encode_read2( void )         // read two step encoders
 }
 
 
-int8_t encode_read4( void )         // read four step encoders
-{
-  int8_t val;
-
-  cli();
-  val = enc_delta;
-  enc_delta = val & 3;
-  sei();
-  return val >> 2;
-}
-
 
 int loop( void )
 {
@@ -73,7 +51,7 @@ int loop( void )
   sei();
 
   for(;;){
-    val += encode_read4();          // read a single step encoder
+    val += encode_read2();          // read a single step encoder
       
       char str[30];
       sprintf(str, "val: %d\n", val);
