@@ -135,6 +135,7 @@ void encoder_isr(){
     // State machine
     encoder_process();
     
+    last = new;
 }
 
 void encoder_init( void ){
