@@ -34,19 +34,18 @@ int main(void) {
     Timer_init(CLK_F_MHZ); // Init timer with 16MHZ clock
 	uart_init_isr();
     adc_init();
-    encode_init();
+    encoder_init();
 	sei();
     
     uint16_t timeVarMain = Timer_getTick();
     char data_s;
     char data[50] = {0};
     int isafd = 0;
-	char str[65];
+	char str[25];
     uint16_t Poti = 0;
 	
     while (1) {
-        loop();
-        /*if((Timer_getTick() - timeVarMain) >= 500){
+        if((Timer_getTick() - timeVarMain) >= 500){
             timeVarMain = Timer_getTick();
             
             if ( isafd == 0){
@@ -59,7 +58,10 @@ int main(void) {
                 isafd = 0;
             }
             
-            uint16_t LM35 = adc_get_LM35();
+            sprintf(str, "Val: %d\n", encoder_get());
+            uart_send_isr(str);
+            
+            /*uint16_t LM35 = adc_get_LM35();
             Poti = adc_get_Poti();
             
             
@@ -68,10 +70,10 @@ int main(void) {
             uart_send_isr(str);
             sprintf(str, "Poti: %d\n", Poti);
             uart_send_isr(str);
-            sei();
+            sei();*/
             
             
-        }*/
+        }
         
         
         /*while ((data_s = uart_get_data()) && i <= 48) {

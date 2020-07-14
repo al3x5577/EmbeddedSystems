@@ -137,7 +137,7 @@ void encoder_isr(){
     
 }
 
-void encode_init( void ){
+void encoder_init( void ){
     
     // Init state machine
     st_m_state = 1;
