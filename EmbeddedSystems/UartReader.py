@@ -3,7 +3,7 @@ from time import sleep
 import serial
 
 ser = serial.Serial(
-    port='/dev/tty.usbserial-14330',
+    port='/dev/tty.usbserial-14430',
     baudrate=9600,
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
