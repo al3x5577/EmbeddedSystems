@@ -35,7 +35,6 @@ void encoder_process() {
                 // Fail, go back to init state (maybe bouncing)
                 st_m_state = 1;
             }
-            
             break;
             
         case 3: // Rotation forward
