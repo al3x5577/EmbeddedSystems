@@ -21,10 +21,6 @@
 #include <string.h>
 #endif
 
-
-#define PHASE_A     (PINC & 1<<PC6)
-#define PHASE_B     (PINC & 1<<PC7)
-
 #define STATE_0     (enc_state & (1<<0))
 #define STATE_1     (enc_state & (1<<1))
 
