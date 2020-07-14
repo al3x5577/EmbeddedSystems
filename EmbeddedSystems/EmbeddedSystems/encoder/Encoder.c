@@ -73,7 +73,7 @@ int loop( void )
   sei();
 
   for(;;){
-    val += encode_read2();          // read a single step encoder
+    val += encode_read4();          // read a single step encoder
       
       char str[30];
       sprintf(str, "val: %d\n", val);
