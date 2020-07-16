@@ -61,7 +61,8 @@ int main(void) {
             sprintf(str, "Val: %d\n", encoder_get());
             uart_send_isr(str);
             
-            /*uint16_t LM35 = adc_get_LM35();
+            /*
+            uint16_t LM35 = adc_get_LM35();
             Poti = adc_get_Poti();
             
             
@@ -76,7 +77,8 @@ int main(void) {
         }
         
         
-        /*while ((data_s = uart_get_data()) && i <= 48) {
+        /*
+        while ((data_s = uart_get_data()) && i <= 48) {
             data[i] = data_s;
             i++;
         }
@@ -152,20 +154,6 @@ int main(void) {
         }
         
         i = 0;*/
-        
-        /*
-         // Speed test of UART
-         if((Timer_getTick() - timeVarMain) >= 100){
-            timeVarMain = Timer_getTick();
-            
-            if (uart_send_isr("Hallo Welt!\n") == 0 && uart_send_isr("Kannst du mich hoeren?\n") == 0 && uart_send_isr("Das sieht sehr gut aus!!!!\n") == 0 ) {
-                Led6_On();
-                Led1_Off();
-            }else {
-                Led6_Off();
-                Led1_On();
-            }
-        }*/
         
         //trafficLight(0);
         //playground();
