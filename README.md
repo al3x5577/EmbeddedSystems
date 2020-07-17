@@ -2,20 +2,21 @@
  Repo for Embedded  Systems lecture project.
  (This software is developt for a specific hardware)
  
- ### Known issues
+### Known issues
+ 
  - ...
  
- ### Hardware setting (new):
+### Hardware setting (new):
  - CPU: ATMEGA1284P (40 pin)
  - Programmer: diamex ISP-PRog-NG
  - some leds and buttons
  
- ### Hardware setting (old):
+### Hardware setting (old):
  - CPU: ATMEGA328P U (28 pin)
  - Programmer: diamex ALL-AVR-PROG
  - some leds and buttons
  
- ### Software setting:
+### Software setting:
  - ATMEL STUDIO 7
  - standard config
  - disabled optimization
@@ -29,6 +30,7 @@ In this project we want to develop an embedded system based on an ATMEGA1284P.
 The gpio functions help handling the gpios. The board has 4 buttons and 8 leds for user purpose. 
 
 There are to init functions:
+
 - Led_init(int initD)
 - Taster_init()
 
@@ -39,6 +41,7 @@ After setup the button states can be accessed by functions:
 TasterX_get(), where X is between 1 and 4.
 
 The leds can be controlled with:
+
 - LedX_On()
 - LedX_Off()
 
@@ -63,6 +66,7 @@ Call uart_init(). Send data with uart_send(). uart_send() is blocking.
 Call uart_init_isr(). Send data with uart_send_isr(). Data will be stored in a ring-buffer with 512 byte space. For sendig, Transmit Complete Interrupt is used.
 
 #### Receive
+
 - buf_available:
 
 This function is useful to get information about if there is data in the receive ringbuffer.
