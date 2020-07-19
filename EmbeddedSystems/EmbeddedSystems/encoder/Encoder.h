@@ -10,7 +10,7 @@
 #ifndef MY_ENCODER_H_
 #define MY_ENCODER_H_
 
-#define DEBUG_MY_ENCODER_
+//#define DEBUG_MY_ENCODER_
 
 #include <avr/io.h>
 #include "../timer/Timer.h"
