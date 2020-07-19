@@ -46,8 +46,8 @@ int main(void) {
     
 	
     while (1) {
-        if((Timer_getTick() - timeVarMain) >= 500){
-            timeVarMain = Timer_getTick();
+        //if((Timer_getTick() - timeVarMain) >= 500){
+        //    timeVarMain = Timer_getTick();
             /*if ( isafd == 0){
                 Led1_On();
                 Led2_Off();
@@ -58,9 +58,11 @@ int main(void) {
                 isafd = 0;
             }*/
             
-            sprintf(str, "Val: %d\n", encoder_get());
-            uart_send_isr(str);
+            //sprintf(str, "Val: %d\n", encoder_get());
+            //uart_send_isr(str);
             
+        PORTB = encoder_get();
+        
             /*
             uint16_t LM35 = adc_get_LM35();
             Poti = adc_get_Poti();
@@ -74,7 +76,7 @@ int main(void) {
             sei();*/
             
             
-        }
+        //}
         
         
         /*
