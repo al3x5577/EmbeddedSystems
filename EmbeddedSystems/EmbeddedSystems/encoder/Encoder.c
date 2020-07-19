@@ -121,6 +121,7 @@ void encoder_init( void ){
     //Timer2_init(16, encoder_process);
     
     char str[25];
+    uint16_t timeVarMain = Timer_getTick();
     while (1) {
         encoder_process();
         
