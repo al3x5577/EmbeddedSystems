@@ -44,7 +44,6 @@ int main(void) {
 	char str[25];
     uint16_t Poti = 0;
     
-    PORTB = 0x0F;
 	
     while (1) {
         if((Timer_getTick() - timeVarMain) >= 500){
