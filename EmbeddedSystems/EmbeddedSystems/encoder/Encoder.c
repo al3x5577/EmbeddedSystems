@@ -120,6 +120,8 @@ void encoder_init( void ){
     // Init timer (16MHZ, call encoder_isr() at timer isr)
     //Timer2_init(16, encoder_process);
     
+    sei();
+    
     char str[25];
     uint16_t timeVarMain = Timer_getTick();
     while (1) {
