@@ -49,7 +49,7 @@ int main(void) {
     while (1) {
         if((Timer_getTick() - timeVarMain) >= 500){
             timeVarMain = Timer_getTick();
-            
+            PORTB ^= 0xff;
             /*if ( isafd == 0){
                 Led1_On();
                 Led2_Off();
