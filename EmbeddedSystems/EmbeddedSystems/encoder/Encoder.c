@@ -110,10 +110,6 @@ void encoder_process(){
     }
 //  End of state machine
     
-#ifdef DEBUG_MY_ENCODER_
-    PORTB ^= 0xff;
-#endif
-    
 }
 
 void encoder_init( void ){
@@ -122,7 +118,19 @@ void encoder_init( void ){
     st_m_state = 1;
     
     // Init timer (16MHZ, call encoder_isr() at timer isr)
-    Timer2_init(16, encoder_process);
+    //Timer2_init(16, encoder_process);
+    
+    char str[25];
+    while (1) {
+        encoder_process();
+        
+        if((Timer_getTick() - timeVarMain) >= 500){
+            timeVarMain = Timer_getTick();
+            
+            sprintf(str, "Val: %d\n", encoder_get());
+            uart_send_isr(str);
+        }
+    }
 }
 
 int16_t encoder_get(){
