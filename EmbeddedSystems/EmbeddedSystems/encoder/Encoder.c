@@ -13,7 +13,7 @@ volatile uint16_t asdjna = 0;
 /**
  State machine for encoder
  */
-volatile void encoder_process() {
+void volatile encoder_process() {
     
     if (asdjna >= 500) {
         PORTB ^= 0xff;
