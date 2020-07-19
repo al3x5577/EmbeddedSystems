@@ -18,6 +18,7 @@
 // Debug
 #ifdef DEBUG_MY_ENCODER_
 #include "../uart/Uart.h"
+#include <stdio.h>
 #include <string.h>
 #endif
 
