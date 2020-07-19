@@ -105,7 +105,7 @@ void encoder_process(){
 
             
         default:
-            st_m_state = 1;
+            //st_m_state = 1;
             break;
     }
 //  End of state machine
