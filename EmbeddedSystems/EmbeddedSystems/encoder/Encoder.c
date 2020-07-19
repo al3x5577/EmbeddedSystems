@@ -18,9 +18,9 @@ void encoder_process(){
     
     
     // If nothing changed, keep state
-    if (last == new) {
-        return;
-    }
+    //if (last == new) {
+    //    return;
+    //}
     
     // State machine
 //  Begin of state machine
