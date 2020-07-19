@@ -2,14 +2,15 @@
  Repo for Embedded  Systems lecture project.
  (This software is developt for a specific hardware)
  
-### Known issues
- 
- - ...
  
 ### Hardware setting (new):
  - CPU: ATMEGA1284P (40 pin)
  - Programmer: diamex ISP-PRog-NG
  - some leds and buttons
+ - RS232 interface
+ - analog temperatur sensor (LM35)
+ - analog Poti
+ - digital encoder
  
 ### Hardware setting (old):
  - CPU: ATMEGA328P U (28 pin)
@@ -17,9 +18,22 @@
  - some leds and buttons
  
 ### Software setting:
+(old and new setting)
+
  - ATMEL STUDIO 7
  - standard config
  - disabled optimization
+ 
+ (only new setting)
+ 
+ - disable JTAG Fuse
+ - set Clock Fuse to 'Ext. Crystal Osc. 8.0-		MHZ...'
+ 
+ Fuse Register:
+ 
+ - EXTENDED: 0xFF
+ - HIGH: 0xD1
+ - LOW: 0xFF
 
 ## About the project
 In this project we want to develop an embedded system based on an ATMEGA1284P.
@@ -29,7 +43,7 @@ In this project we want to develop an embedded system based on an ATMEGA1284P.
 ### GPIO
 The gpio functions help handling the gpios. The board has 4 buttons and 8 leds for user purpose. 
 
-There are to init functions:
+There are two init functions:
 
 - Led_init(int initD)
 - Taster_init()
@@ -37,7 +51,8 @@ There are to init functions:
 to setup the PORTs correctly. If you are using the ES-Board, set the prarmeter initD to 0. If you are using the old hardware setting, set this parameter to 1.
 (traffic light uses leds at PORTD)
 
-After setup the button states can be accessed by functions:
+After setup, the button states can be accessed by functions:
+
 TasterX_get(), where X is between 1 and 4.
 
 The leds can be controlled with:
