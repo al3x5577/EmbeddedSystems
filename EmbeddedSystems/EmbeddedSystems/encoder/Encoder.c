@@ -114,7 +114,6 @@ void encoder_isr(){
     enc_state = (PINC & ( (1 << PC6) | (1 << PC7) )) >> 6;
     
     new = enc_state;
-    PORTB = enc_state;
     
     
     // If nothing changed, keep state
