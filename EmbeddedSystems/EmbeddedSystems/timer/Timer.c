@@ -162,11 +162,9 @@ ISR(TIMER0_COMPA_vect){
     timer_count++;
 }
 
-/*
 ISR(TIMER2_COMPA_vect){
     (*timer2_func)();
 }
- */
 
 /**
  ( not used atm)

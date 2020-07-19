@@ -140,10 +140,6 @@ void encoder_init( void ){
     Timer2_init(16, encoder_isr);
 }
 
-ISR(TIMER2_COMPA_vect){
-    encoder_isr();
-}
-
 int16_t encoder_get(){
     TIMSK2 &= ~(1 << OCIE0A);
     int16_t temp = val;
