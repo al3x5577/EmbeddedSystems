@@ -11,7 +11,7 @@ volatile int16_t val = 0;
 volatile uint16_t asdjna = 0;
 
 
-void encoder_isr(){
+void encoder_process(){
     
     // Update enc_state
     enc_state = (PINC & ( (1 << PC6) | (1 << PC7) )) >> 6;
@@ -137,7 +137,7 @@ void encoder_init( void ){
     st_m_state = 1;
     
     // Init timer (16MHZ, call encoder_isr() at timer isr)
-    Timer2_init(16, encoder_isr);
+    Timer2_init(16, encoder_process);
 }
 
 int16_t encoder_get(){
