@@ -107,16 +107,17 @@ void encoder_process() {
             st_m_state = 1;
             break;
     }
+}
+
+
+void encoder_isr(){
+    
     if (asdjna >= 500) {
         PORTB ^= 0xff;
         asdjna = 0;
     }else {
         asdjna++;
     }
-}
-
-
-void encoder_isr(){
     
     // Update enc_state
     enc_state = (PINC & ( (1 << PC6) | (1 << PC7) )) >> 6;
