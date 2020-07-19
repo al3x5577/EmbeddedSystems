@@ -31,8 +31,8 @@ int main(void) {
     cli();
     //Led_init(0);	// Don't set LEDs at PORTD
 	//Taster_init();
-    //Timer_init(CLK_F_MHZ); // Init timer with 16MHZ clock
-	//uart_init_isr();
+    Timer_init(CLK_F_MHZ); // Init timer with 16MHZ clock
+	uart_init_isr();
     //adc_init();
     encoder_init();
 	sei();
@@ -46,8 +46,8 @@ int main(void) {
     
 	
     while (1) {
-        //if((Timer_getTick() - timeVarMain) >= 500){
-        //    timeVarMain = Timer_getTick();
+        if((Timer_getTick() - timeVarMain) >= 500){
+            timeVarMain = Timer_getTick();
             /*if ( isafd == 0){
                 Led1_On();
                 Led2_Off();
@@ -58,10 +58,9 @@ int main(void) {
                 isafd = 0;
             }*/
             
-            //sprintf(str, "Val: %d\n", encoder_get());
-            //uart_send_isr(str);
+            sprintf(str, "Val: %d\n", encoder_get());
+            uart_send_isr(str);
             
-        PORTB = encoder_get();
         
             /*
             uint16_t LM35 = adc_get_LM35();
@@ -76,7 +75,7 @@ int main(void) {
             sei();*/
             
             
-        //}
+        }
         
         
         /*
