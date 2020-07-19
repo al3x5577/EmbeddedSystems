@@ -10,23 +10,8 @@ volatile int16_t val = 0;
 
 volatile uint16_t asdjna = 0;
 
-/**
- State machine for encoder
- */
-void encoder_process() {
-    PORTB = 0xa9;
-}
-
 
 void encoder_isr(){
-    
-    
-    if (asdjna >= 500) {
-        PORTB ^= 0xff;
-        asdjna = 0;
-    }else {
-        asdjna++;
-    }
     
     // Update enc_state
     enc_state = (PINC & ( (1 << PC6) | (1 << PC7) )) >> 6;
@@ -37,6 +22,13 @@ void encoder_isr(){
     // If nothing changed, keep state
     if (last == new) {
         return;
+    }
+    
+    if (asdjna >= 500) {
+        PORTB ^= 0xff;
+        asdjna = 0;
+    }else {
+        asdjna++;
     }
     
     // State machine
