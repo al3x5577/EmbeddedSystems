@@ -109,7 +109,10 @@ void encoder_process(){
             break;
     }
 //  End of state machine
+    
+#ifdef DEBUG_MY_ENCODER_
     PORTB ^= 0xff;
+#endif
     
 }
 
