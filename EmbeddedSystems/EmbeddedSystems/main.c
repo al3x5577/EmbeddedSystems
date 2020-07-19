@@ -29,11 +29,11 @@ uint16_t afdsfasdf = 0;
 int main(void) {
 	
     cli();
-    //Led_init(0);	// Don't set LEDs at PORTD
-	//Taster_init();
+    Led_init(0);	// Don't set LEDs at PORTD
+	Taster_init();
     Timer_init(CLK_F_MHZ); // Init timer with 16MHZ clock
 	uart_init_isr();
-    //adc_init();
+    adc_init();
     encoder_init();
 	sei();
     
@@ -48,7 +48,7 @@ int main(void) {
     while (1) {
         if((Timer_getTick() - timeVarMain) >= 500){
             timeVarMain = Timer_getTick();
-            /*if ( isafd == 0){
+            if ( isafd == 0){
                 Led1_On();
                 Led2_Off();
                 isafd = 1;
@@ -56,7 +56,7 @@ int main(void) {
                 Led1_Off();
                 Led2_On();
                 isafd = 0;
-            }*/
+            }
             
             sprintf(str, "Val: %d\n", encoder_get());
             uart_send_isr(str);
