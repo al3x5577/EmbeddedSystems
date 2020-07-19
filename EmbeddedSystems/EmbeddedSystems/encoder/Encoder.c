@@ -8,8 +8,6 @@ volatile uint8_t new = 0;
 
 volatile int16_t val = 0;
 
-volatile uint16_t asdjna = 0;
-
 
 void encoder_process(){
     
@@ -120,13 +118,7 @@ void encoder_process(){
             break;
     }
 //  End of state machine
-    
-    if (asdjna >= 5) {
-        PORTB ^= 0xff;
-        asdjna = 0;
-    }else {
-        asdjna++;
-    }
+    PORTB ^= 0xff;
     
     last = new;
 }
