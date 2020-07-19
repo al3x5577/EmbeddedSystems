@@ -21,9 +21,6 @@
 #include <string.h>
 #endif
 
-#define STATE_0     (enc_state & (1<<0))
-#define STATE_1     (enc_state & (1<<1))
-
 void encoder_init(void);
 
 int16_t encoder_get(void);
