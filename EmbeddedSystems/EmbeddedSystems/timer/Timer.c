@@ -113,9 +113,9 @@ void Timer2_init(uint8_t clockFreqMhz, void (*f)(void)) {
             OCR2A = T2_COMPA_VAL-1;   // dez 249; range 0 - 249 -> 250 cycles till interrupt
             
             // set prescaler to 1/64
-            TCCR2B &= ~(1 << CS22);
-            TCCR2B |= (1 << CS21);
-            TCCR2B |= (1 << CS20);
+            TCCR2B |= (1 << CS22);
+            TCCR2B &= ~(1 << CS21);
+            TCCR2B &= ~(1 << CS20);
             break;
             
         default:
