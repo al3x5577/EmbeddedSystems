@@ -105,11 +105,10 @@ void encoder_process() {
             st_m_state = 1;
             break;
     }
-    PORTB ^= 0xff;
 }
 
 void encoder_isr(){
-    
+    PORTB ^= 0xff;
     // Update enc_state
     enc_state = (PINC & ( (1 << PC6) | (1 << PC7) )) >> 6;
     
