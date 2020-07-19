@@ -105,7 +105,7 @@ void encoder_process() {
             st_m_state = 1;
             break;
     }
-    
+    PORTB ^= 0xff;
 }
 
 void encoder_isr(){
