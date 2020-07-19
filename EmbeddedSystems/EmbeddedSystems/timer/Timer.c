@@ -100,9 +100,9 @@ void Timer2_init(uint8_t clockFreqMhz, void (*f)(void)) {
     timer2_func = f;
     // datasheet page 97
     // set mode to clear timer on compare (CTC)
-    TCCR2B &= ~(1 << WGM02);
-    TCCR2A |= (1 << WGM01);
-    TCCR2A &= ~(1 << WGM00);
+    TCCR2B &= ~(1 << WGM22);
+    TCCR2A |= (1 << WGM21);
+    TCCR2A &= ~(1 << WGM20);
     
     
     switch (clockFreqMhz) {
@@ -113,9 +113,9 @@ void Timer2_init(uint8_t clockFreqMhz, void (*f)(void)) {
             OCR2A = T2_COMPA_VAL-1;   // dez 249; range 0 - 249 -> 250 cycles till interrupt
             
             // set prescaler to 1/64
-            TCCR2B &= ~(1 << CS02);
-            TCCR2B |= (1 << CS01);
-            TCCR2B |= (1 << CS00);
+            TCCR2B &= ~(1 << CS22);
+            TCCR2B |= (1 << CS21);
+            TCCR2B |= (1 << CS20);
             break;
             
         default:
@@ -125,15 +125,15 @@ void Timer2_init(uint8_t clockFreqMhz, void (*f)(void)) {
             OCR2A = T2_COMPA_VAL_8MHZ-1;   // dez 124; range 0 - 124 -> 125 cycles till interrupt
             
             // set prescaler to 1/8
-            TCCR2B &= ~(1 << CS02);
-            TCCR2B |= (1 << CS01);
-            TCCR2B &= ~(1 << CS00);
+            TCCR2B &= ~(1 << CS22);
+            TCCR2B |= (1 << CS21);
+            TCCR2B &= ~(1 << CS20);
             break;
     }
     
-    TIMSK2 &= ~(1 << OCIE0B);   // disable Output Compare Match B Interrupt
-    TIMSK2 |= (1 << OCIE0A);    // enable Output Compare Match A Interrupt
-    TIMSK2 &= ~(1 << TOIE0);    // disable timer overflow interrupt
+    TIMSK2 &= ~(1 << OCIE2B);   // disable Output Compare Match B Interrupt
+    TIMSK2 |= (1 << OCIE2A);    // enable Output Compare Match A Interrupt
+    TIMSK2 &= ~(1 << TOIE2);    // disable timer overflow interrupt
 }
 
 void Timer_init(uint8_t clockFreqMhz) {
