@@ -43,6 +43,8 @@ int main(void) {
     int isafd = 0;
 	char str[25];
     uint16_t Poti = 0;
+    
+    PORTB = 0xFF;
 	
     while (1) {
         if((Timer_getTick() - timeVarMain) >= 500){
