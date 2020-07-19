@@ -3,8 +3,6 @@
 
 volatile uint8_t enc_state = 0;
 volatile uint8_t st_m_state = 0;
-volatile uint8_t last = 0;
-volatile uint8_t new = 0;
 
 volatile int16_t val = 0;
 
@@ -14,13 +12,6 @@ void encoder_process(){
     // Update enc_state
     enc_state = (PINC & ( (1 << PC6) | (1 << PC7) )) >> 6;
     
-    new = enc_state;
-    
-    
-    // If nothing changed, keep state
-    //if (last == new) {
-    //    return;
-    //}
     
     // State machine
 //  Begin of state machine
@@ -120,7 +111,6 @@ void encoder_process(){
 //  End of state machine
     PORTB ^= 0xff;
     
-    last = new;
 }
 
 void encoder_init( void ){
