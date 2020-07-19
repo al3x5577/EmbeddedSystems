@@ -116,8 +116,6 @@ void Timer2_init(uint8_t clockFreqMhz, void (*f)(void)) {
             TCCR2B &= ~(1 << CS02);
             TCCR2B |= (1 << CS01);
             TCCR2B |= (1 << CS00);
-            
-            Led8_On();
             break;
             
         default:
