@@ -24,7 +24,7 @@ void encoder_isr(){
         return;
     }
     
-    if (asdjna >= 500) {
+    if (asdjna >= 5) {
         PORTB ^= 0xff;
         asdjna = 0;
     }else {
