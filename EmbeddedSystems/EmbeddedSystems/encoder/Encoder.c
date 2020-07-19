@@ -118,22 +118,7 @@ void encoder_init( void ){
     st_m_state = 1;
     
     // Init timer (16MHZ, call encoder_isr() at timer isr)
-    //Timer2_init(16, encoder_process);
-    
-    sei();
-    
-    char str[25];
-    uint16_t timeVarMain = Timer_getTick();
-    while (1) {
-        encoder_process();
-        
-        if((Timer_getTick() - timeVarMain) >= 500){
-            timeVarMain = Timer_getTick();
-            
-            sprintf(str, "Val: %d\n", encoder_get());
-            uart_send_isr(str);
-        }
-    }
+    Timer2_init(16, encoder_process);
 }
 
 int16_t encoder_get(){
