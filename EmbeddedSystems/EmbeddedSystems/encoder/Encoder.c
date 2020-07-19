@@ -109,12 +109,12 @@ void encoder_process() {
 
 volatile uint8_t asdjna = 0;
 void encoder_isr(){
-    if (asdjna == 250) {
+    /*if (asdjna == 250) {
         PORTB ^= 0xff;
         asdjna = 0;
     }else {
         asdjna++;
-    }
+    }*/
     
     // Update enc_state
     enc_state = (PINC & ( (1 << PC6) | (1 << PC7) )) >> 6;

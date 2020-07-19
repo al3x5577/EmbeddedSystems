@@ -76,6 +76,9 @@ void Timer_init_withoutStruct(uint8_t clockFreqMhz) {
             TCCR0B &= ~(1 << CS02);
             TCCR0B |= (1 << CS01);
             TCCR0B |= (1 << CS00);
+            
+            Led7_On();
+            
             break;
             
         default:
