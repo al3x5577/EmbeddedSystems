@@ -4,7 +4,7 @@
 #define COMPA_VAL 250
 #define COMPA_VAL_8MHZ 125
 
-#define T2_COMPA_VAL 250
+#define T2_COMPA_VAL 100
 #define T2_COMPA_VAL_8MHZ 125
 
 #include <avr/io.h>
