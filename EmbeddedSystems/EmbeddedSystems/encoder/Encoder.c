@@ -24,13 +24,6 @@ void encoder_isr(){
         return;
     }
     
-    if (asdjna >= 5) {
-        PORTB ^= 0xff;
-        asdjna = 0;
-    }else {
-        asdjna++;
-    }
-    
     // State machine
 //  Begin of state machine
     switch (st_m_state) {
@@ -127,6 +120,13 @@ void encoder_isr(){
             break;
     }
 //  End of state machine
+    
+    if (asdjna >= 5) {
+        PORTB ^= 0xff;
+        asdjna = 0;
+    }else {
+        asdjna++;
+    }
     
     last = new;
 }
