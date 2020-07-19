@@ -32,7 +32,7 @@ int main(void) {
     //Led_init(0);	// Don't set LEDs at PORTD
 	//Taster_init();
     //Timer_init(CLK_F_MHZ); // Init timer with 16MHZ clock
-	uart_init_isr();
+	//uart_init_isr();
     //adc_init();
     encoder_init();
 	sei();
