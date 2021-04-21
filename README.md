@@ -1,6 +1,6 @@
 # EmbeddedSystems
  Repo for Embedded  Systems lecture project.
- (This software is developt for a specific hardware)
+ (This software is developed for a specific hardware)
  
  
 ### Hardware setting (new):
