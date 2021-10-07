@@ -60,3 +60,4 @@ EmbeddedSystems/EmbeddedSystems/Debug/EmbeddedSystems.srec
 *.srec
 *.srec
 *.lss
+.DS_Store
